@@ -1,0 +1,91 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+body {
+	background-color: #323232;
+	color: #ffffff;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+@font-face {
+  font-family: 'ProximaNovaThin';
+	src: url('ProximaNova-Thin.otf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaLight';
+	src: url('Proxima Nova Light.otf');
+}
+
+h1, h2, h3 {
+	font-family: 'ProximaNovaThin';
+}
+
+p {
+	font-family: 'ProximaNovaLight';
+}
+
+span.scroll-highlight {
+	font-family: 'Arial Black';
+}
+
+#scroll-header-1, #scroll-header-2 {
+	font-family: 'ProximaNovaThin';
+}
+
+#claim {
+	font-family: 'ProximaNovaLight';
+}
+
+#icon {
+	width: 169px;
+	height: 126px;
+	background-image: url('u-himmel.png');
+	background-size: cover;
+}
+
+.page {
+	width: 100%;
+  min-height: 100px;
+	background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#page-1 {
+	background-image: url('use-logos.jpg');
+}
+
+#page-2 {
+	background-image: url('u-panorama-kurve.jpg');
+}
+
+#page-3 {
+	background-image: url('nyse.jpg');
+}
+
+#page-4 {
+	background-image: url('kurve.png');
+}
+
+#page-5 {
+	background-image: url('stier.jpg');
+}
+
+div.logos img {
+	height: 58px;
+}	

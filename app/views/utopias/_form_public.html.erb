@@ -1,0 +1,69 @@
+<%= form_for @utopia, :url => { controller: "utopias", action: "create_public" }, :html => { :multipart => true } do |f| %>
+
+  <% if @utopia.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@utopia.errors.count, "error") %> prohibited this utopia from being saved:</h2>
+
+      <ul>
+      <% @utopia.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, required: "required" %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, required: "required" %>
+  </div>
+  <div class="field">
+    <%= f.label :realization %><br>
+    <%= f.text_area :realization %>
+  </div>
+  <div class="field">
+    <%= f.label :risks %><br>
+    <%= f.text_area :risks %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_body %><br>
+    <%= f.number_field :effect_body %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_economy %><br>
+    <%= f.number_field :effect_economy %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_politics %><br>
+    <%= f.number_field :effect_politics %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_spirituality %><br>
+    <%= f.number_field :effect_spirituality %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_technology %><br>
+    <%= f.number_field :effect_technology %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_environment %><br>
+    <%= f.number_field :effect_environment %>
+  </div>
+  <div class="field">
+    <%= f.label :effect_fun %><br>
+    <%= f.number_field :effect_fun %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, type: "email", required: "required" %>
+  </div>
+  
+  <%= f.file_field :image %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  realization: MyText
+  risks: MyText
+  effect_body: 1
+  effect_economy: 1
+  effect_politics: 1
+  effect_spirituality: 1
+  effect_technology: 1
+  effect_environment: 1
+  effect_fun: 1
+  email: MyString
+
+two:
+  title: MyString
+  description: MyText
+  realization: MyText
+  risks: MyText
+  effect_body: 1
+  effect_economy: 1
+  effect_politics: 1
+  effect_spirituality: 1
+  effect_technology: 1
+  effect_environment: 1
+  effect_fun: 1
+  email: MyString

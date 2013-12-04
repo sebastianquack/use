@@ -1,0 +1,49 @@
+<h1>Listing utopias</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Realization</th>
+      <th>Risks</th>
+      <th>Effect body</th>
+      <th>Effect economy</th>
+      <th>Effect politics</th>
+      <th>Effect spirituality</th>
+      <th>Effect technology</th>
+      <th>Effect environment</th>
+      <th>Effect fun</th>
+      <th>Email</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @utopias.each do |utopia| %>
+      <tr>
+        <td><%= utopia.title %></td>
+        <td><%= utopia.description %></td>
+        <td><%= utopia.realization %></td>
+        <td><%= utopia.risks %></td>
+        <td><%= utopia.effect_body %></td>
+        <td><%= utopia.effect_economy %></td>
+        <td><%= utopia.effect_politics %></td>
+        <td><%= utopia.effect_spirituality %></td>
+        <td><%= utopia.effect_technology %></td>
+        <td><%= utopia.effect_environment %></td>
+        <td><%= utopia.effect_fun %></td>
+        <td><%= utopia.email %></td>
+        <td><%= link_to 'Show', utopia %></td>
+        <td><%= link_to 'Edit', edit_utopia_path(utopia) %></td>
+        <td><%= link_to 'Destroy', utopia, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Utopia', new_utopia_path %>

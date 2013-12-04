@@ -1,0 +1,2 @@
+module UtopiasHelper
+end
