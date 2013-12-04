@@ -47,5 +47,6 @@ end
 gem 'aws-sdk'
 gem "paperclip", "~> 3.5.0"
 
+gem 'rails_serve_static_assets'
 gem 'rails_12factor', group: :production
 
