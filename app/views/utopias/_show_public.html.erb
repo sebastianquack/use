@@ -1,5 +1,7 @@
-<% if @utopia.image.exists? %>
-	<%= image_tag @utopia.image.url(:medium) %>
+<% if @utopia.image %>
+	<% if @utopia.image.exists? %>
+		<%= image_tag @utopia.image.url(:medium) %>
+	<% end %>
 <% end %>
 
 <p>

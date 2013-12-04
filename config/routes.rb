@@ -1,9 +1,8 @@
 Use::Application.routes.draw do
 
-	get 'utopias/:id' => 'welcome#index'
+	resources :utopias
+	get 'show/:id' => 'welcome#index'
   post 'utopias/create' => 'utopias#create_public'
-  resources :utopias
-  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
