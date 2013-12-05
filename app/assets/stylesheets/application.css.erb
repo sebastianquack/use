@@ -44,23 +44,32 @@ p, label {
 	font-family: 'ProximaNovaLight';
 }
 
-#scroll-header-1, #scroll-header-2 {
-	font-family: 'ProximaNovaThin';
-	width: 100%;
-	overflow: hidden;
-	z-index: 100;
+.scroll-container {
 	position: fixed;
 	white-space: nowrap;
+	z-index: 50;
+	overflow: hidden;
+	width: 100%;
 }
 
-#scroll-header-1 {
+.scroll-content {
+	position: absolute;
+	top: 0px;
+	z-index: 100;
+}
+
+#scroll-container-1 {
 	top: -10px;
-	left: 0px;
 	height: 140px;
 	line-height: 130px;
-	width: 100%;
 	background-color: #282828;
+}
+
+#scroll-content-1 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
 	font-size: 100px;
+	left: 0px;
 }
 
 span.scroll-highlight {
@@ -70,19 +79,22 @@ span.scroll-highlight {
 	line-height: 130px;
 }
 
-#scroll-header-2 {
-	position: fixed;
+#scroll-container-2 {
 	top: 130px;
-	left: 0px;
-	height: 65px;
-	line-height: 65px;
-	width: 100%;
 	background-color: #00FF00;
-	font-size: 42px;
 	box-shadow: 0px 1px 1px #282828;
+	height: 65px;
 }
 
-#scroll-header-2 a {
+#scroll-content-2 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
+	font-size: 42px;
+	line-height: 65px;
+	left: 0px;
+}
+
+#scroll-content-2 a {
 	color: #fff;
 }
 
@@ -127,7 +139,7 @@ span.scroll-highlight {
 	left: 50px;
 	bottom: 50px;
 	width: 70%;
-	z-index: 90;
+	z-index: 40;
 	font-size: 35px;
 }
 
@@ -140,7 +152,7 @@ span.scroll-highlight {
 	right: 50px;
 	bottom: 50px;
 	width: 20%;
-	z-index: 90;
+	z-index: 40;
 }
 
 #page-4 .page-content, #page-5 .page-content {
@@ -154,7 +166,7 @@ span.scroll-highlight {
 }
 
 #page-4 .page-content {
-	padding: 200px 50px 200px 50px;
+	padding: 200px 50px 100px 50px;
 }
 
 #page-4 .page-content p {
@@ -167,8 +179,12 @@ span.scroll-highlight {
 	margin-bottom: 50px;
 }
 
+.ip-logo {
+	width: 80%;
+}
+
 #page-5 .page-content {
-	padding: 150px 100px 150px 100px;
+	padding: 140px 100px 150px 100px;
 }
 
 #page-5 .page-content h2 {
@@ -236,6 +252,11 @@ span.scroll-highlight {
 	height: 30px;
 }
 
+.stier-logo {
+	width: 15%;
+	position: absolute;
+	right: 10px;
+}
 
 #page-6 {
 	background-image: url('bottom-gradient.png');
@@ -274,6 +295,10 @@ div.logos img {
 		display: none;
 	}
 	
+	.ip-logo {
+		display: none;
+	}
+
 	.col-2 {
 		width: 90%;
 	}
