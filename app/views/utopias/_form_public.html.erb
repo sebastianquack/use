@@ -12,58 +12,69 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, required: "required" %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, required: "required" %>
-  </div>
-  <div class="field">
-    <%= f.label :realization %><br>
-    <%= f.text_area :realization %>
-  </div>
-  <div class="field">
-    <%= f.label :risks %><br>
-    <%= f.text_area :risks %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_body %><br>
-    <%= f.number_field :effect_body %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_economy %><br>
-    <%= f.number_field :effect_economy %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_politics %><br>
-    <%= f.number_field :effect_politics %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_spirituality %><br>
-    <%= f.number_field :effect_spirituality %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_technology %><br>
-    <%= f.number_field :effect_technology %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_environment %><br>
-    <%= f.number_field :effect_environment %>
-  </div>
-  <div class="field">
-    <%= f.label :effect_fun %><br>
-    <%= f.number_field :effect_fun %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email, type: "email", required: "required" %>
+	<div class="row">
+		<div class="col-2">
+			<div class="field">
+				<%= f.text_field :title, value: "Titel", required: "required" %>
+			</div>
+			<div class="field">
+				<%= f.text_area :description, value: "Wie wäre Dortmund in Ihrer Utopie?", required: "required" %>
+			</div>
+		</div>
+		<div class="col-2">
+			<p>Ihre Utopie als Zeichnung oder Diagram</p>
+			<%= f.file_field :image %>
+			<div class="field">
+				<%= f.text_area :realization, value: "Idealer Umsetzungsverlauf" %>
+			</div>
+			<div class="field">
+				<%= f.text_area :risks, value: "Risiken und Nebenwirkungen" %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<p>Wirkungsgrad Ihrer Utopie in den Bereichen:</p>
+	</div>
+	
+	<div class="row float-all effects">
+  	<div class="field">
+	    <%= f.text_field :effect_body, value: "0-100%" %><br>
+    	<%= f.label :effect_body, "Körper" %>
+  	</div>
+	  <div class="field">
+    	<%= f.text_field :effect_economy, value: "0-100%" %><br>
+    	<%= f.label :effect_economy, "Ökonomie" %>
+	  </div>
+	  <div class="field">
+  	  <%= f.text_field :effect_politics, value: "0-100%" %><br>
+    	<%= f.label :effect_politics, "Politik" %>
+		</div>
+		<div class="field">
+			<%= f.text_field :effect_spirituality, value: "0-100%" %><br>
+			<%= f.label :effect_spirituality, "Spiritualität" %>
+		</div>
+		<div class="field">
+			<%= f.text_field :effect_technology, value: "0-100%" %><br>
+			<%= f.label :effect_technology, "Technologie" %>
+		</div>
+		<div class="field">
+			<%= f.text_field :effect_environment, value: "0-100%" %><br>
+			<%= f.label :effect_environment, "Umwelt" %>
+		</div>
+		<div class="field">
+			<%= f.text_field :effect_fun, value: "0-100%" %><br>
+			<%= f.label :effect_fun, "Vergnügen" %>
+		</div>
   </div>
   
-  <%= f.file_field :image %>
+  <div class="row float-all">
+	  <div class="field">
+  	  <%= f.text_field :email, value: "E-Mail-Adresse", type: "email", required: "required" %>
+	  </div>
+  	<div class="actions">
+    	<%= f.submit ">> Absenden <<" %>
+	  </div>
+	</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

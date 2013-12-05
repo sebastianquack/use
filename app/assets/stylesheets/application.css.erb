@@ -36,54 +36,243 @@ h1, h2, h3 {
 	font-family: 'ProximaNovaThin';
 }
 
-p {
-	font-family: 'ProximaNovaLight';
+h2, h3 {
+	font-size: 36px;
 }
 
-span.scroll-highlight {
-	font-family: 'Arial Black';
+p, label {
+	font-family: 'ProximaNovaLight';
 }
 
 #scroll-header-1, #scroll-header-2 {
 	font-family: 'ProximaNovaThin';
+	width: 100%;
+	overflow: hidden;
+	z-index: 100;
+	position: fixed;
+	white-space: nowrap;
+}
+
+#scroll-header-1 {
+	top: -10px;
+	left: 0px;
+	height: 140px;
+	line-height: 130px;
+	width: 100%;
+	background-color: #282828;
+	font-size: 100px;
+}
+
+span.scroll-highlight {
+	font-family: 'Arial Black';
+	position: relative;
+	top: 5px;
+	line-height: 130px;
+}
+
+#scroll-header-2 {
+	position: fixed;
+	top: 130px;
+	left: 0px;
+	height: 65px;
+	line-height: 65px;
+	width: 100%;
+	background-color: #00FF00;
+	font-size: 42px;
+	box-shadow: 0px 1px 1px #282828;
+}
+
+#scroll-header-2 a {
+	color: #fff;
+}
+
+.page {
+	position: relative;
+	top: 195px;
+	width: 100%;
+	clear: both;
+}
+
+.row {
+	clear: both;
+}
+
+.float-all * {
+	float: left;
+	margin-right: 20px;
+}
+
+.col-2 {
+	float: left;
+	width: 45%;
+	padding-right: 5%;
+	min-width: 200px;
+}
+
+.page img.full-background {
+	width: 100%;
+	z-index: -100;
+	clear: both;
+}
+
+#spacer-1 {
+	position: relative;
+	top: 195px;
+	height: 280px;
 }
 
 #claim {
 	font-family: 'ProximaNovaLight';
+	position: absolute;
+	left: 50px;
+	bottom: 50px;
+	width: 70%;
+	z-index: 90;
+	font-size: 35px;
 }
 
 #icon {
-	width: 169px;
 	height: 126px;
 	background-image: url('u-himmel.png');
-	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
+	position: absolute;
+	right: 50px;
+	bottom: 50px;
+	width: 20%;
+	z-index: 90;
 }
 
-.page {
+@media only screen and (max-width: 600px) {
+	
+	#claim {
+		width: 80%;
+	}
+
+	#icon {
+		display: none;
+	}
+	
+	.col-2 {
+		width: 90%;
+	}
+}
+
+#page-4 .page-content, #page-5 .page-content {
+	position: relative;		
+}
+
+#page-4 img.full-background, #page-5 img.full-background {
+	position: absolute;		
+	top: 0px;
+	left: 0px;
+}
+
+#page-4 .page-content {
+	padding: 200px 50px 200px 50px;
+}
+
+#page-4 .page-content p {
+	font-size: 20px;
+	line-height: 24px;
+	margin-bottom: 24px;
+}
+
+#page-4 .col-2 {
+	margin-bottom: 50px;
+}
+
+#page-5 .page-content {
+	padding: 150px 100px 150px 100px;
+}
+
+#page-5 .page-content h2 {
+	margin-bottom: 20px;
+}
+
+#page-5 .page-content p, label, input {
+	color: #000;
+}
+
+#page-5 .page-content p, label {
+	font-size: 18px;
+}
+
+#page-5 .page-content label {
+	text-transform: uppercase;
+}
+
+#page-5 .page-content form input, textarea {
 	width: 100%;
-  min-height: 100px;
-	background-size: cover;
-  background-repeat: no-repeat;
+	padding: 5px;
 }
 
-#page-1 {
-	background-image: url('use-logos.jpg');
+#utopia_title {
+	height: 30px;
+	margin-bottom: 25px;
 }
 
-#page-2 {
-	background-image: url('u-panorama-kurve.jpg');
+#utopia_description {
+	height: 206px;
+	margin-bottom: 20px;
 }
 
-#page-3 {
-	background-image: url('nyse.jpg');
+#utopia_image {
+	margin-bottom: 18px;
 }
 
-#page-4 {
-	background-image: url('kurve.png');
+#utopia_realization {
+	height: 85px;
+	margin-bottom: 20px;
 }
 
-#page-5 {
-	background-image: url('stier.jpg');
+#utopia_risks {
+	height: 85px;	
+	margin-bottom: 20px;
+}
+
+#page-5 .page-content p {
+	margin-bottom: 5px;
+}
+
+.effects div {
+	width: 11.5%;
+	margin-bottom: 20px;
+	min-width: 100px;
+}
+
+.effects input {
+	height: 30px;
+	margin-bottom: 5px;
+}
+
+#utopia_email {
+	width: 300px;
+	height: 30px;
+}
+
+
+#page-6 {
+	background-image: url('bottom-gradient.png');
+	background-repeat: repeat-x;
+	background-color: #fff;
+	z-index: 10;
+}
+
+#page-6 .page-content {
+	padding: 200px 50px 100px 50px;
+	color: #000;
+}
+
+#page-6 .page-content h3 {
+	color: #E2B224;
+	margin-bottom: 36px;
+}
+
+#page-6 .page-content p {
+	font-size: 18px;
+	max-width: 600px;
+	margin-bottom: 36px;
 }
 
 div.logos img {
