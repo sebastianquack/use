@@ -143,21 +143,6 @@ span.scroll-highlight {
 	z-index: 90;
 }
 
-@media only screen and (max-width: 600px) {
-	
-	#claim {
-		width: 80%;
-	}
-
-	#icon {
-		display: none;
-	}
-	
-	.col-2 {
-		width: 90%;
-	}
-}
-
 #page-4 .page-content, #page-5 .page-content {
 	position: relative;		
 }
@@ -260,7 +245,7 @@ span.scroll-highlight {
 }
 
 #page-6 .page-content {
-	padding: 200px 50px 100px 50px;
+	padding: 200px 50px 200px 50px;
 	color: #000;
 }
 
@@ -278,3 +263,35 @@ span.scroll-highlight {
 div.logos img {
 	height: 58px;
 }	
+
+@media only screen and (max-width: 600px) {
+	
+	#claim {
+		width: 80%;
+	}
+
+	#icon {
+		display: none;
+	}
+	
+	.col-2 {
+		width: 90%;
+	}
+
+	#scroll-header-1, #scroll-header-2 {
+		position: absolute;
+	}
+
+	#page-4 .page-content {
+		padding: 200px 10px 200px 10px;
+	}
+
+	#page-5 .page-content {
+		padding: 150px 10px 150px 10px;
+	}
+
+	#page-6 .page-content {
+		padding: 200px 10px 300px 10px;
+	}
+
+}
