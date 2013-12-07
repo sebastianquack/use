@@ -43,7 +43,7 @@ class UtopiasController < ApplicationController
     respond_to do |format|
       if @utopia.save
         SubmissionMailer.confirmation(@utopia).deliver
-        format.html { redirect_to :controller => 'welcome', :action => 'index', :anchor => 'submission-form', :id => @utopia.id }
+        format.html { redirect_to :controller => 'welcome', :action => 'index' }
         format.json { render action: 'show_public', status: :created, location: @utopia }
       else
         format.html { render action: 'new' }

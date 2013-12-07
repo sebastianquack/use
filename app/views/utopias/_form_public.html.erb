@@ -22,8 +22,13 @@
 			</div>
 		</div>
 		<div class="col-2">
-			<p>Ihre Utopie als Zeichnung oder Diagram</p>
-			<%= f.file_field :image %>
+			<div id="photo_attachment_container">
+			  <input class="file_input" value="Zeichnung oder Diagram" disabled>
+		  	<div class="wrapper">
+			    <%= f.file_field :image %>
+		  	</div>
+				<button>Bild Hochladen</button>
+			</div>
 			<div class="field">
 				<%= f.text_area :realization, value: "Idealer Umsetzungsverlauf" %>
 			</div>
@@ -73,7 +78,7 @@
   	  <%= f.text_field :email, value: "E-Mail-Adresse", type: "email", required: "required" %>
 	  </div>
   	<div class="actions">
-    	<%= f.submit ">> Absenden <<" %>
+  		<button class="submit">>> Absenden << </button>
 	  </div>
 	</div>
 

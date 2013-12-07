@@ -1,13 +1,18 @@
 <div id="scroll-container-1" class="scroll-container"><div id="scroll-content-1" class="scroll-content">UTOPIA STOCK EXCHANGE <span class="scroll-highlight">18 01 2014 19:30&nbsp;</span></div></div>
-<div id="scroll-container-2" class="scroll-container"><div id="scroll-content-2" class="scroll-content">Bringen auch Sie Ihre Utopie an die Börse >> <a href="#submission-form">klicken Sie hier!</a> >>&nbsp;</div></div>
+<div id="scroll-container-2" class="scroll-container"><div id="scroll-content-2" class="scroll-content">Bringen auch Sie Ihre Utopie an die Börse >> <span class="formlink">klicken Sie hier!</span> >>&nbsp;</div></div>
+
+<div id="icon-1" class="icon"></div>
+<div id="icon-2" class="icon"></div>
+<div id="icon-3" class="icon"></div>
+<div id="claim-1" class="claim">Ist Ihre Utopie fit für die Börse?</div>
+<div id="claim-2" class="claim">Seien Sie dabei, wenn Utopien live gehandelt werden.</div>
+<div id="claim-3" class="claim">Performance entscheidet.</div>
 
 <div id="page-1" class="page">
 		<img class="full-background" src="/assets/use-logos.jpg">
 </div>
 
 <div id="spacer-1">
-	<div id="icon"></div>
-	<div id="claim">Seien Sie dabei, wenn Utopien live gehandelt werden.</div>
 </div>
 
 <div id="page-2" class="page">
@@ -38,14 +43,13 @@
 	<img class="full-background" src="/assets/kurve.png">
 </div>
 
-<a id="submission-form"></a>
 <div id="page-5" class="page">
 	<img class="full-background" src="/assets/stier.jpg">
 	<img class="stier-logo" src="/assets/use-stier-logo.png">
 	<div class="page-content">
 		<% if params[:id] %>
-			<h2>Ihre Utopie:</h2>
-			<%= render partial: 'utopias/show_public' %>
+			<h2>Vielen Dank für Ihre Utopie.</h2>
+			<p>Wir melden uns per E-Mail bei Ihnen.</p>
 		<% else %>
 			<h2>Mit diesem Formular bringen Sie Ihre Utopie an die Börse:</h2>
 			<%= render partial: 'utopias/form_public' %>
@@ -55,14 +59,14 @@
 
 <div id="page-6" class="page">
 	<div class="page-content">
-		<h3>USE Imprint</h3>
+		<h3>USE Credits</h3>
 		<p>Utopia Stock Exchange:<br/>Das Börsen-Spiel von Invisible Playground<br/>in Zusammenarbeit mit HMKV Dortmund</p>
 		<p>Nach einer Idee von Carolin Hochleichter, Sebastian Quack und Jutta Wangemann</p>
-		<p>Team USE Dortmund: Manuel Buerger, Daniel Boy, Mira Frye, Anna Hentschel, Holger Heissmeyer, Christina Prötschner, Sebastian Quack, Wilma Renfordt, Fabian Saavedra Lara</p>
+		<p>Team USE Dortmund: Manuel Bürger, Daniel Boy, Mira Frye, Anna Hentschel, Holger Heissmeyer, Christina Prötschner, Sebastian Quack, Wilma Renfordt, Fabian Saavedra Lara</p>
 		<p>Gestaltung: The Laboratory of Manuel Bürger</p>
-		<p>Photocredits: XYZ</p>
+		<!--p>Photocredits: TODO</p-->
 		<p>Mit freundlicher Unterstützung von:</p>
-		<div class="row logos float-all">
+		<div id="funder-logos" class="row logos float-all">
 			<img src="/assets/logo-ukr.png">
 			<img src="/assets/logo-hmkv.png">
 			<img src="/assets/logo-npn.png">

@@ -20,6 +20,7 @@ body {
 * {
 	padding: 0;
 	margin: 0;
+	border: 0;
 }
 
 @font-face {
@@ -40,8 +41,12 @@ h2, h3 {
 	font-size: 36px;
 }
 
-p, label {
+a, p, label {
 	font-family: 'ProximaNovaLight';
+}
+
+a {
+	color: #fff;
 }
 
 .scroll-container {
@@ -79,6 +84,12 @@ span.scroll-highlight {
 	line-height: 130px;
 }
 
+span.formlink {
+	color: #fff;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 #scroll-container-2 {
 	top: 130px;
 	background-color: #00FF00;
@@ -94,13 +105,44 @@ span.scroll-highlight {
 	left: 0px;
 }
 
-#scroll-content-2 a {
-	color: #fff;
+.claim {
+	font-family: 'ProximaNovaLight';
+	position: fixed;
+	left: 50px;
+	bottom: 50px;
+	width: 70%;
+	z-index: 40;
+	font-size: 35px;
+	opacity: 0;
+}
+
+.icon {
+	height: 126px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	width: 20%;
+	z-index: 40;
+	opacity: 0;
+}
+
+#icon-1 {
+	background-image: url('u-himmel.png');
+}
+
+#icon-2 {
+	background-image: url('u-arena.png');
+}
+
+#icon-3 {
+	background-image: url('himmel.png');
 }
 
 .page {
 	position: relative;
-	top: 195px;
+	top: 175px;
 	width: 100%;
 	clear: both;
 }
@@ -130,29 +172,7 @@ span.scroll-highlight {
 #spacer-1 {
 	position: relative;
 	top: 195px;
-	height: 280px;
-}
-
-#claim {
-	font-family: 'ProximaNovaLight';
-	position: absolute;
-	left: 50px;
-	bottom: 50px;
-	width: 70%;
-	z-index: 40;
-	font-size: 35px;
-}
-
-#icon {
-	height: 126px;
-	background-image: url('u-himmel.png');
-	background-size: contain;
-	background-repeat: no-repeat;
-	position: absolute;
-	right: 50px;
-	bottom: 50px;
-	width: 20%;
-	z-index: 40;
+	height: 240px;
 }
 
 #page-4 .page-content, #page-5 .page-content {
@@ -188,7 +208,7 @@ span.scroll-highlight {
 }
 
 #page-5 .page-content h2 {
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 }
 
 #page-5 .page-content p, label, input {
@@ -200,13 +220,36 @@ span.scroll-highlight {
 }
 
 #page-5 .page-content label {
+	font-size: 16px;
+	line-height: 19px;
+}
+
+#page-5 .page-content label {
 	text-transform: uppercase;
 }
 
-#page-5 .page-content form input, textarea {
-	width: 100%;
+#page-5 .page-content form input, textarea, button {
+	width: 97%;
 	padding: 5px;
+	color: #969696;
+	font-family: 'ProximaNovaLight';
+	font-size: 18px;
+	line-height: 20px;
+	border: 1px #000 solid;
+	z-index: 48;
+	position: relative;
 }
+
+#page-5 input {
+	height: 20px;
+}
+
+#page-5 button {
+	height: 32px;
+	color: #000;
+	background-color: #ddd;
+}
+
 
 #utopia_title {
 	height: 30px;
@@ -218,9 +261,39 @@ span.scroll-highlight {
 	margin-bottom: 20px;
 }
 
-#utopia_image {
-	margin-bottom: 18px;
+#page-5 .page-content form input.file_input {
+	width: 70%;
 }
+
+#photo_attachment_container {
+    position: relative;
+		margin-bottom: 18px;
+}
+
+#photo_attachment_container .wrapper {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+		width: 30%;
+		min-width: 150px;
+    z-index: 2;
+}
+
+#photo_attachment_container .wrapper:hover {
+    opacity: 0.0;
+}
+
+#photo_attachment_container button {
+    position: absolute;
+    width: 30%;
+    min-width: 150px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
 
 #utopia_realization {
 	height: 85px;
@@ -277,7 +350,7 @@ span.scroll-highlight {
 
 #page-6 .page-content p {
 	font-size: 18px;
-	max-width: 600px;
+	max-width: 450px;
 	margin-bottom: 36px;
 }
 
@@ -291,7 +364,7 @@ div.logos img {
 		width: 80%;
 	}
 
-	#icon {
+	.icon {
 		display: none;
 	}
 	

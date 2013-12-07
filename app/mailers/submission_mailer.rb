@@ -3,7 +3,7 @@ class SubmissionMailer < ActionMailer::Base
 
   def confirmation(utopia)
   	@utopia = utopia
-    mail(to: @utopia.email, subject: 'Vielen Dank')
+    #mail(to: @utopia.email, subject: "Ihre Utopie")
   end
 
 
