@@ -113,7 +113,11 @@ span.formlink {
 	width: 70%;
 	z-index: 40;
 	font-size: 35px;
-	opacity: 0;
+	display: none;
+}
+
+#claim-1 {
+	display: block;
 }
 
 .icon {
@@ -121,15 +125,16 @@ span.formlink {
 	background-size: contain;
 	background-repeat: no-repeat;
 	position: fixed;
-	right: 50px;
+	right: 0px;
 	bottom: 50px;
 	width: 20%;
 	z-index: 40;
-	opacity: 0;
+	display: none;
 }
 
 #icon-1 {
 	background-image: url('u-himmel.png');
+	display: block;
 }
 
 #icon-2 {
@@ -186,25 +191,26 @@ span.formlink {
 }
 
 #page-4 .page-content {
-	padding: 200px 50px 100px 50px;
+	padding: 75px 50px 100px 50px;
 }
 
 #page-4 .page-content p {
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 24px;
 	margin-bottom: 24px;
 }
 
 #page-4 .col-2 {
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 }
 
 .ip-logo {
 	width: 80%;
+	display: none;
 }
 
 #page-5 .page-content {
-	padding: 140px 100px 150px 100px;
+	padding: 75px 100px 150px 100px;
 }
 
 #page-5 .page-content h2 {
@@ -250,7 +256,6 @@ span.formlink {
 	background-color: #ddd;
 }
 
-
 #utopia_title {
 	height: 30px;
 	margin-bottom: 25px;
@@ -294,7 +299,6 @@ span.formlink {
     z-index: 1;
 }
 
-
 #utopia_realization {
 	height: 85px;
 	margin-bottom: 20px;
@@ -329,6 +333,8 @@ span.formlink {
 	width: 15%;
 	position: absolute;
 	right: 10px;
+	bottom: 15%;
+	display: none;
 }
 
 #page-6 {
@@ -339,7 +345,7 @@ span.formlink {
 }
 
 #page-6 .page-content {
-	padding: 200px 50px 150px 50px;
+	padding: 75px 50px 150px 50px;
 	color: #000;
 }
 
@@ -351,23 +357,39 @@ span.formlink {
 #page-6 .page-content p {
 	font-size: 18px;
 	max-width: 450px;
-	margin-bottom: 36px;
+	margin-bottom: 24px;
 }
 
 div.logos img {
 	height: 58px;
 }	
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
 	
-	#claim {
-		width: 80%;
-	}
-
-	.icon {
+	#claim-1 {
 		display: none;
 	}
-	
+	#claim-2 {
+		display: none;
+	}
+	#claim-3 {
+		display: none;
+	}
+
+	#icon-1 {
+		display: none;
+	}
+	#icon-2 {
+		display: none;
+	}
+	#icon-3 {
+		display: none;
+	}
+
+	#spacer-1 {
+		display: none;
+	}
+
 	.ip-logo {
 		display: none;
 	}
@@ -385,11 +407,20 @@ div.logos img {
 	}
 
 	#page-5 .page-content {
-		padding: 150px 10px 150px 10px;
+		padding: 10px 10px 10px 10px;
+	}
+
+	#page-5 img.full-background {
+		position: relative;
 	}
 
 	#page-6 .page-content {
-		padding: 200px 10px 300px 10px;
+		padding: 40px 10px 10px 10px;
+	}
+	
+	
+	section {
+		height: auto !important;
 	}
 
 }

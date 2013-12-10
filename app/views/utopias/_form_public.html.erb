@@ -1,4 +1,4 @@
-<%= form_for @utopia, :url => { controller: "utopias", action: "create_public" }, :html => { :multipart => true } do |f| %>
+<%= form_for @utopia, :html => { :multipart => true }, :url => { controller: "utopias", action: "create_public" } do |f| %>
 
   <% if @utopia.errors.any? %>
     <div id="error_explanation">
@@ -25,7 +25,7 @@
 			<div id="photo_attachment_container">
 			  <input class="file_input" value="Zeichnung oder Diagram" disabled>
 		  	<div class="wrapper">
-			    <%= f.file_field :image %>
+				  <%= f.file_field :image %>
 		  	</div>
 				<button>Bild Hochladen</button>
 			</div>
@@ -81,5 +81,5 @@
   		<button class="submit">>> Absenden << </button>
 	  </div>
 	</div>
-
+	
 <% end %>

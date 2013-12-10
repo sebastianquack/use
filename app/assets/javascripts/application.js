@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= jquery.onepage-scroll.js
 //= require_tree .
 
 function getParameterByName(name) {
@@ -43,54 +44,6 @@ function Scroller(content, step) {
 	}
 }
 
-function heightPercentFix(object, reference, relpos) {
-
-		objectTop = $(object).offset().top - $(window).scrollTop();
-    target = $(reference).offset().top + ($(reference).height() * relpos); 
-    distance = Math.abs(target - ($(window).scrollTop() + objectTop));
-		nearness = 0;
-		envelope = 200;
-		if(distance < envelope) {
-			nearness =  (envelope - distance) / envelope;
-		}
-    //console.log('scrollTop: ' + $(window).scrollTop() + ' referenceTop: ' + $(reference).offset().top + ' objectTop: ' + objectTop + ' distance: ' + distance + 'nearness: ' + nearness);
-
-		return(nearness);
-}
-
-function heightPercentFlex(object, relpos) {
-
-    distance = Math.abs($(object).offset().top - $(window).scrollTop() - $(window).height() * relpos);
-		nearness = 0;
-		envelope = 300;
-		if(distance < envelope) {
-			nearness =  (envelope - distance) / envelope;
-		}
-    console.log('scrollTop: ' + $(window).scrollTop() + ' distance: ' + distance + 'nearness: ' + nearness);
-
-		return(nearness);
-}
-
-
-
-function updateOpacity() {
-    $('#claim-1').css('opacity', heightPercentFix('#claim-1', '#spacer-1', 0.0));
-    $('#icon-1').css('opacity', heightPercentFix('#icon-1', '#spacer-1', 0.0));
-    $('#claim-2').css('opacity', heightPercentFix('#claim-2', '#page-2', 0.8));
-    $('#icon-2').css('opacity', heightPercentFix('#icon-2', '#page-2', 0.8));
-    $('#claim-3').css('opacity', heightPercentFix('#claim-3', '#page-3', 0.8));
-    $('#icon-3').css('opacity', heightPercentFix('#icon-3', '#page-3', 0.8));
-		$('.ip-logo').css('opacity', heightPercentFlex('.ip-logo', 0.6));
-		$('.stier-logo').css('opacity', heightPercentFlex('.stier-logo', 0.3));
-		$('.stier-logo').css('opacity', heightPercentFlex('.stier-logo', 0.3));
-}
-
-function scrollToForm() {
-	  $('html, body').animate({
-  	  scrollTop: $("#page-5").offset().top - 100
-		 }, 2000);
-}
-
 $(document).ready(function() {
 
   $("#new_utopia").on("ajax:success", function(e, data, status, xhr) {
@@ -107,9 +60,28 @@ $(document).ready(function() {
 	topScroller2 = new Scroller('#scroll-content-2', 1);
 	topScroller2.start();
 	
-	updateOpacity();
-	$(document).scroll(function(e){
-		updateOpacity();		
+	$(".main").onepage_scroll({
+    beforeMove: function(index) {
+      console.log(index);
+			$('#claim-' + index).fadeOut();
+			$('#icon-' + index).fadeOut();
+			if(index == 4) {
+				$('.ip-logo').fadeOut();
+			} else if(index == 5) {
+				$('.stier-logo').fadeOut();
+			}			
+    }, 
+    afterMove: function(i) {
+			index = $('section.active').data("index"); // bug in one_scroll - get index through css
+			$('#claim-' + index).fadeIn();
+			$('#icon-' + index).fadeIn();
+			if(index == 4) {
+				$('.ip-logo').fadeIn();
+			} else if(index == 5) {
+				$('.stier-logo').fadeIn();
+			}
+    },
+  	responsiveFallback: 1000
   });
   
   if(getParameterByName('new')) {
@@ -117,22 +89,26 @@ $(document).ready(function() {
   }
   
   $(".formlink").click(function() {
-		scrollToForm();
+		$('.claim').fadeOut();
+		$('.icon').fadeOut();
+		$(".main").moveTo(5);
 	});
   
-  $('input, textarea').focus(function() {
+  $('input[type="text"], input[type="email"], textarea').focus(function() {
   	$(this).val('');
   	$(this).css('color', '#000');
   });
   
-  $('#new_utopia button.submit').click(function() {
-  	if(confirm('Sind Sie sicher, dass Sie diese Utopie wirklich wollen?')) {
-	  	alert('Vielen Dank! Wir melden uns per E-Mail bei Ihnen.');
-	  	$('#new_utopia')[0].submit();  	
+  $('#new_utopia').submit(function(e) {
+  
+  	if(!confirm('Sind Sie sicher, dass Sie diese Utopie wirklich wollen?')) {
+  		e.preventDefault();
+  	} else {
+  		alert('Vielen Dank! Wir melden uns per E-Mail bei Ihnen.');
   	}
-
   });
   
+
   $('#utopia_image').change(function() {
 	  $(".file_input").css('color', '#000');
   	$(".file_input").val($('#utopia_image').val());
