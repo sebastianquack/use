@@ -1,0 +1,115 @@
+<div id="scroll-container-1" class="scroll-container"><div id="scroll-content-1" class="scroll-content">UTOPIA STOCK EXCHANGE <span class="scroll-highlight">18 01 2014 19:30&nbsp;</span></div></div>
+<div id="scroll-container-2" class="scroll-container"><div id="scroll-content-2" class="scroll-content">
+	
+	<% @stocks.each do |stock|%>
+		<span class="utopialink" rel="<%= stock.id %>"><%= stock.name %></span>
+		<span class="symbol">(<%= stock.symbol %>)</span>
+	<% end %>
+
+</div></div>
+
+<div class="main">
+
+<section>
+
+<div id="page-1" class="page">
+		<img class="full-background" src="/assets/himmel-new.png">
+		<div class="page-content">
+			<iframe width="723" height="439" src="//www.youtube.com/embed/Q7FdaiPQuDg" frameborder="0" allowfullscreen></iframe>
+		</div>
+</div>
+
+</section>
+
+<section>
+<div id="page-2" class="page">
+		<img class="full-background" src="/assets/nyse-new.png">
+		<div class="page-content">
+
+			<%= render :partial => "stocks/show_gallery" %>
+
+		</div>
+</div>
+</section>
+
+<section>
+<div id="page-3" class="page">
+	<div class="page-content">
+		<div class="row">
+			<div class="col-2">
+				<p>UTOPIA STOCK EXCHANGE (USE) macht das Dortmunder U zur Börse für Utopien und das Unionviertel zum neuen Dortmunder Börsenviertel.</p>
+				<p>Jede Stadt braucht einen Ort, an dem Bürgerinnen und Bürger Visionen für ihre Stadt in die Hand nehmen können. Sie drehen und wenden, ihren Realitätsgehalt überprüfen, ihre Strahlkraft spüren. Ein Zentrum, an dem – wie an der Börse – harte Realität auf radikale Phantasie trifft, an dem kollektiv geträumt, gehandelt, bewertet und vielleicht abgestürzt wird. An dem die Zukunft Ihrer Stadt von den Bürgerinnen und Bürgern selbst aufs Spiel gesetzt werden kann.</p> 
+				<p>Ein solches Zentrum gibt es in Dortmund bereits: Das Dortmunder U. UTOPIA STOCK EXCHANGE (USE) unternimmt den Versuch, das besondere Potential dieses Ortes auf die Spitze zu treiben: als Börse für Utopien. USE gibt ökonomische Prinzipien wie Spekulation und Teilhabe zurück an Bürgerinnen und Bürger der Stadt. USE handelt Utopien für Dortmund.</p>
+				
+			</div>
+			<div class="col-2">
+				<p>An die Börse gebracht von Utopisten aus Dortmund. Ideen zur Verbesserung der Stadt, des Selbst oder der Welt – von Dortmund aus gesehen.</p>
+				<p>USE lässt den Ideen freien Lauf und fragt: Was würden Sie machen, wenn Geld, Zeit und Machbarkeit ausnahmsweise einmal überhaupt keine Rolle spielten? Wie sollte Dortmund sein, wenn alles möglich wäre? Was wäre anders in einer perfekten Welt? Wie wären Politik, Wirtschaft und soziales Miteinander in Ihrer Wunschwelt organisiert? Beim Handelsabend am 18. Januar 2014 im Dortmunder U entscheidet sich, welche Utopie die meisten Anhänger findet und was am Ende zählt: Geld oder der Glaube an die Zukunft?</p>
+				<p>USE ist ein Spielformat von Invisible Playground – einer Künstlergruppe, die Spiele für Städte entwickelt, gemeinsam mit Dortmunder Bürgerinnen und Bürgern.</p>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<img class="small-logo" src="/assets/logo-kurve-klein.png">
+			</div>
+			<div class="col-2">
+				<img class="small-logo" src="/assets/logo-door-klein.png">
+			</div>
+		</div>
+		
+	</div>
+	<img class="full-background" src="/assets/u-dortmund-new.png">
+</div>
+</section>
+
+<section>
+<div id="page-4" class="page">
+	<img class="full-background" src="/assets/stier.jpg">
+	<div class="page-content">
+		<h3>USE Credits</h3>
+
+		<div class="row">
+		<div class="col-2">
+
+		<p>Ein Spiel von <a href="http://invisibleplayground.com" target="_blank">Invisible Playground</a> veranstaltet von Hartware MedienKunstVerein (HMKV) und Urbane Künste Ruhr im Dortmunder U im Rahmen des <a href="http://www.hmkv.de/_en/programm/programmpunkte/2013/Ausstellungen/2013_New_Industries_Festival.php" target="_blank">NEW INDUSTRIES FESTIVALS</a> und der <a href="http://www.hmkv.de/programm/programmpunkte/2014/Veranstaltungen/2014_NIF_Konferenz.php" target="_blank">NEW INDUSTRIES KONFERENZ: Geld und Schulden in der postindustriellen Welt</a></p>
+
+		<p>Nach einer Idee von Carolin Hochleichter, Sebastian Quack und Jutta Wangemann</p>
+
+		</div>
+		<div class="col-2">
+
+		<p>Team USE Dortmund: Daniel Boy, Manuel Bürger, Mira Frye, Anna Hentschel, Holger Heissmeyer, Christina Prötschner, Sebastian Quack, Wilma Renfordt, Fabian Saavedra Lara</p>
+
+		<p>Gestaltung: The Laboratory of Manuel Bürger</p>
+		<p>Photocredits: Hans Jürgen Landes, REUTERS/Brendan McDermid</p>
+
+		</div>
+		</div>
+		
+		<h4>Veranstaltet von:</h4>
+		<div class="row logos float-all">
+					<img src="/assets/logo-hmkv.png">
+					<img src="/assets/logo-ukr.png">
+
+		</div>
+
+		<h4>Gefördert von:</h4>
+		<div class="row logos float-all">
+					
+					<img src="/assets/logo-u.gif">
+					<img src="/assets/logo-dortmund.png">
+					<img src="/assets/logo-ministerium.png">
+					<img src="/assets/logo-npn.png">
+					<p class="supersmall">Gefördert durch das NATIONALE PERFORMANCE NETZ (NPN) Gastspielförderung Tanz International aus Mitteln des Beauftragten der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des deutschen Bundestages</p>
+		</div>
+
+
+
+
+
+	</div>
+</div>
+</section>
+
+</div>

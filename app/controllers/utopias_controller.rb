@@ -1,5 +1,6 @@
 class UtopiasController < ApplicationController
   before_action :set_utopia, only: [:show, :edit, :update, :destroy]
+  layout "admin", except: [:create_public]
 
   # GET /utopias
   # GET /utopias.json

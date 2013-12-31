@@ -1,0 +1,371 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require onepage-scroll.css
+ */
+
+body {
+	background-color: #323232;
+	color: #ffffff;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+@font-face {
+  font-family: 'ProximaNovaThin';
+	src: url('ProximaNova-Thin.otf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaLight';
+	src: url('Proxima Nova Light.otf');
+}
+
+
+h1, h2, h3 {
+	font-family: 'ProximaNovaThin';
+}
+
+h2, h3 {
+	font-size: 36px;
+}
+
+a, p, label, h4 {
+	font-family: 'ProximaNovaLight';
+}
+
+h4 {
+	clear: both;
+	padding-top: 20px;
+	padding-bottom: 5px;
+}
+
+a {
+	color: #fff;
+}
+
+.scroll-container {
+	position: fixed;
+	white-space: nowrap;
+	z-index: 50;
+	overflow: hidden;
+	width: 100%;
+}
+
+.scroll-content {
+	position: absolute;
+	top: 0px;
+	z-index: 100;
+}
+
+#scroll-container-1 {
+	top: 0px;
+	height: 90px;
+	line-height: 90px;
+	background-color: #282828;
+	background-image: url(scroller-gradient.png);
+}
+
+#scroll-content-1 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
+	font-size: 90px;
+	left: 0px;
+	top:-4px;
+}
+
+span.scroll-highlight {
+	font-family: 'Arial Black';
+	position: relative;
+	top: 2px;
+	line-height: 90px;
+}
+
+#scroll-container-2 {
+	top: 90px;
+	background-color: #282828;
+	box-shadow: 0px 1px 1px #282828;
+	height: 90px;
+}
+
+#scroll-content-2 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
+	font-size: 90px;
+	line-height: 90px;
+	left: 0px;
+}
+
+#scroll-content-2 span.utopialink {
+	color: #fff;
+	text-decoration: underline;
+	cursor: pointer;
+	text-transform:uppercase;
+	position:relative;
+	top:5px;
+}
+
+#scroll-content-2 span.symbol {
+	font-size: 45px;
+	color: #00FF00;
+	text-transform:uppercase;
+	margin-right: 20px;
+}
+
+.page {
+	position: relative;
+	top: 180px;
+	width: 100%;
+	clear: both;
+}
+
+.row {
+	clear: both;
+}
+
+.float-all * {
+	float: left;
+	margin-right: 20px;
+}
+
+.col-2 {
+	float: left;
+	width: 45%;
+	padding-right: 5%;
+	min-width: 200px;
+}
+
+.col-21 {
+	float: left;
+	width: 20%;
+	padding-right: 5%;
+}
+
+
+.col-22 {
+	float: left;
+	width: 75%;
+}
+
+
+.page img.full-background {
+	width: 100%;
+	z-index: -100;
+	position: absolute;		
+	top: 0px;
+	left: 0px;
+
+}
+
+#page-1 img.full-background {
+	top: -30px;
+}
+
+#page-1 iframe {
+    margin: 0 auto;
+	display: block;
+	padding-top: 20px;
+}
+
+#page-2 .page-content {
+	padding: 50px 0px 50px 0px;
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+}
+
+.utopia-selector {
+	cursor: pointer;
+	background-repeat: no-repeat;
+	width: 50px;
+	height: 100px;
+	position: absolute;
+	top: 50px;
+}
+
+.utopia-selector:active {
+	top: 52px;
+}
+
+#utopia-selector-left {
+	background-image: url(utopia-selector-left.png);
+	left: 0px;
+}
+
+#utopia-selector-right {
+	background-image: url(utopia-selector-right.png);
+	right: 0px;
+}
+
+#utopia-container {
+	width:80%;
+	margin: 0 auto;
+}
+
+#utopia-container h3 {
+	font-family: "Arial Black";
+	font-size: 32px;
+	margin-bottom: 20px;
+}
+
+.utopia-description {
+	float: left;
+	width: 60%;
+}
+
+.utopia-description p {
+	font-family: 'ProximaNovaLight';
+	margin-bottom: 14px;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.utopist {
+	float: right;
+	width: 30%;
+}
+
+.utopist img {
+	width: 250px;
+}
+
+.utopist label {
+	font-family: 'ProximaNovaLight';
+	font-size: 12px;
+	line-height: 16px;
+	text-transform: uppercase;
+}
+
+
+
+
+
+#page-3 .page-content {
+	padding: 50px 100px 50px 100px;
+}
+
+#page-3 .page-content p {
+	font-size: 16px;
+	line-height: 20px;
+	margin-bottom: 24px;
+}
+
+#page-3 .col-2 {
+	margin-bottom: 20px;
+}
+
+#page-3 .col-2 .small-logo {
+	width: 200px;
+}
+
+
+#page-4 img.full-background {
+	top: -65px;
+}
+
+#page-4 {
+	background-color: #fff;
+	z-index: 10;
+}
+
+#page-4 .page-content {
+	padding: 50px 50px 150px 50px;
+	color: #000;
+}
+
+#page-4 .page-content h3 {
+	color: #000;
+	margin-bottom: 36px;
+}
+
+#page-4 .page-content p {
+	font-size: 18px;
+/*	max-width: 450px;*/
+	margin-bottom: 24px;
+}
+
+#page-4 .page-content p a {
+	color: #fff;
+}
+
+#page-4 .page-content div p.supersmall {
+	float: left;
+	font-size: 12px;
+	width: 250px;
+}
+
+div.logos img {
+	height: 58px;
+}	
+
+@media only screen and (max-width: 1000px) {
+	
+	#claim-1 {
+		display: none;
+	}
+	#claim-2 {
+		display: none;
+	}
+	#claim-3 {
+		display: none;
+	}
+
+	#icon-1 {
+		display: none;
+	}
+	#icon-2 {
+		display: none;
+	}
+	#icon-3 {
+		display: none;
+	}
+
+	#spacer-1 {
+		display: none;
+	}
+
+	.ip-logo {
+		display: none;
+	}
+
+	.col-2 {
+		width: 90%;
+	}
+
+	#scroll-header-1, #scroll-header-2 {
+		position: absolute;
+	}
+
+	#page-4 .page-content {
+		padding: 200px 10px 200px 10px;
+	}
+
+	#page-5 .page-content {
+		padding: 10px 10px 10px 10px;
+	}
+
+	#page-5 img.full-background {
+		position: relative;
+	}
+
+	#page-6 .page-content {
+		padding: 40px 10px 10px 10px;
+	}
+		
+	section {
+		height: auto !important;
+	}
+
+}

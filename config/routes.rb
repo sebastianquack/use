@@ -1,5 +1,10 @@
 Use::Application.routes.draw do
 
+  resources :stocks
+  get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
+  get 'stocks/next/:id' => 'stocks#next'
+  get 'stocks/previous/:id' => 'stocks#previous'
+
 	resources :utopias
 	get 'show/:id' => 'welcome#index'
   post 'utopias/create' => 'utopias#create_public'
@@ -8,6 +13,8 @@ Use::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  get '/new' => 'welcome#new'
+
   root 'welcome#index'
 
   # Example of regular route:

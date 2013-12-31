@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  symbol: MyString
+  description: MyText
+  utopist: MyString
+  active: false
+
+two:
+  name: MyString
+  symbol: MyString
+  description: MyText
+  utopist: MyString
+  active: false
