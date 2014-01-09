@@ -26,23 +26,6 @@ ActiveRecord::Schema.define(version: 20131230225802) do
     t.datetime "updated_at"
   end
 
-  create_table "utopia", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.text     "realization"
-    t.text     "risks"
-    t.integer  "effect_body"
-    t.integer  "effect_economy"
-    t.integer  "effect_politics"
-    t.integer  "effect_spirituality"
-    t.integer  "effect_technology"
-    t.integer  "effect_environment"
-    t.integer  "effect_fun"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "utopias", force: true do |t|
     t.string   "title"
     t.text     "description"
