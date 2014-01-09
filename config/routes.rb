@@ -2,6 +2,8 @@ Use::Application.routes.draw do
 
   resources :transaction_types
   resources :transactions
+  get 'users/new_public' => 'users#new_public'
+
   resources :users
   resources :stocks
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
