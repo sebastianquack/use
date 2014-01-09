@@ -6,15 +6,18 @@ Use::Application.routes.draw do
   post 'users/create_public' => 'users#create_public'
   get 'users/show_public' => 'users#show_public'
   resources :users
+    
+  get 'transactions/new_public' => 'transactions#new_public'  
+  resources :transactions
 
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
   get 'stocks/next/:id' => 'stocks#next'
   get 'stocks/previous/:id' => 'stocks#previous'
   resources :stocks
 
-	get 'show/:id' => 'welcome#index'
+  get 'show/:id' => 'welcome#index'
   post 'utopias/create' => 'utopias#create_public'
-	resources :utopias
+  resources :utopias
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

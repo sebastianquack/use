@@ -33,28 +33,22 @@ ActiveRecord::Schema.define(version: 20140109170021) do
     t.datetime "updated_at"
   end
 
+  create_table "transactions", force: true do |t|
+    t.integer  "transaction_type_id"
+    t.integer  "seller_id"
+    t.integer  "buyer_id"
+    t.float    "price"
+    t.integer  "amount"
+    t.integer  "stock_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.float    "balance"
     t.string   "role"
     t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "utopia", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.text     "realization"
-    t.text     "risks"
-    t.integer  "effect_body"
-    t.integer  "effect_economy"
-    t.integer  "effect_politics"
-    t.integer  "effect_spirituality"
-    t.integer  "effect_technology"
-    t.integer  "effect_environment"
-    t.integer  "effect_fun"
-    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
