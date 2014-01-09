@@ -21,5 +21,6 @@ module Use
     # config.i18n.default_locale = :de
     
     config.assets.paths << "#{Rails.root}/app/assets/fonts"    
+
   end
 end
