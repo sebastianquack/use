@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109170021) do
+ActiveRecord::Schema.define(version: 20140109213943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "settings", force: true do |t|
     t.float    "exchange_rate"
-    t.float    "base_balance"
+    t.float    "base_cash_in"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

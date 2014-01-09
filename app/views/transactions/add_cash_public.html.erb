@@ -1,6 +1,6 @@
 <p id="notice"><%= params[:notice] %></p>
 
-<%= form_for(@transaction) do |f| %>
+<%= form_for(@transaction, :url => {:action => "create_public"}) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -12,15 +12,15 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= f.hidden_field :transaction_type_id, :value => "1" %>
+  <%= f.hidden_field :price, :value => Setting.first.exchange_rate %>
 
   <div class="field">
     <%= f.label :seller_id %><br>
     <%= f.select :seller_id, User.order("name").collect {|u| [u.name, u.id]} %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
-  </div>
+  <p>Exchange rate: <%= Setting.first.exchange_rate %></p>
   <div class="field">
     <%= f.label :amount %><br>
     <%= f.number_field :amount %>

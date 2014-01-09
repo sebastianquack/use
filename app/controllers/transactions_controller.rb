@@ -27,8 +27,8 @@ class TransactionsController < ApplicationController
     end
   end
 
-  # ADMIN Actions 
 
+  # Admin Actions 
 
   # GET /transactions
   # GET /transactions.json

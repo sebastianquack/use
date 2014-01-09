@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Exchange rate</th>
-      <th>Base balance</th>
+      <th>Base Cash in</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,7 +15,7 @@
     <% @settings.each do |setting| %>
       <tr>
         <td><%= setting.exchange_rate %></td>
-        <td><%= setting.base_balance %></td>
+        <td><%= setting.base_cash_in %></td>
         <td><%= link_to 'Show', setting %></td>
         <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
         <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>

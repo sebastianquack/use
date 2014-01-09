@@ -20,7 +20,7 @@ module Use
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     
-    config.transaction_types = ["TRANSACTION", "OTHER1"]
+    config.transaction_types = ["TRANSACTION", "CASH"]
     config.assets.paths << "#{Rails.root}/app/assets/fonts"    
 
   end
