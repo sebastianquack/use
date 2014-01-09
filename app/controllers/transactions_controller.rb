@@ -3,10 +3,32 @@ class TransactionsController < ApplicationController
   
   layout "admin"
 
+  # Public Actions
+
   def new_public
     @transaction = Transaction.new
-    render "transactions/public/new", layout: "local"
+    render layout: "local"
   end
+  
+  def add_cash_public
+    @transaction = Transaction.new
+    @transaction
+    render layout: "local"
+
+  def create_public
+    @transaction = Transaction.new(user_params)
+    
+    respond_to do |format|
+      if @transaction.save
+        format.html { redirect_to action: 'new_public', notice: 'Transacion logged.' }
+      else
+        format.html { render action: 'new_public', notice: 'There was an error.' }
+      end
+    end
+  end
+
+  # ADMIN Actions 
+
 
   # GET /transactions
   # GET /transactions.json

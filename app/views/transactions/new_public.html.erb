@@ -1,3 +1,7 @@
+<p id="notice"><%= params[:notice] %></p>
+
+<h1>New transaction</h1>
+
 <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
@@ -11,10 +15,6 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :transaction_type_id %><br>
-    <%= f.select :transaction_type_id, TransactionType.where(available: true).collect {|t| [t.name, t.id]} %>
-  </div>
   <div class="field">
     <%= f.label :seller_id %><br>
     <%= f.select :seller_id, User.order("name").collect {|u| [u.name, u.id]} %>
