@@ -12,15 +12,15 @@ class TransactionsController < ApplicationController
   
   def add_cash_public
     @transaction = Transaction.new
-    @transaction
     render layout: "local"
+  end
 
   def create_public
-    @transaction = Transaction.new(user_params)
+    @transaction = Transaction.new(transaction_params)
     
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to action: 'new_public', notice: 'Transacion logged.' }
+        format.html { redirect_to action: 'new_public', notice: 'Transaction logged.' }
       else
         format.html { render action: 'new_public', notice: 'There was an error.' }
       end
