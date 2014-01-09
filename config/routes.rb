@@ -6,9 +6,7 @@ Use::Application.routes.draw do
   post 'users/create_public' => 'users#create_public'
   get 'users/show_public' => 'users#show_public'
   resources :users
-  
-  resources :transaction_types
-  
+    
   get 'transactions/new_public' => 'transactions#new_public'  
   resources :transactions
 

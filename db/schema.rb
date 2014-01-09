@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 20140109170021) do
     t.datetime "updated_at"
   end
 
-  create_table "transaction_types", force: true do |t|
-    t.boolean  "available"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "transactions", force: true do |t|
     t.integer  "transaction_type_id"
     t.integer  "seller_id"
