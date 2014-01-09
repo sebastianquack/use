@@ -1,5 +1,7 @@
 Use::Application.routes.draw do
 
+  resources :users
+
   resources :stocks
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
   get 'stocks/next/:id' => 'stocks#next'

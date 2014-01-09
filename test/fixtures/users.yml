@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  balance: 1.5
+  type: 
+  status: 1
+
+two:
+  name: MyString
+  balance: 1.5
+  type: 
+  status: 1
