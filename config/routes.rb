@@ -1,5 +1,6 @@
 Use::Application.routes.draw do
 
+  get 'users/new_public' => 'users#new_public'
   resources :users
 
   resources :stocks

@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  layout "admin"
+  layout "admin", except: [:new_public, :add_cash]
+  layout "local", only: [:new_public]
+
+  def new_public
+    @user = User.new
+    render "users/public/new"
+  end
 
   # GET /users
   # GET /users.json
