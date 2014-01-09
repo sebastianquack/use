@@ -22,5 +22,6 @@ module Use
     
     config.transaction_types = ["TRANSACTION", "OTHER1"]
     config.assets.paths << "#{Rails.root}/app/assets/fonts"    
+
   end
 end

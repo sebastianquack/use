@@ -2,12 +2,14 @@ Use::Application.routes.draw do
 
   resources :settings
 
+  get 'users/show_public' => 'users#show_public'
   get 'users/new_public' => 'users#new_public'
   post 'users/create_public' => 'users#create_public'
-  get 'users/show_public' => 'users#show_public'
   resources :users
     
   get 'transactions/new_public' => 'transactions#new_public'  
+  get 'transactions/add_cash_public' => 'transactions#add_cash_public'  
+  post 'transactions/create_public' => 'transactions#create_public'  
   resources :transactions
 
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'

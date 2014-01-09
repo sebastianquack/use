@@ -1,3 +1,5 @@
+<p id="notice"><%= params[:notice] %></p>
+
 <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
@@ -12,16 +14,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :transaction_type_id %><br>
-    <%= f.select :transaction_type_id, Rails.application.config.transaction_types.each_with_index.map {|t,i| [t,i]} %>
-  </div>
-  <div class="field">
     <%= f.label :seller_id %><br>
     <%= f.select :seller_id, User.order("name").collect {|u| [u.name, u.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :buyer_id %><br>
-    <%= f.select :buyer_id, User.order("name").collect {|u| [u.name, u.id]} %>
   </div>
   <div class="field">
     <%= f.label :price %><br>
@@ -30,10 +24,6 @@
   <div class="field">
     <%= f.label :amount %><br>
     <%= f.number_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :stock_id %><br>
-    <%= f.select :stock_id, Stock.order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]} %>
   </div>
   <div class="actions">
     <%= f.submit %>
