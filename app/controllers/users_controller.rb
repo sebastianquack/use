@@ -1,13 +1,38 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :show_public, :edit, :update, :destroy]
 
-  layout "admin", except: [:new_public, :add_cash]
-  layout "local", only: [:new_public]
+  layout "admin"
+  
+  # PUBLIC ACTIONS
 
   def new_public
     @user = User.new
-    render "users/public/new"
+    render layout: "local" 
   end
+
+  def create_public
+    @user = User.new(user_params)
+    @user.role = 'player';
+    @user.status = 1;
+
+    @user.balance = Setting.first.base_balance; # replace this with transaction later
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to action: 'show_public', id: @user.id, notice: 'User was successfully created.' }
+      else
+        format.html { render action: 'new_public', notice: 'There was an error.' }
+      end
+    end
+    
+  end
+  
+  def show_public
+    
+  end  
+  
+  
+  # ADMIN ACTIONS
 
   # GET /users
   # GET /users.json

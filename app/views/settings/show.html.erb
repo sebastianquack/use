@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exchange rate:</strong>
+  <%= @setting.exchange_rate %>
+</p>
+
+<p>
+  <strong>Base balance:</strong>
+  <%= @setting.base_balance %>
+</p>
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>
