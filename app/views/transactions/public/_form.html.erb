@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :transaction_type_id %><br>
-    <%= f.select :transaction_type_id, TransactionType.where(available: true).collect {|t| [t.name, t.id]} %>
+    <%= f.select :transaction_type_id, Rails.application.config.transaction_types.each_with_index.map {|t,i| [t,i]} %>
   </div>
   <div class="field">
     <%= f.label :seller_id %><br>
