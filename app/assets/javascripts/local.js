@@ -59,7 +59,7 @@ $(document).ready(function() {
 				title: "Units"
 			},
 			data: [{
-				type: "line",
+				type: "stepLine",
 				dataPoints : this.dps
 			}]
 		});
