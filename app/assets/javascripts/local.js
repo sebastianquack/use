@@ -13,3 +13,18 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+function update_total() {
+    $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
+}
+
+$(document).ready(function() {
+        
+    update_total();
+    $('#transaction_amount').change(update_total);
+    $('#transaction_price').change(update_total);
+
+    if($('.portfolio').length > 0) {
+        window.print();        
+    }
+});

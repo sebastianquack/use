@@ -28,4 +28,13 @@ class User < ActiveRecord::Base
   end
 
 
+  def add_cash(amount)
+    transaction = Transaction.new
+    transaction.transaction_type_id = 1
+    transaction.seller_id = self.id
+    transaction.price = Setting.first.exchange_rate
+    transaction.amount = amount
+    transaction.save
+  end
+
 end

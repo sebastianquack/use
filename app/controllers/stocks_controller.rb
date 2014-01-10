@@ -14,6 +14,46 @@ class StocksController < ApplicationController
   
   # Admin Actions
 
+  def reset_utopists
+
+    # get rid of old utopists
+    User.where("role = 'utopist'").destroy_all
+    
+    # get rid of all transactions and reset Users
+    Transaction.all.destroy_all
+    
+    User.where("role = 'player'").each do |u|
+      u.add_cash(Setting.first.base_cash_in)
+    end
+    
+    # for each stock
+    Stock.where('active = true').each do |s|
+
+      # create a new utopist
+      utopist = User.new;
+      utopist.role = 'utopist'
+      utopist.name = s.utopist_name
+      utopist.save
+
+      # assign to stock
+      s.utopist_id = utopist.id
+      s.save 
+      
+      # give all stocks to utopist
+      transaction = Transaction.new
+      transaction.transaction_type_id = 0
+      transaction.stock_id = s.id
+      transaction.buyer_id = utopist.id
+      transaction.price = 0
+      transaction.amount = 100
+      transaction.save
+      
+    end
+    
+    redirect_to controller:'users', action:'index'
+    
+  end
+
 
   # GET /stocks
   # GET /stocks.json
@@ -97,6 +137,6 @@ class StocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_params
-      params.require(:stock).permit(:name, :symbol, :description, :utopist, :active)
+      params.require(:stock).permit(:name, :symbol, :description, :utopist_name, :active)
     end
 end

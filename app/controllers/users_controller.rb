@@ -17,24 +17,18 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.save
-        
-        @transaction = Transaction.new
-        @transaction.transaction_type_id = 1
-        @transaction.seller_id = @user.id
-        @transaction.price = Setting.first.exchange_rate
-        @transaction.amount = Setting.first.base_cash_in
-        @transaction.save
+        @user.add_cash(Setting.first.base_cash_in)
         
         format.html { redirect_to action: 'show_public', id: @user.id, notice: 'User was successfully created.' }
       else
-        format.html { render action: 'new_public', notice: 'There was an error.' }
+        format.html { render layout: 'local', action: 'new_public', notice: 'There was an error.' }
       end
     end
     
   end
   
   def show_public
-    
+    render layout: "local"
   end  
   
   

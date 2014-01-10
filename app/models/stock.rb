@@ -1,6 +1,7 @@
 class Stock < ActiveRecord::Base
 
 	has_many :transactions
+	belongs_to :utopist, :class_name => "User", :foreign_key => "utopist_id"
 
   def next
     r = Stock.where("active = true AND id > ?", self.id).order("id ASC").first

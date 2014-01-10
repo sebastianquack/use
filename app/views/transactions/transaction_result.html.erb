@@ -1,9 +1,6 @@
-<p id="notice"><%= params[:notice] %></p>
+<!--p id="notice"><%= params[:notice] %></p-->
 
-
-<h1>Seller portfolio</h1>
 <%= render :partial => 'users/portfolio', :locals => {:user => @transaction.seller} %>
 
-<h1>Buyer portfolio</h1>
 <%= render :partial => 'users/portfolio', :locals => {:user => @transaction.buyer} %>
 
