@@ -35,6 +35,9 @@ class TransactionsController < ApplicationController
   def transaction_result  
   end
 
+  def usx
+  end
+
 
   # Admin Actions 
 

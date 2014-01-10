@@ -1,5 +1,7 @@
 Use::Application.routes.draw do
 
+  get "display/projection"
+  get "display/tv"
   resources :settings
 
   get 'users/show_public/:id' => 'users#show_public'

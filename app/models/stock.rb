@@ -2,6 +2,10 @@ class Stock < ActiveRecord::Base
 
 	has_many :transactions
 
+  def chart
+    return self.transactions.select("created_at, amount, price");
+  end
+
   def next
     r = Stock.where("active = true AND id > ?", self.id).order("id ASC").first
     if r.nil?

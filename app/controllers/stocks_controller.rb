@@ -5,7 +5,7 @@ class StocksController < ApplicationController
 
   # Public Actions
 
-  def chart 
+  def chart
   end
   
   def overview
