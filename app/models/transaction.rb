@@ -4,11 +4,11 @@ class Transaction < ActiveRecord::Base
 	belongs_to :transaction_type
 	belongs_to :stock
 
-	def usx
-		return self.usx_latest_prices_sum
+	def self.usx
+		return usx_latest_prices_sum
 	end
 
-	def usx_latest_prices_sum
+	def self.usx_latest_prices_sum
 		usx = []
 		stocks_prices = {}
 		Stock.all.each { |s| stocks_prices[s.id]=0 }

@@ -16,6 +16,10 @@ Use::Application.routes.draw do
   get 'transactions/transaction_result' => 'transactions#transaction_result'  
   resources :transactions
 
+  # json routes
+  get 'stocks/usx_data' => 'stocks#usx_data'
+  get 'stocks/chart_data/:id' => 'stocks#chart_data'
+
   get 'stocks/chart/:id' => 'stocks#chart'
   get 'stocks/overview' => 'stocks#overview'
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
