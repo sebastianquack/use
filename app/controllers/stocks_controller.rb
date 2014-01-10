@@ -1,6 +1,19 @@
 class StocksController < ApplicationController
-  before_action :set_stock, only: [:show, :edit, :update, :destroy, :show_gallery]
+  before_action :set_stock, only: [:show, :edit, :update, :destroy, :show_gallery, :chart]
   layout "admin"
+
+
+  # Public Actions
+
+  def chart 
+  end
+  
+  def overview
+    @stocks = Stock.where('active = true')
+  end 
+  
+  # Admin Actions
+
 
   # GET /stocks
   # GET /stocks.json

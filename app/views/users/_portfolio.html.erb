@@ -18,12 +18,12 @@
           <th>Anzahl</th>
       </tr>
       
-  <% user.portfolio.each do |stock_id, data| %>
+  <% user.portfolio.each do |stock_id, stock_data| %>
         
   <tr>
-      <td><%= data[:stock].symbol %></td>
-      <td><%= data[:stock].name %></td>
-      <td><%= data[:amount] %></td>
+      <td><%= stock_data[:stock].symbol %></td>
+      <td><%= stock_data[:stock].name %></td>
+      <td><%= stock_data[:amount] %></td>
   </tr>
 
 

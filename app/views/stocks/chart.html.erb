@@ -1,0 +1,23 @@
+<p>
+  <strong>Name:</strong>
+  <%= @stock.name %>
+</p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @stock.symbol %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @stock.description %>
+</p>
+
+<p>
+  <strong>Utopist:</strong>
+  <%= @stock.utopist %>
+</p>
+
+<p>
+    <%= render :partial => 'chart', :locals => {:stock => @stock} %>
+</p>
