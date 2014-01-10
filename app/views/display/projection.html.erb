@@ -1,13 +1,9 @@
 <h2>USX</h2>
 
-<script type="text/javascript">
-	timerID = setTimeout ( "$('body').load('/display/projection')", 10000 );
-</script>
-
 <div id="chart-usx" style="height: 300px; width: 100%;">
 </div>
 
-<% Stock.all.each do |s| %>
+<% Stock.where("active=true").each do |s| %>
 <div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" style="height: 300px; width: 100%;">
 </div>
 <% end %>
