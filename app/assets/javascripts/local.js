@@ -33,32 +33,44 @@ $(document).ready(function() {
 
     // Charts
 
-	var dps = [];   //dataPoints. 
- 
-	var chart = new CanvasJS.Chart("chartContainer",{
-		title :{
-			text: "Live Data"
-		},
-		axisX: {						
-			title: "Axis X Title"
-		},
-		axisY: {						
-			title: "Units"
-		},
-		data: [{
-			type: "line",
-			dataPoints : dps
-		}]
-	});
-	 
-	chart.render();
-
-	$.getJSON( "/stocks/usx_data", function( data ) {
-	  $.each( data, function( i,item ) {
-	    dps.push({x: new Date(item.seconds), y: item.value});
-	  });
-	  chart.render();
-	});
-	
+    new Chart ("chart-usx", "/stocks/usx_data", "USX");
+    new Chart ("chart-aaa", "/stocks/chart_data/1", "AAA");
 
 });
+
+    function Chart(canvas_id, url, title) {
+	    this.updateInterval = 2000;
+
+		this.dps = [];   //dataPoints.
+		this.last_tick = 0;
+
+		this.chart = new CanvasJS.Chart(canvas_id,{
+			title :{
+				text: title
+			},
+			axisX: {						
+				title: "Axis X Title"
+			},
+			axisY: {						
+				title: "Units"
+			},
+			data: [{
+				type: "line",
+				dataPoints : this.dps
+			}]
+		});
+		 
+		//this.chart.render();
+
+		//setInterval(function(){
+			var t = this;
+			$.getJSON( url, function( data ) {
+
+			  $.each( data, function( i,item ) {
+			    t.dps.push({x: new Date(item.seconds), y: item.value});
+			    //t.last_tick = item.tick;
+			  });
+			  t.chart.render();
+			});
+		//}, updateInterval);
+	}
