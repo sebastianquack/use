@@ -2,7 +2,6 @@ class StocksController < ApplicationController
   before_action :set_stock, only: [:show, :edit, :update, :destroy, :show_gallery, :chart, :chart_data]
   layout "admin"
 
-
   # Public Actions
 
   def chart
@@ -12,18 +11,31 @@ class StocksController < ApplicationController
     @stocks = Stock.where('active = true')
   end 
   
-  def chart_data  
+  def chart_data
+    chart = @stock.chart
     a = []
-    @stock.chart.each do |c|
-      h = c.attributes
-      h[:seconds] = c.created_at.to_i
-      a << h
-    end
+    chart.each_with_index do |c,i|
+      if i >= params[:tick].to_i
+        h = c.attributes
+        h[:seconds] = c.created_at.to_i
+        h[:tick] = i
+        a << h 
+      end
+    end 
     render json: a
   end
   
-  def usx_data 
-    render json: Transaction.usx
+  def usx_data
+    chart = Transaction.usx
+    a = []
+    chart.each_with_index do |c,i|
+      if i >= params[:tick].to_i
+        h=c
+        h[:tick] = i
+        a << h 
+      end
+    end     
+    render json: a
   end
   
   # Admin Actions
@@ -151,6 +163,6 @@ class StocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_params
-      params.require(:stock).permit(:name, :symbol, :description, :utopist_name, :active)
+      params.require(:stock).permit(:name, :symbol, :description, :utopist_name, :active, :tick)
     end
 end
