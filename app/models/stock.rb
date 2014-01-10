@@ -1,6 +1,7 @@
 class Stock < ActiveRecord::Base
 
 	has_many :transactions
+	belongs_to :utopist, :class_name => "User", :foreign_key => "utopist_id"
 
   def chart
     return self.transactions.select("created_at, amount, price");

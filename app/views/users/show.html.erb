@@ -20,5 +20,7 @@
   <%= @user.status %>
 </p>
 
+<%= render :partial => 'portfolio', :locals => {:user => @user} %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

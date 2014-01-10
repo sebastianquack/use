@@ -9,6 +9,11 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     render layout: "local"
   end
+
+  def new_public_utopist
+    @transaction = Transaction.new
+    render layout: "local"
+  end
   
   def add_cash_public
     @transaction = Transaction.new
@@ -17,7 +22,52 @@ class TransactionsController < ApplicationController
 
   def create_public
     @transaction = Transaction.new(transaction_params)
+
+    seller = User.find(@transaction.seller_id)
+    buyer = User.find(@transaction.buyer_id)
+
+    if params['seller_role'] == 'utopist'
+      # redirect to correct action
+      error_action = 'new_public_utopist'
+      
+      # utopists only sell their own stock
+      @transaction.stock_id = seller.buyer_transactions.first.stock_id
+      logger.debug @transaction.stock_id
+    else
+      error_action = 'new_public'      
+    end
+
+    # ist the buyer differnt from the seller?
+    if seller.id == buyer.id
+      redirect_to action: error_action, notice: "Buyer and seller are identical"
+      return
+    end
+
+
+    # check if amount is > 0
+    if @transaction.amount.to_i == 0 
+      redirect_to action: error_action, notice: "Transaction with 0 amount"
+      return
+    end
     
+    # check if seller actually owns enough of the stock
+    if seller.portfolio[@transaction.stock_id]
+      logger.debug seller.portfolio[@transaction.stock_id][:amount]
+      if seller.portfolio[@transaction.stock_id][:amount] < @transaction.amount
+        redirect_to action: error_action, notice: "Seller doesn't own enough stock"
+        return
+      end
+    else
+      redirect_to action: error_action, notice: "Seller doesn't own enough stock"
+      return
+    end
+        
+    # check if buyer has enough money
+    if buyer.balance < @transaction.price * @transaction.amount 
+        redirect_to action: error_action, notice: "Buyer doesn't have enough money"
+        return
+    end
+
     respond_to do |format|
       if @transaction.save
         if @transaction.transaction_type_id == 0
@@ -33,6 +83,7 @@ class TransactionsController < ApplicationController
   end
   
   def transaction_result  
+    render layout: 'local'
   end
 
   def usx

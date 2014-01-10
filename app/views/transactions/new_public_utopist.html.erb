@@ -1,6 +1,6 @@
 <p id="notice"><%= params[:notice] %></p>
 
-<h1>New player to player transaction</h1>
+<h1>New utopist to player transaction</h1>
 
 <%= form_for(@transaction, :url => {:action => "create_public"}) do |f| %>
   <% if @transaction.errors.any? %>
@@ -17,26 +17,22 @@
 
 
   <%= f.hidden_field :transaction_type_id, :value => "0" %>
+  <%= hidden_field_tag :seller_role, "utopist" %>
   
   <p>
-    <%= f.select :seller_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]} %>
+    <%= f.select :seller_id, User.where("role = 'utopist'").order("name").collect {|u| [u.name + ' (' + u.buyer_transactions.first.stock.symbol + ': ' + u.buyer_transactions.first.stock.name + ')', u.id]} %>
     VERKAUFT AN 
     <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]} %>
   </p>
 
   <p>
     <%= f.number_field :amount, value: 0 %>
-    ANTEILE DER UTOPIE
-    <%= f.select :stock_id, Stock.order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]} %>
- </p>
-
-  <p>
-    ZUM PREIS VON JE <%= f.number_field :price, value: 0 %>
+    ANTEILE SEINER/IHRER UTOPIE ZUM PREIS VON JE <%= f.number_field :price, value: 0 %>
   </p>
   
   <p>DAS MACHT INSGESAMT: <span class="total">0</span></p>
 
   <div class="actions">
-    <%= f.submit 'TRANSAKTION DURCHFÜHREN' %>
+    <%= f.submit "TRANSAKTION DURCHFÜHREN" %>
   </div>
 <% end %>

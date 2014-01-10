@@ -10,6 +10,7 @@ Use::Application.routes.draw do
   resources :users
     
   get 'transactions/new_public' => 'transactions#new_public'  
+  get 'transactions/new_public_utopist' => 'transactions#new_public_utopist'  
   get 'transactions/add_cash_public' => 'transactions#add_cash_public'  
   post 'transactions/create_public' => 'transactions#create_public'  
   get 'transactions/transaction_result' => 'transactions#transaction_result'  
@@ -20,6 +21,7 @@ Use::Application.routes.draw do
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
   get 'stocks/next/:id' => 'stocks#next'
   get 'stocks/previous/:id' => 'stocks#previous'
+  get 'stocks/reset_utopists' => 'stocks#reset_utopists'
   resources :stocks
 
   get 'show/:id' => 'welcome#index'
