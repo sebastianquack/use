@@ -13,3 +13,8 @@ ActionMailer::Base.smtp_settings = {
   :domain         => 'heroku.com',
   :enable_starttls_auto => true
 }
+
+if "irb" == $0
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
+end

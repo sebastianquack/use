@@ -14,8 +14,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.role = 'player';
     @user.status = 1;
-
-    @user.balance = Setting.first.base_balance; # replace this with transaction later
     
     respond_to do |format|
       if @user.save

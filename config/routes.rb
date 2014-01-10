@@ -10,6 +10,7 @@ Use::Application.routes.draw do
   get 'transactions/new_public' => 'transactions#new_public'  
   get 'transactions/add_cash_public' => 'transactions#add_cash_public'  
   post 'transactions/create_public' => 'transactions#create_public'  
+  get 'transactions/transaction_result' => 'transactions#transaction_result'  
   resources :transactions
 
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'

@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_transaction, only: [:show, :edit, :update, :destroy, :transaction_result]
   
   layout "admin"
 
@@ -20,11 +20,19 @@ class TransactionsController < ApplicationController
     
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to action: 'new_public', notice: 'Transaction logged.' }
+        if @transaction.transaction_type_id == 0
+            format.html { redirect_to action: 'transaction_result', id: @transaction.id, notice: 'Transaction logged.' }
+        else
+            format.html { redirect_to controller: 'users', action: 'show_public', id: @transaction.seller_id, notice: 'Transaction logged.' }
+          end
+          
       else
         format.html { render action: 'new_public', notice: 'There was an error.' }
       end
     end
+  end
+  
+  def transaction_result  
   end
 
 

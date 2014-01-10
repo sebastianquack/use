@@ -1,0 +1,35 @@
+<p>
+  <strong>Name:</strong>
+  <%= user.name %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= user.balance %>
+</p>
+
+<p>
+  <strong>Portfolio:</strong>
+
+  <table>
+      <tr>
+          <th>Tickersymbol</th>
+          <th>Titel</th>
+          <th>Anzahl</th>
+      </tr>
+      
+  <% user.portfolio.each do |stock_id, data| %>
+        
+  <tr>
+      <td><%= data[:stock].symbol %></td>
+      <td><%= data[:stock].name %></td>
+      <td><%= data[:amount] %></td>
+  </tr>
+
+
+  <% end %>
+
+    </table>
+
+</p>
+
