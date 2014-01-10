@@ -3,5 +3,7 @@
 <div id="chart-usx" style="height: 300px; width: 100%;">
 </div>
 
-<div id="chart-aaa" style="height: 300px; width: 100%;">
+<% Stock.all.each do |s| %>
+<div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" style="height: 300px; width: 100%;">
 </div>
+<% end %>

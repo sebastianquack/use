@@ -34,7 +34,11 @@ $(document).ready(function() {
     // Charts
 
     new Chart ("chart-usx", "/stocks/usx_data", "USX");
-    new Chart ("chart-aaa", "/stocks/chart_data/1", "AAA");
+
+    $(".chart").each(function() {
+    	console.log($(this).data("id"));
+    	new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
+    });
 
 });
 
@@ -67,7 +71,7 @@ $(document).ready(function() {
 			$.getJSON( url, function( data ) {
 
 			  $.each( data, function( i,item ) {
-			    t.dps.push({x: new Date(item.seconds), y: item.value});
+			    t.dps.push({x: new Date(item.seconds), y: item.price});
 			    //t.last_tick = item.tick;
 			  });
 			  t.chart.render();
