@@ -29,4 +29,36 @@ $(document).ready(function() {
     if($('.portfolio').length > 0) {
         window.print();        
     }
+
+
+    // Charts
+
+	var dps = [];   //dataPoints. 
+ 
+	var chart = new CanvasJS.Chart("chartContainer",{
+		title :{
+			text: "Live Data"
+		},
+		axisX: {						
+			title: "Axis X Title"
+		},
+		axisY: {						
+			title: "Units"
+		},
+		data: [{
+			type: "line",
+			dataPoints : dps
+		}]
+	});
+	 
+	chart.render();
+
+	$.getJSON( "/stocks/usx_data", function( data ) {
+	  $.each( data, function( i,item ) {
+	    dps.push({x: new Date(item.seconds), y: item.value});
+	  });
+	  chart.render();
+	});
+	
+
 });
