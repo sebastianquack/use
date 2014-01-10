@@ -12,8 +12,14 @@ class StocksController < ApplicationController
     @stocks = Stock.where('active = true')
   end 
   
-  def chart_data    
-    render json: @stock.chart  
+  def chart_data  
+    a = []
+    @stock.chart.each do |c|
+      h = c.attributes
+      h[:seconds] = c.created_at.to_i
+      a << h
+    end
+    render json: a
   end
   
   def usx_data 
