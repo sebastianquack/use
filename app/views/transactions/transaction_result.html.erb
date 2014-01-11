@@ -1,6 +1,8 @@
-<!--p id="notice"><%= params[:notice] %></p-->
-
-<%= render :partial => 'users/portfolio', :locals => {:user => @transaction.seller} %>
+<% if @transaction.seller.role == 'player' %>
+    <%= render :partial => 'users/portfolio', :locals => {:user => @transaction.seller} %>
+<% else %>
+    <span id="utopist_seller"></span>
+<% end %>
 
 <%= render :partial => 'users/portfolio', :locals => {:user => @transaction.buyer} %>
 
