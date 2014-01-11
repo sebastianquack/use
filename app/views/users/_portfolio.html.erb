@@ -35,7 +35,7 @@
       <tr>
           <th>Tickersymbol</th>
           <th>Titel</th>
-          <th>Anteil</th>
+          <th>Anteile</th>
           <th>Einstiegskurs</th>
           <th>Investment</th>
           <th>aktueller Kurs</th>
@@ -50,7 +50,7 @@
   <tr>
       <td><%= stock_data[:stock].symbol %></td>
       <td><%= stock_data[:stock].name %></td>
-      <td><%= stock_data[:amount] %>%</td>
+      <td><%= stock_data[:amount] %></td>
       <td><%= stock_data[:investment] %>U</td>
       <td><% if stock_data[:amount] == 0 %>
               <%= 0 %>
