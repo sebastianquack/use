@@ -54,6 +54,14 @@ $(document).ready(function() {
 
 
     // Charts
+
+    $(".roll").each( function() {
+    	elems = $(this).children();
+    	timer = parseInt($(this).data("timer"));
+    	new Roller(elems, timer);
+    });
+    
+
     if($('#chart-usx').length > 0) {
         new Chart ("chart-usx", "/stocks/usx_data", "USX");
     }
@@ -67,45 +75,70 @@ $(document).ready(function() {
 
 });
 
-    function Chart(canvas_id, url, title) {
-	    this.updateInterval = 5000 + Math.random(5000);
+function Chart(canvas_id, url, title) {
+    this.updateInterval = 5000 + Math.random(5000);
 
-		this.dps = [];   //dataPoints.
-		this.last_tick = 0;
+	this.dps = [];   //dataPoints.
+	this.last_tick = 0;
 
-		this.chart = new CanvasJS.Chart(canvas_id,{
-			backgroundColor: "transparent",
-			title :{
-				text: title,
-				labelFontFamily: "Arial Black",
-				labelFontColor: "white",
-			},
-			axisX: {						
-				title: "",
-				labelFontColor: "white",
-				valueFormatString: "HH:mm",
-			},
-			axisY: {						
-				title: "",
-				labelFontColor: "white",
-			},
-			data: [{
-				type: "spline",
-				dataPoints : this.dps
-			}]
+console.log($("#"+canvas_id).parent().width());
+
+	this.chart = new CanvasJS.Chart(canvas_id,{
+		backgroundColor: "transparent",
+		width: $("#"+canvas_id).parent().width(),
+		culture: "de",
+		creditHref: "",
+		creditText: "",	
+		title :{
+			text: title,
+			labelFontFamily: "Arial Black",
+			labelFontColor: "white",
+		},
+		axisX: {						
+			title: "",
+			labelFontColor: "white",
+			valueFormatString: "HH:mm",
+		},
+		axisY: {						
+			title: "",
+			labelFontColor: "white",
+		},
+		data: [{
+			type: "spline",
+			dataPoints : this.dps
+		}]
+	});
+	 
+	this.chart.render();
+	var t = this;
+	setInterval(function(){
+		
+		$.getJSON( url + "?tick="+ t.last_tick ,function( data ) {
+
+		  $.each( data, function( i,item ) {
+		    t.dps.push({x: new Date(item.seconds), y: item.price});
+		    t.last_tick = item.tick;
+		  });
+		  t.chart.render();
 		});
-		 
-		this.chart.render();
-		var t = this;
-		setInterval(function(){
-			
-			$.getJSON( url + "?tick="+ t.last_tick ,function( data ) {
+	}, this.updateInterval);
+}
 
-			  $.each( data, function( i,item ) {
-			    t.dps.push({x: new Date(item.seconds), y: item.price});
-			    t.last_tick = item.tick;
-			  });
-			  t.chart.render();
-			});
-		}, this.updateInterval);
+function Roller(elems,timer) {
+	this.elems = elems;
+	this.timer = timer;
+	this.i = 0;
+	self = this;
+
+	this.roll = function() {
+		console.log("roll " + self.i + " " + self.timer);
+		if (self.i >= self.elems.length) self.i = 0;
+		self.elems.hide();
+		$(self.elems.get(self.i)).show();
+		self.i++;
 	}
+
+	this.roll();
+
+	this.interval = setInterval(this.roll,this.timer);
+}
