@@ -59,9 +59,9 @@ class TransactionsController < ApplicationController
     end
     
     # check if seller actually owns enough of the stock
-    if seller.portfolio[@transaction.stock_id]
-      logger.debug seller.portfolio[@transaction.stock_id][:amount]
-      if seller.portfolio[@transaction.stock_id][:amount] < @transaction.amount
+    portfolio = seller.portfolio
+    if portfolio[:stocks][@transaction.stock_id]
+      if portfolio[:stocks][@transaction.stock_id][:amount] < @transaction.amount
         @notice = "Seller doesn't own enough stock"
         render action: error_action and return
       end
@@ -101,7 +101,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.all.order('created_at DESC')
   end
 
   # GET /transactions/1

@@ -1,25 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Balance:</strong>
-  <%= @user.balance %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @user.role %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @user.status %>
-</p>
-
 <%= render :partial => 'portfolio', :locals => {:user => @user} %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
