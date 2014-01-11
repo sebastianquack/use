@@ -35,7 +35,7 @@
       <tr>
           <th>Tickersymbol</th>
           <th>Titel</th>
-          <th>Anzahl</th>
+          <th>Anteil</th>
           <th>Einstiegskurs</th>
           <th>Investment</th>
           <th>aktueller Kurs</th>
@@ -50,7 +50,7 @@
   <tr>
       <td><%= stock_data[:stock].symbol %></td>
       <td><%= stock_data[:stock].name %></td>
-      <td><%= stock_data[:amount] %></td>
+      <td><%= stock_data[:amount] %>%</td>
       <td><%= stock_data[:investment] %>U</td>
       <td><% if stock_data[:amount] == 0 %>
               <%= 0 %>
@@ -70,6 +70,12 @@
     </table>
 
 </p>
+
+<p>
+  <strong>Zahl der Anteile insgesamt:</strong>
+  <%= portfolio[:total_stocks] %> (Rang <%= ranks[:num_stocks][:rank] %>)
+</p>
+
 
 <p>
   <strong>Investment absolut:</strong>

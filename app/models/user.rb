@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
     p[:total_value] = 0
     p[:total_profit] = 0  
     p[:balance] = self.balance
+    p[:total_stocks] = 0
       
     buys.each do |buy|
       stock = Stock.find(buy.stock_id)
@@ -46,6 +47,8 @@ class User < ActiveRecord::Base
     end
     
     p[:stocks].each do |stock_id, data|
+
+      p[:total_stocks] += data[:amount]
 
       # investment: how much did the user pay for the stocks he currently holds?
       buys = self.buyer_transactions.where(:stock_id => stock_id).order('created_at DESC')      
@@ -158,11 +161,12 @@ class User < ActiveRecord::Base
                  :value_abs => p[:total_value],
                  :value_rel => p[:total_value_rel],
                  :cash_in => p[:cash_in],
-                 :balance => p[:balance]
+                 :balance => p[:balance],
+                 :num_stocks => p[:total_stocks]
                }   
     end    
     
-    sort_keys = [:profit_abs, :profit_rel, :investment_abs, :investment_rel, :value_abs, :value_rel, :balance, :cash_in]
+    sort_keys = [:profit_abs, :profit_rel, :investment_abs, :investment_rel, :value_abs, :value_rel, :balance, :cash_in, :num_stocks]
     sort_keys.each { |key| data = User.add_rank data, key }
     
     data_hash = {}
