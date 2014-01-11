@@ -9,7 +9,220 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require scroller.css 
  */
+
+body {
+	background-color: #323232;
+	color: #ffffff;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+@font-face {
+  font-family: 'ProximaNovaThin';
+	src: url('ProximaNova-Thin.otf');
+}
+
+@font-face {
+  font-family: 'ProximaNovaLight';
+	src: url('Proxima Nova Light.otf');
+}
+
+
+h1, h2, h3 {
+	font-family: 'ProximaNovaThin';
+}
+
+h2, h3 {
+	font-size: 36px;
+}
+
+a, p, label, h4 {
+	font-family: 'ProximaNovaLight';
+}
+
+h4 {
+	padding-bottom: 5px;
+}
+
+a {
+	color: #fff;
+}
+
+.symbol {
+	font-family: 'Arial Black';
+}
+
+/**** SCROLLER ****/
+
+.scroll-container {
+	position: fixed;
+}
+
+#scroll-container-1 {
+	top: 0px;
+	height: 7vh;
+	line-height: 7vh;
+	background-color: #282828;
+	background-image: url(scroller-gradient.png);
+	background-size: 100% 100%;
+}
+
+#scroll-content-1 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
+	font-size: 7vh;
+	left: 0px;
+	top:-4px;
+}
+
+span.scroll-highlight {
+	font-family: 'Arial Black';
+	position: relative;
+	top: 2px;
+	line-height: 7vh;
+}
+
+#scroll-container-2 {
+	top:7vh;
+	background-color: #282828;
+	background-image:url("/assets/NYSE6-medium.jpg");
+	background-position: 50% 51%;
+	background-size: 100%;	
+	box-shadow: 0px 1px 1px #282828;
+	height: 7vh;
+}
+
+#scroll-content-2 {
+	font-family: 'ProximaNovaThin';
+	background-color: rgba(40,40,40,0.5);
+	color: #ffffff;
+	font-size: 7vh;
+	line-height: 7vh;
+	left: 0px;
+}
+
+#scroll-content-2 span.symbol {
+	text-transform:uppercase;
+	margin-right: 20px;
+}
+
+#scroll-container-3 {
+	bottom:0px;
+	background-color: #282828;
+	box-shadow: 0px 1px 1px #282828;
+	height: 40px;
+}
+
+#scroll-content-3 {
+	font-family: 'ProximaNovaThin';
+	color: #ffffff;
+	font-size: 40px;
+	line-height: 40px;
+	left: 0px;
+}
+
+/**** GENERAL ****/
+
+.u:after {
+	content: " U";
+}
+
+.indicator-neutral {
+	color:#0000FE;
+}
+
+.indicator-up {
+	color:#43FF07;
+}
+
+.indicator-down {
+	color:#F50006;
+}
+
+/**** PROJECTION PAGES ****/
+
+#projection .page {
+	overflow:auto;
+	background: rgb(22,28,152); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(22,28,152,1) 0%, rgba(104,194,126,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(22,28,152,1)), color-stop(100%,rgba(104,194,126,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(22,28,152,1) 0%,rgba(104,194,126,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(22,28,152,1) 0%,rgba(104,194,126,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(22,28,152,1) 0%,rgba(104,194,126,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(22,28,152,1) 0%,rgba(104,194,126,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#161c98', endColorstr='#68c27e',GradientType=0 ); /* IE6-9 */
+}
+
+#projection .page {
+	height:80vh;
+	margin-top:14vh
+}
+
+#projection .page .tile {
+	float:left;
+}
+
+#projection .page .tile1 { 
+	width: 75%;
+	height:70%;
+}
+#projection .page .tile2 { 
+	width: 25%;
+}
+#projection .page .tile3 { 
+	width: 75%; 
+}
+#projection .page .tile4 { 
+	width: 25%; 
+}
+
+#projection #page1 #chart-usx { 
+	height: 100%; 
+}
+
+.stock-mini-tile {
+	float:left;
+	width:12%;
+}
+
+.stock-mini {
+	padding:4px;
+	font-family: 'ProximaNovaLight';
+}
+
+.stock-mini h5 {
+}
+
+
+.top_users h4 {
+	font-family: 'Arial Black';
+	text-transform: uppercase;
+}
+
+.top_users dt, .top_users dd {
+	display:block;
+	overflow:hidden;
+	float:left;
+	font-family: 'ProximaNovaLight';
+}
+
+.top_users dt {
+	width:80%;
+	clear:left;
+}
+
+.top_users dd {
+	width:20%;
+}
+
+
+/**** HANDELSINTERFACE ****/
 
 .portfolio {
 	page-break-after:always;

@@ -6,6 +6,10 @@ class Stock < ActiveRecord::Base
   def chart
     return self.transactions.select("created_at, amount, price");
   end
+  
+  def price
+  	return self.transactions.last.price
+  end
 
   def next
     r = Stock.where("active = true AND id > ?", self.id).order("id ASC").first

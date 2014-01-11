@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require canvasjs.js
+//= require scroller.js
 
 
 function update_total() {
@@ -43,23 +44,29 @@ $(document).ready(function() {
 });
 
     function Chart(canvas_id, url, title) {
-	    this.updateInterval = 2000 + Math.random(2000);
+	    this.updateInterval = 5000 + Math.random(5000);
 
 		this.dps = [];   //dataPoints.
 		this.last_tick = 0;
 
 		this.chart = new CanvasJS.Chart(canvas_id,{
+			backgroundColor: "transparent",
 			title :{
-				text: title
+				text: title,
+				labelFontFamily: "Arial Black",
+				labelFontColor: "white",
 			},
 			axisX: {						
-				title: "Axis X Title"
+				title: "",
+				labelFontColor: "white",
+				valueFormatString: "HH:mm",
 			},
 			axisY: {						
-				title: "Units"
+				title: "",
+				labelFontColor: "white",
 			},
 			data: [{
-				type: "stepLine",
+				type: "spline",
 				dataPoints : this.dps
 			}]
 		});

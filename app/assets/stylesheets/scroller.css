@@ -1,0 +1,12 @@
+.scroll-container {
+	white-space: nowrap;
+	z-index: 50;
+	overflow: hidden;
+	width: 100%;
+}
+
+.scroll-content {
+	position: absolute;
+	top: 0px;
+	z-index: 100;
+}

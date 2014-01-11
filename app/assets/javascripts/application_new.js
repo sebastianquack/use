@@ -14,27 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.onepage-scroll.js
-
-function Scroller(content, step) {
-	this.scrollPos = 0;
-	this.scrollStep = step;
-	this.scrollContent = $(content);
-	this.scrollPlaceholder = this.scrollContent.clone();
-	this.scrollContent.parent().append(this.scrollPlaceholder);
-	this.scrollPlaceholder.css('left', this.scrollContent.width() + 'px');
-	this.start = function() {
-		var t = this;
-		this.interval = setInterval(function() {
-			//console.log('step: ' + t.scrollPos);
-			if(t.scrollPos < -$(t.scrollContent).width()) {
-				t.scrollPos += $(t.scrollContent).width();
-			}
-			t.scrollPos -= t.scrollStep;
-			$(t.scrollContent).css('left', t.scrollPos + 'px');		
-			$(t.scrollPlaceholder).css('left', t.scrollPos + $(t.scrollContent).width() + 'px');		
-		}, 25);
-	}
-}
+//= require scroller.js
 
 function setupSelectorEvents() {
 	$('.utopia-selector').click(function(e) {
@@ -60,12 +40,6 @@ function loadStock(id) {
 }
 
 $(document).ready(function() {
-
-  	topScroller1 = new Scroller('#scroll-content-1', 1);
-	topScroller1.start();
-
-	topScroller2 = new Scroller('#scroll-content-2', 3);
-	topScroller2.start();
 	
 	$(".main").onepage_scroll({
   		responsiveFallback: 1000
