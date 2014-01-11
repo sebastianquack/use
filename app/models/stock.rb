@@ -34,7 +34,7 @@ class Stock < ActiveRecord::Base
   def investment 
     total = 0
     User.where("role = 'player'").each do |user|
-      portfolio = user.portfolio
+      portfolio = user.portfolio_light
       if portfolio[:stocks][self.id]
         total += portfolio[:stocks][self.id][:investment]
       end
@@ -45,15 +45,23 @@ class Stock < ActiveRecord::Base
   def self.investments
     inv = {}
     Stock.where("active = true").each do |stock|
-      inv[stock.id] = stock.investment
+      inv[stock.id] = {}
+      inv[stock.id][:investment] = stock.investment
+      inv[stock.id][:stock] = stock
     end
     
-    inv_sorted_array = inv.sort_by {|key, value| -value} # we need this array because hashes cannot be sorted
+    inv_sorted_array = inv.sort_by {|key, value| -value[:investment]} # we need this array because hashes cannot be sorted
     hash_out = {}
     inv_sorted_array.each_with_index do |item, index|
-      hash_out[item[0]] = {:value => item[1], :rank => index + 1} # contruct output hash
+      # construct output hash
+      hash_out[item[0]] = {:stock => item[1][:stock], :value => item[1][:investment], :rank => index + 1} 
     end
     return hash_out
   end
-
+  
+  def rank 
+    ranks = Stock.investments
+    return ranks[self.id]
+  end
+  
 end

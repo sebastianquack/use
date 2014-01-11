@@ -1,7 +1,0 @@
-<% @stocks.each do |stock| %>
-
-<h1><%= stock.symbol %></h1>
-
-<p><%= render :partial => 'chart', :locals => {:stock => stock} %></p>
-
-<% end %>

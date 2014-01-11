@@ -1,0 +1,23 @@
+<h1>Rankings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Kurs</th>
+      <th>Investment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @investment_data.each do |key, value| %>
+      <tr>
+        <td><%= value[:stock].symbol %></td>
+        <td><%= value[:stock].name %></td>
+        <td><%= value[:stock].current_price %></td>
+        <td><%= value[:value] %> (Rang <%= value[:rank] %>)</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

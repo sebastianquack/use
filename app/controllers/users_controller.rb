@@ -31,6 +31,15 @@ class UsersController < ApplicationController
     render layout: "local"
   end  
   
+  def ranks 
+    @ranks = User.all_ranks    
+    if params[:sort_key]
+      sort_key = params[:sort_key]
+    else
+      sort_key = 'balance'
+    end  
+    @ranks_sorted = @ranks.sort_by {|key, value| -value[sort_key.to_sym][:value]}
+  end
   
   # ADMIN ACTIONS
 

@@ -9,6 +9,18 @@ class User < ActiveRecord::Base
     return b
   end
 
+  # helper function for relative percentages
+  def self.rel_percent x, y
+    if y == x
+      return 0
+    end
+    if y > x
+      return (((y - x) / x)*100).round(2)
+    else
+      return -(((x - y) / x)*100).round(2)
+    end
+  end
+
   def portfolio
     buys = self.buyer_transactions.where("transaction_type_id = 0").select("stock_id, sum(amount) as total").group("stock_id")
     sells = self.seller_transactions.where("transaction_type_id = 0").select("stock_id, sum(amount) as total").group("stock_id")
@@ -19,6 +31,7 @@ class User < ActiveRecord::Base
     p[:total_investment] = 0
     p[:total_value] = 0
     p[:total_profit] = 0  
+    p[:balance] = self.balance
       
     buys.each do |buy|
       stock = Stock.find(buy.stock_id)
@@ -64,11 +77,115 @@ class User < ActiveRecord::Base
       
     end
     
-    
+    p[:total_investment_rel] = ((p[:total_investment] / p[:cash_in]) * 100).round(2)
+    p[:total_profit_rel] = User.rel_percent p[:cash_in], p[:balance] 
+    p[:total_value_rel] = User.rel_percent p[:total_investment], p[:total_value] 
+
     return p
 
   end
 
+  # portfolio light - for use by stock ranking via total investment
+  def portfolio_light
+    
+    p = {}
+    p[:stocks] = {}
+    p[:total_investment] = 0
+   
+    # figure out which stocks the user currently has
+    buys = self.buyer_transactions.where("transaction_type_id = 0").select("stock_id, sum(amount) as total").group("stock_id")
+    sells = self.seller_transactions.where("transaction_type_id = 0").select("stock_id, sum(amount) as total").group("stock_id")      
+
+    buys.each do |buy|
+      # add stock amounts to portfolio according to buys
+      p[:stocks][buy.stock_id] = {:amount => buy.total}
+      sells.each do |sell|
+        if buy.stock_id == sell.stock_id
+          # subtract stocks from portfolio according to sells
+          p[:stocks][buy.stock_id][:amount] = buy.total - sell.total
+        end
+      end
+    end
+
+    # investments: how much did the user last pay for those stocks?
+    p[:stocks].each do |stock_id, data|
+      buys = self.buyer_transactions.where(:stock_id => stock_id).order('created_at DESC')      
+      counter = data[:amount]
+      investment = 0
+      buys.each do |buy|
+        if counter - buy.amount > 0
+          investment += buy.price * buy.amount
+        else
+          investment += buy.price * counter
+          break
+        end
+        counter -= buy.amount
+      end
+      data[:investment] = investment
+      p[:total_investment] += investment
+    end
+    
+    return p
+
+  end
+  
+  
+
+
+  # user ranks for profit_abs, profit_rel, investment_abs, investment_rel
+  
+  # helper function to add rank to array of hashes, according to key
+  def self.add_rank data, key
+    sorted = data.sort_by {|item| -item[key]}
+    sorted.each_with_index do |item, index|
+      value = item[key]
+      item[key] = {:value => item[key], :rank => index + 1} 
+    end    
+    return sorted
+  end
+
+  # collect all ranks for all users
+  def self.all_ranks 
+    data = []
+    User.where("role = 'player'").each do |user|
+      p = user.portfolio
+      data << {  :id => user.id,
+                 :name => user.name,
+                 :profit_abs => p[:total_profit], 
+                 :profit_rel => p[:total_profit_rel], 
+                 :investment_abs => p[:total_investment], 
+                 :investment_rel => p[:total_investment_rel],
+                 :value_abs => p[:total_value],
+                 :value_rel => p[:total_value_rel],
+                 :cash_in => p[:cash_in],
+                 :balance => p[:balance]
+               }   
+    end    
+    
+    sort_keys = [:profit_abs, :profit_rel, :investment_abs, :investment_rel, :value_abs, :value_rel, :balance, :cash_in]
+    sort_keys.each { |key| data = User.add_rank data, key }
+    
+    data_hash = {}
+    data.each do |item| 
+      single_user_values = {}
+      single_user_values[:name] = item[:name]
+      sort_keys.each do |key| 
+        single_user_values[key] = item[key]
+      end
+      data_hash[item[:id]] = single_user_values      
+    end
+    
+    return data_hash
+  end
+  
+  # extract ranks for single user
+  def ranks 
+    r = {}
+    data_hash = User.all_ranks    
+    return data_hash[self.id]
+  end
+  
+  # add amount euros to users balance
   def add_cash(amount)
     transaction = Transaction.new
     transaction.transaction_type_id = 1

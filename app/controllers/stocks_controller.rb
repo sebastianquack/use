@@ -6,11 +6,7 @@ class StocksController < ApplicationController
 
   def chart
   end
-  
-  def overview
-    @stocks = Stock.where('active = true')
-  end 
-  
+    
   def chart_data
     chart = @stock.chart
     a = []
@@ -36,6 +32,10 @@ class StocksController < ApplicationController
       end
     end     
     render json: a
+  end
+  
+  def ranking 
+    @investment_data = Stock.investments
   end
   
   # Admin Actions

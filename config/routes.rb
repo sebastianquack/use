@@ -4,6 +4,7 @@ Use::Application.routes.draw do
   get "display/tv"
   resources :settings
 
+  get 'users/highscores' => 'users#ranks'
   get 'users/show_public/:id' => 'users#show_public'
   get 'users/new_public' => 'users#new_public'
   post 'users/create_public' => 'users#create_public'
@@ -20,6 +21,7 @@ Use::Application.routes.draw do
   get 'stocks/usx_data' => 'stocks#usx_data'
   get 'stocks/chart_data/:id' => 'stocks#chart_data'
 
+  get 'stocks/ranking' => 'stocks#ranking'
   get 'stocks/chart/:id' => 'stocks#chart'
   get 'stocks/overview' => 'stocks#overview'
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
