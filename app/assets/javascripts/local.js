@@ -43,7 +43,7 @@ $(document).ready(function() {
 });
 
     function Chart(canvas_id, url, title) {
-	    this.updateInterval = 2000;
+	    this.updateInterval = 2000 + Math.random(2000);
 
 		this.dps = [];   //dataPoints.
 		this.last_tick = 0;
@@ -59,22 +59,22 @@ $(document).ready(function() {
 				title: "Units"
 			},
 			data: [{
-				type: "line",
+				type: "stepLine",
 				dataPoints : this.dps
 			}]
 		});
 		 
-		//this.chart.render();
-
-		//setInterval(function(){
-			var t = this;
-			$.getJSON( url, function( data ) {
+		this.chart.render();
+		var t = this;
+		setInterval(function(){
+			
+			$.getJSON( url + "?tick="+ t.last_tick ,function( data ) {
 
 			  $.each( data, function( i,item ) {
 			    t.dps.push({x: new Date(item.seconds), y: item.price});
-			    //t.last_tick = item.tick;
+			    t.last_tick = item.tick;
 			  });
 			  t.chart.render();
 			});
-		//}, updateInterval);
+		}, this.updateInterval);
 	}
