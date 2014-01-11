@@ -91,8 +91,9 @@ console.log($("#"+canvas_id).parent().width());
 		creditText: "",	
 		title :{
 			text: title,
-			labelFontFamily: "Arial Black",
-			labelFontColor: "white",
+			fontFamily: "Arial Black",
+			fontColor: "white",
+			horizontalAlign: "left",
 		},
 		axisX: {						
 			title: "",
@@ -104,7 +105,7 @@ console.log($("#"+canvas_id).parent().width());
 			labelFontColor: "white",
 		},
 		data: [{
-			type: "spline",
+			type: "stepLine",
 			dataPoints : this.dps
 		}]
 	});

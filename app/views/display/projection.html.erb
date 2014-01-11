@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="tile tile2">
-			<div class="roll" data-timer="15000">
+			<div class="roll" data-timer="10000">
 				<% Stock.where("active=true").each do |s| %>
 				<div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>">
 				</div>
