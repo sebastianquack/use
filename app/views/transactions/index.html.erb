@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>created_at</th>
       <th>Transaction type</th>
       <th>Seller</th>
       <th>Buyer</th>
@@ -18,6 +19,7 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
+        <td><%= transaction.created_at %></td>
         <td><%= transaction.transaction_type_id %></td>
         <td><%= transaction.seller_id %></td>
         <td><%= transaction.buyer_id %></td>

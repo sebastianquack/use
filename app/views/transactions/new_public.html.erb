@@ -1,4 +1,5 @@
-<p id="notice"><%= params[:notice] %></p>
+<%= render partial: 'menu' %>
+<p id="notice"><%= params[:notice] %><%= @notice %></p>
 
 <h1>New player to player transaction</h1>
 
@@ -19,19 +20,19 @@
   <%= f.hidden_field :transaction_type_id, :value => "0" %>
   
   <p>
-    <%= f.select :seller_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]} %>
+    <%= f.select :seller_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
     VERKAUFT AN 
-    <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]} %>
+    <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
   </p>
 
   <p>
-    <%= f.number_field :amount, value: 0 %>
+    <%= f.number_field :amount, value: 0, :autocomplete => :off %>
     ANTEILE DER UTOPIE
-    <%= f.select :stock_id, Stock.order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]} %>
+    <%= f.select :stock_id, Stock.where('active = true').order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]}, :prompt => "Please select" %>
  </p>
 
   <p>
-    ZUM PREIS VON JE <%= f.number_field :price, value: 0 %>
+    ZUM PREIS VON JE <%= f.number_field :price, value: 0, :autocomplete => :off %>
   </p>
   
   <p>DAS MACHT INSGESAMT: <span class="total">0</span></p>
@@ -40,3 +41,4 @@
     <%= f.submit 'TRANSAKTION DURCHFÜHREN' %>
   </div>
 <% end %>
+

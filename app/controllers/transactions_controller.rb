@@ -1,84 +1,90 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy, :transaction_result]
   
-  layout "admin"
+  layout "local"
 
   # Public Actions
 
   def new_public
     @transaction = Transaction.new
-    render layout: "local"
   end
 
   def new_public_utopist
     @transaction = Transaction.new
-    render layout: "local"
   end
   
   def add_cash_public
     @transaction = Transaction.new
-    render layout: "local"
   end
 
   def create_public
     @transaction = Transaction.new(transaction_params)
 
-    seller = User.find(@transaction.seller_id)
-    buyer = User.find(@transaction.buyer_id)
-
     if params['seller_role'] == 'utopist'
       # redirect to correct action
-      error_action = 'new_public_utopist'
-      
-      # utopists only sell their own stock
-      @transaction.stock_id = seller.buyer_transactions.first.stock_id
-      logger.debug @transaction.stock_id
+      error_action = 'new_public_utopist'      
     else
       error_action = 'new_public'      
     end
 
+    if @transaction.seller_id.blank? || @transaction.buyer_id.blank?
+      @notice = "Form not complete"
+      render action: error_action and return
+    end
+
+    seller = User.find(@transaction.seller_id)
+    buyer = User.find(@transaction.buyer_id)
+
+    # utopists only sell their own stock
+    if params['seller_role'] == 'utopist'
+      @transaction.stock_id = seller.buyer_transactions.first.stock_id
+    end
+        
+    if @transaction.stock_id.blank?
+      @notice = "Form not complete"
+      render action: error_action and return
+    end
+    
     # ist the buyer differnt from the seller?
     if seller.id == buyer.id
-      redirect_to action: error_action, notice: "Buyer and seller are identical"
-      return
+      @notice = "Buyer and seller are identical"
+      render action: error_action and return
     end
 
 
     # check if amount is > 0
     if @transaction.amount.to_i == 0 
-      redirect_to action: error_action, notice: "Transaction with 0 amount"
-      return
+      @notice = "Transaction with 0 amount"
+      render action: error_action and return
     end
     
     # check if seller actually owns enough of the stock
-    if seller.portfolio[@transaction.stock_id]
-      logger.debug seller.portfolio[@transaction.stock_id][:amount]
-      if seller.portfolio[@transaction.stock_id][:amount] < @transaction.amount
-        redirect_to action: error_action, notice: "Seller doesn't own enough stock"
-        return
+    portfolio = seller.portfolio
+    if portfolio[:stocks][@transaction.stock_id]
+      if portfolio[:stocks][@transaction.stock_id][:amount] < @transaction.amount
+        @notice = "Seller doesn't own enough stock"
+        render action: error_action and return
       end
     else
-      redirect_to action: error_action, notice: "Seller doesn't own enough stock"
-      return
+      @notice = "Seller doesn't own enough stock"
+      render action: error_action and return
     end
         
     # check if buyer has enough money
-    if buyer.balance < @transaction.price * @transaction.amount 
-        redirect_to action: error_action, notice: "Buyer doesn't have enough money"
-        return
+    if buyer.balance < @transaction.price.to_i * @transaction.amount.to_i
+        @notice = "Buyer doesn't have enough money"
+        render action: error_action and return
     end
 
-    respond_to do |format|
-      if @transaction.save
-        if @transaction.transaction_type_id == 0
-            format.html { redirect_to action: 'transaction_result', id: @transaction.id, notice: 'Transaction logged.' }
-        else
-            format.html { redirect_to controller: 'users', action: 'show_public', id: @transaction.seller_id, notice: 'Transaction logged.' }
-          end
-          
+    if @transaction.save
+      if @transaction.transaction_type_id == 0
+          redirect_to action: 'transaction_result', id: @transaction.id and return
       else
-        format.html { render action: 'new_public', notice: 'There was an error.' }
-      end
+          redirect_to controller: 'users', action: 'show_public', id: @transaction.seller_id, notice: 'Transaction logged.' and return
+      end  
+    else
+      @notice = 'There was an error saving the transaction.' 
+      render action: error_action and return
     end
   end
   
@@ -95,7 +101,7 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.all.order('created_at DESC')
   end
 
   # GET /transactions/1

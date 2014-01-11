@@ -1,12 +1,25 @@
 <div class="portfolio">
+<% portfolio = user.portfolio %>
+<% balance = user.balance %>
+
 <p>
   <strong>Name:</strong>
   <%= user.name %>
 </p>
 
 <p>
-  <strong>Balance:</strong>
-  <%= user.balance %>
+    <strong>Gesamt-Einsatz:</strong>
+    <%= portfolio[:cash_in] %>
+</p>
+
+<p>
+  <strong>Aktueller Kontostand:</strong>
+  <%= balance %>
+</p>
+
+<p>
+  <strong>Realer Gesamtgewinn bisher:</strong>
+  <%= portfolio[:total_profit] %> (<%= rel_percent portfolio[:cash_in], balance %>)
 </p>
 
 <p>
@@ -15,14 +28,32 @@
           <th>Tickersymbol</th>
           <th>Titel</th>
           <th>Anzahl</th>
+          <th>aktuell investiert</th>
+          <th>Durchschnittskurs Ankauf</th>
+          <th>Aktueller Kurs</th>
+          <th>Aktueller Gesamtwert</th>
+          <th>möglicher Gewinn jetzt</th>
+          <th>realer Gewinn bisher</th>
       </tr>
-      
-  <% user.portfolio.each do |stock_id, stock_data| %>
+     
+      <h1>Utopie-Aktien:</h1>
+  <% portfolio[:stocks].each do |stock_id, stock_data| %>
         
   <tr>
       <td><%= stock_data[:stock].symbol %></td>
       <td><%= stock_data[:stock].name %></td>
       <td><%= stock_data[:amount] %></td>
+      <td><%= stock_data[:investment] %></td>
+      <td><% if stock_data[:amount] == 0 %>
+              <%= 0 %>
+          <% else %>
+                <%= stock_data[:avg_price] %>
+            <% end %>
+      </td>
+      <td><%= stock_data[:stock].current_price %></td>
+      <td><%= stock_data[:value] %> (<%= rel_percent stock_data[:investment], stock_data[:value] %>)</td>
+      <td><%= stock_data[:value] - stock_data[:investment] %></td>
+      <td><%= stock_data[:profit] %></td>
   </tr>
 
 
@@ -31,4 +62,16 @@
     </table>
 
 </p>
+
+<p>
+  <strong>Aktuell investiert:</strong>
+  <%= portfolio[:total_investment] %>
+</p>
+
+<p>
+  <strong>Aktueller Portfoliowert:</strong>
+  <%= portfolio[:total_value]%> (<%= rel_percent portfolio[:total_investment], portfolio[:total_value] %>)
+</p>
+
+
 </div>

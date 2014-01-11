@@ -12,34 +12,58 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require canvasjs.js
 //= require scroller.js
 
 
 function update_total() {
+    console.log('update');
     $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
+    
 }
 
 $(document).ready(function() {
         
     update_total();
-    $('#transaction_amount').change(update_total);
-    $('#transaction_price').change(update_total);
+    $('#transaction_amount').keyup(update_total);
+    $('#transaction_price').keyup(update_total);
+    $('#transaction_amount').click(update_total);
+    $('#transaction_price').click(update_total);
+
+    if($('#new_transaction').length > 0) {
+        $('#new_transaction select')[0].focus();
+
+        $('#new_transaction').bind("keyup keypress", function(e) {
+            var code = e.keyCode || e.which; 
+            if (code  == 13) {               
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
 
     if($('.portfolio').length > 0) {
-        window.print();        
+        window.print(); 
+        if($('#utopist_seller').length > 0) {
+            document.location.href = "/transactions/new_public_utopist";        
+        } else {
+            document.location.href = "/transactions/new_public";        
+        }
     }
 
 
     // Charts
+    if($('#chart-usx').length > 0) {
+        new Chart ("chart-usx", "/stocks/usx_data", "USX");
+    }
 
-    new Chart ("chart-usx", "/stocks/usx_data", "USX");
-
-    $(".chart").each(function() {
-    	console.log($(this).data("id"));
-    	new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
-    });
+    if($('.chart').length > 0) {
+        $(".chart").each(function() {
+            console.log($(this).data("id"));
+            new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
+        });
+    }
 
 });
 
