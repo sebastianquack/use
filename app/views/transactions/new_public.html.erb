@@ -27,7 +27,7 @@
   <p>
     <%= f.number_field :amount, value: 0 %>
     ANTEILE DER UTOPIE
-    <%= f.select :stock_id, Stock.order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]} %>
+    <%= f.select :stock_id, Stock.where('active = true').order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]} %>
  </p>
 
   <p>

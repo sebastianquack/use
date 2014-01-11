@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
     end
         
     # check if buyer has enough money
-    if buyer.balance < @transaction.price * @transaction.amount 
+    if buyer.balance < @transaction.price.to_i * @transaction.amount.to_i
         redirect_to action: error_action, notice: "Buyer doesn't have enough money"
         return
     end
