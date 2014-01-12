@@ -26,13 +26,13 @@
   </p>
 
   <p>
-    <%= f.number_field :amount, value: 0, :autocomplete => :off %>
+    <%= f.number_field :amount, :autocomplete => :off %>
     ANTEILE DER UTOPIE
     <%= f.select :stock_id, Stock.where('active = true').order("name").collect {|s| [s.name + " ("+s.symbol+")", s.id]}, :prompt => "Please select" %>
  </p>
 
   <p>
-    ZUM PREIS VON JE <%= f.number_field :price, value: 0, :autocomplete => :off %>
+    ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off %>
   </p>
   
   <p>DAS MACHT INSGESAMT: <span class="total">0</span></p>

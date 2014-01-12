@@ -16,33 +16,61 @@
 //= require scroller.js
 
 
+// broker form
 function update_total() {
-    console.log('update');
     $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
-    
 }
 
 $(document).ready(function() {
-        
-    update_total();
-    $('#transaction_amount').keyup(update_total);
-    $('#transaction_price').keyup(update_total);
-    $('#transaction_amount').click(update_total);
-    $('#transaction_price').click(update_total);
 
-    if($('#new_transaction').length > 0) {
+    // broker form
+    
+    if($('#new_transaction').length > 0) {        
+        
+        update_total();
+        $('#transaction_amount').keyup(update_total);
+        $('#transaction_price').keyup(update_total);
+        $('#transaction_amount').click(update_total);
+        $('#transaction_price').click(update_total);
+
         $('#new_transaction select')[0].focus();
 
-        $('#new_transaction').bind("keyup keypress", function(e) {
+        // move to next field after selecting
+        $("#new_transaction select").change(function() {
+          console.log('next');
+          var fields = $("#new_transaction select, #new_transaction input");
+          fields.eq( fields.index(this) + 1 ).focus();
+        });        
+        // prevent form submit on enter except when submit button is in focus
+        $('#new_transaction').bind("keypress", function(e) {
             var code = e.keyCode || e.which; 
-            if (code  == 13) {               
+            if (code  == 13) {        
+                console.log($(':focus').attr('name'));       
+                if(!($(':focus').attr('name') == 'commit')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            if(code == 32) {
+                var fields = $("#new_transaction select, #new_transaction input");
+                fields.eq( fields.index($(':focus')) + 1 ).focus();                
                 e.preventDefault();
                 return false;
-            }
+            }    
+        });
+        // prevent submit button firing on space bar
+        $('#new_transaction input[type=submit]').bind("keypress keydown", function(e) {
+            var code = e.keyCode || e.which; 
+             if(code == 32) {
+                e.preventDefault();
+                $("#new_transaction select")[0].focus();
+                return false;                 
+             }             
         });
     }
 
-
+    // portfolio print out
+    
     if($('.portfolio').length > 0) {
         window.print(); 
         if($('#utopist_seller').length > 0) {

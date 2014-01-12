@@ -7,10 +7,14 @@ class TransactionsController < ApplicationController
 
   def new_public
     @transaction = Transaction.new
+    @transaction.price = 0
+    @transaction.amount = 0
   end
 
   def new_public_utopist
     @transaction = Transaction.new
+    @transaction.price = 0
+    @transaction.amount = 0
   end
   
   def add_cash_public
