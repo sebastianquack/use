@@ -23,5 +23,7 @@ module Use
     config.transaction_types = ["TRANSACTION", "CASH"]
     config.assets.paths << "#{Rails.root}/app/assets/fonts"    
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
   end
 end

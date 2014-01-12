@@ -1,3 +1,5 @@
+require 'linearregression'
+
 class Stock < ActiveRecord::Base
 
 	has_many :transactions, :class_name => "Transaction", :foreign_key => "stock_id"
@@ -59,9 +61,16 @@ class Stock < ActiveRecord::Base
     return hash_out
   end
   
-  def rank 
+  def rank # use with caution: expsensive!
     ranks = Stock.investments
     return ranks[self.id]
+  end
+  
+  def trend d = 10
+    latest_transactions = self.transactions.where('created_at > ?', d.minutes.ago).order('created_at ASC')
+    return 0 if latest_transactions.length < 2
+    l = LinearRegression.new latest_transactions.pluck(:price) 
+    return latest_transactions.first.price - l.next
   end
   
 end
