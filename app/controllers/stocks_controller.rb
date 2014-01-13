@@ -73,6 +73,7 @@ class StocksController < ApplicationController
       transaction.price = 0
       transaction.amount = 100
       transaction.save
+      transaction.update_users_stocks
       
     end
     

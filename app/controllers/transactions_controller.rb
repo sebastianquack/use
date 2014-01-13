@@ -55,7 +55,6 @@ class TransactionsController < ApplicationController
       render action: error_action and return
     end
 
-
     # check if amount is > 0
     if @transaction.amount.to_i == 0 
       @notice = "Transaction with 0 amount"
@@ -80,7 +79,8 @@ class TransactionsController < ApplicationController
         render action: error_action and return
     end
 
-    if @transaction.save
+    if @transaction.save 
+      @transaction.update_users_stocks # this saves portfolios, investments to cache
       if @transaction.transaction_type_id == 0
           redirect_to action: 'transaction_result', id: @transaction.id and return
       else

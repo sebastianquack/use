@@ -12,22 +12,22 @@
 
 <p>
     <strong>Grundeinsatz:</strong>
-    <%= portfolio[:cash_in] %>U (Rang <%= ranks[:cash_in][:rank] %>)
+    <%= portfolio[:cash_in] %>U (Rang <%= ranks[:cash_in][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>aktueller Kontostand:</strong>
-  <%= balance %>U (Rang <%= ranks[:balance][:rank] %>)
+  <%= balance %>U (Rang <%= ranks[:balance][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>Gesamtgewinn/-Verlust absolut:</strong>
-  <%= portfolio[:total_profit] %>U (Rang <%= ranks[:profit_abs][:rank] %>)
+  <%= portfolio[:total_profit] %>U (Rang <%= ranks[:profit_abs][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>Gesamtgewinn/-Verlust relativ:</strong>
-  <%= portfolio[:total_profit_rel] %>% (Rang <%= ranks[:profit_rel][:rank] %>)
+  <%= portfolio[:total_profit_rel] %>% (Rang <%= ranks[:profit_rel][:rank] if ranks %>)
 </p>
 
 <p>
@@ -73,28 +73,28 @@
 
 <p>
   <strong>Zahl der Anteile insgesamt:</strong>
-  <%= portfolio[:total_stocks] %> (Rang <%= ranks[:num_stocks][:rank] %>)
+  <%= portfolio[:total_stocks] %> (Rang <%= ranks[:num_stocks][:rank] if ranks %>)
 </p>
 
 
 <p>
   <strong>Investment absolut:</strong>
-  <%= portfolio[:total_investment] %>U (Rang <%= ranks[:investment_abs][:rank] %>)
+  <%= portfolio[:total_investment] %>U (Rang <%= ranks[:investment_abs][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>Anteil des Grundeinsatzes investiert:</strong>
-  <%= portfolio[:total_investment_rel] %>% (Rang <%= ranks[:investment_rel][:rank] %>)
+  <%= portfolio[:total_investment_rel] %>% (Rang <%= ranks[:investment_rel][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>aktueller Portfoliowert:</strong>
-  <%= portfolio[:total_value]%>U (Rang <%= ranks[:value_abs][:rank] %>)
+  <%= portfolio[:total_value]%>U (Rang <%= ranks[:value_abs][:rank] if ranks %>)
 </p>
 
 <p>
   <strong>Entwicklung des Investments:</strong>
-  <%= portfolio[:total_value_rel]%>% (Rang <%= ranks[:value_rel][:rank] %>)
+  <%= portfolio[:total_value_rel]%>% (Rang <%= ranks[:value_rel][:rank] if ranks %>)
 </p>
 
 </div>

@@ -109,7 +109,7 @@ function Chart(canvas_id, url, title) {
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
 
-console.log($("#"+canvas_id).parent().width());
+    console.log($("#"+canvas_id).parent().width());
 
 	this.chart = new CanvasJS.Chart(canvas_id,{
 		backgroundColor: "transparent",

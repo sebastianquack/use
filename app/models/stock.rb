@@ -1,6 +1,8 @@
 require 'linearregression'
 
 class Stock < ActiveRecord::Base
+  has_many :ownerships
+  has_many :owners, :through => :ownerships, :source => :user
 
 	has_many :transactions, :class_name => "Transaction", :foreign_key => "stock_id"
 	belongs_to :utopist, :class_name => "User", :foreign_key => "utopist_id"
@@ -33,22 +35,11 @@ class Stock < ActiveRecord::Base
     return r
   end
 
-  def investment 
-    total = 0
-    User.where("role = 'player'").each do |user|
-      portfolio = user.portfolio_light
-      if portfolio[:stocks][self.id]
-        total += portfolio[:stocks][self.id][:investment]
-      end
-    end
-    return total
-  end
-
   def self.investments
     inv = {}
     Stock.where("active = true").each do |stock|
       inv[stock.id] = {}
-      inv[stock.id][:investment] = stock.investment
+      inv[stock.id][:investment] = stock.investment # this value is updated after every transaction
       inv[stock.id][:stock] = stock
     end
     
@@ -61,7 +52,7 @@ class Stock < ActiveRecord::Base
     return hash_out
   end
   
-  def rank # use with caution: expsensive!
+  def rank
     ranks = Stock.investments
     return ranks[self.id]
   end
