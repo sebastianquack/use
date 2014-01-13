@@ -1,3 +1,5 @@
+include StocksHelper
+
 class User < ActiveRecord::Base
   has_many :ownerships
   has_many :stocks, :through => :ownerships
@@ -10,18 +12,6 @@ class User < ActiveRecord::Base
     b += self.seller_transactions.sum('price * amount')    
     b -= self.buyer_transactions.sum('price * amount')
     return b
-  end
-
-  # helper function for relative percentages
-  def self.rel_percent x, y
-    if y == x
-      return 0
-    end
-    if y > x
-      return (((y - x) / x)*100).round(2)
-    else
-      return -(((x - y) / x)*100).round(2)
-    end
   end
 
   # calculates and saves the current portfolio
@@ -112,14 +102,14 @@ class User < ActiveRecord::Base
     # calculate current value      
     p[:stocks].each do |stock_id, data|
       # value: how much is the stock currently worth on the market
-      data[:value] = data[:amount] * data[:stock].current_price
+      data[:value] = data[:amount] * data[:stock].price
       p[:total_value] += data[:value]      
     end
 
     # do some additional calculations
     p[:total_investment_rel] = ((self.investment / self.cash_in) * 100).round(2)
-    p[:total_profit_rel] = User.rel_percent p[:cash_in], p[:balance] 
-    p[:total_value_rel] = User.rel_percent p[:total_investment], p[:total_value] 
+    p[:total_profit_rel] = StocksHelper.rel_percent p[:cash_in], p[:balance] 
+    p[:total_value_rel] = StocksHelper.rel_percent p[:total_investment], p[:total_value] 
 
     return p
 

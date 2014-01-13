@@ -35,7 +35,7 @@ class StocksController < ApplicationController
   end
   
   def ranking 
-    @investment_data = Stock.investments
+    @investment_data = Stock.ranks
   end
   
   # Admin Actions

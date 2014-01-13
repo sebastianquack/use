@@ -4,7 +4,7 @@ class DisplayController < ApplicationController
 
   def projection
   	@stocks = Stock.where(:active => true);
-  	@top_users = User.where(:role => "player").limit(7)
+  	@ranks = User.all_ranks
   end
 
   def tv

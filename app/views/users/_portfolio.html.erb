@@ -58,7 +58,7 @@
                 <%= stock_data[:avg_price] %>U
             <% end %>
       </td>
-      <td><%= stock_data[:stock].current_price %>U</td>
+      <td><%= stock_data[:stock].price %>U</td>
       <td><%= stock_data[:value] %>U</td>
       <td><%= stock_data[:value] - stock_data[:investment] %>U (<%= rel_percent stock_data[:investment], stock_data[:value] %>)</td>
       <td><%= stock_data[:profit] %>U</td>

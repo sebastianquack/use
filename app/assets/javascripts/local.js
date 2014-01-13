@@ -81,7 +81,7 @@ $(document).ready(function() {
     }
 
 
-    // Charts
+    // charts
 
     $(".roll").each( function() {
     	elems = $(this).children();
@@ -89,7 +89,6 @@ $(document).ready(function() {
     	new Roller(elems, timer);
     });
     
-
     if($('#chart-usx').length > 0) {
         new Chart ("chart-usx", "/stocks/usx_data", "USX");
     }
@@ -100,8 +99,20 @@ $(document).ready(function() {
             new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
         });
     }
-
+    
+    // todo: update user info
+    // todo: update stock info
+        // todo: update scroller info
+        
 });
+
+function updateStockData(){
+    
+    
+    
+}
+
+
 
 function Chart(canvas_id, url, title) {
     this.updateInterval = 5000 + Math.random(5000);
@@ -150,6 +161,7 @@ function Chart(canvas_id, url, title) {
 		  });
 		  t.chart.render();
 		});
+        
 	}, this.updateInterval);
 }
 
