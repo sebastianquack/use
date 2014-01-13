@@ -4,5 +4,7 @@
     <span id="utopist_seller"></span>
 <% end %>
 
-<%= render :partial => 'users/portfolio', :locals => {:user => @transaction.buyer} %>
+<% unless @transaction.transaction_type_id == 1 %>
+    <%= render :partial => 'users/portfolio', :locals => {:user => @transaction.buyer} %>
+<% end %>
 

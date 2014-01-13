@@ -20,6 +20,7 @@ Use::Application.routes.draw do
   get 'transactions/new_public_utopist' => 'transactions#new_public_utopist'  
   get 'transactions/add_cash_public' => 'transactions#add_cash_public'  
   post 'transactions/create_public' => 'transactions#create_public'  
+  post 'transactions/create_cash_transaction' => 'transactions#create_cash_transaction'  
   get 'transactions/transaction_result' => 'transactions#transaction_result'  
   resources :transactions
 

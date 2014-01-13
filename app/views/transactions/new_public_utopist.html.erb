@@ -1,4 +1,7 @@
 <%= render partial: 'menu' %>
+
+<div class="transaction_form">
+
 <p id="notice"><%= params[:notice] %><%= @notice %></p>
 
 <h1>New utopist to player transaction</h1>
@@ -21,19 +24,20 @@
   <%= hidden_field_tag :seller_role, "utopist" %>
   
   <p>
-    <%= f.select :seller_id, User.where("role = 'utopist'").order("name").collect {|u| [u.name + ' (' + u.buyer_transactions.first.stock.symbol + ': ' + u.buyer_transactions.first.stock.name + ')', u.id]}, :prompt => "Please select" %>
+    <%= f.select :seller_id, Stock.where("active = true").order("symbol").collect {|stock| [stock.symbol + ' (' + stock.utopist.name + ')', stock.utopist.id]}, :prompt => "Please select" %>
     VERKAUFT AN 
     <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
   </p>
 
   <p>
-    <%= f.number_field :amount, :autocomplete => :off %>
-    ANTEILE SEINER/IHRER UTOPIE ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off %>
+    <%= f.number_field :amount, :autocomplete => :off, :min => 0 %>
+    ANTEILE SEINER/IHRER UTOPIE<br> 
+    ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off, :min => 0 %>DAS MACHT INSGESAMT: <span class="total">0</span>
   </p>
   
-  <p>DAS MACHT INSGESAMT: <span class="total">0</span></p>
-
   <div class="actions">
     <%= f.submit "TRANSAKTION DURCHFÜHREN" %>
   </div>
 <% end %>
+
+</div>

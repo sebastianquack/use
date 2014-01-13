@@ -178,6 +178,7 @@ class User < ActiveRecord::Base
     transaction.amount = amount
     transaction.save
     self.update_portfolio
+    return transaction
   end
 
 end

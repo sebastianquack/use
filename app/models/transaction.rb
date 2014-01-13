@@ -23,9 +23,13 @@ class Transaction < ActiveRecord::Base
     if self.seller 
       self.seller.update_portfolio
     end
-    self.buyer.update_portfolio
-    self.stock.investment = Ownership.where(:stock_id => self.stock_id).sum(:investment)               
-    self.stock.save
+    if self.buyer
+      self.buyer.update_portfolio
+    end
+    if self.stock
+      self.stock.investment = Ownership.where(:stock_id => self.stock_id).sum(:investment)               
+      self.stock.save
+    end
   end
 
 end
