@@ -26,6 +26,13 @@ $(document).ready(function() {
     // broker form
     
     if($('#new_transaction').length > 0) {        
+
+        // automatically update base price of utopist transaction    
+        if($('.utopist-transaction').length > 0) {
+            $('#transaction_seller_id').change(function() {
+                $('#transaction_price').val($('#transaction_seller_id option:selected').data('base_price'));
+            });
+        }
         
         update_total();
         $('#transaction_amount').keyup(update_total);

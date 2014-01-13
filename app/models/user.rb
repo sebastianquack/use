@@ -93,6 +93,10 @@ class User < ActiveRecord::Base
     # copy cached ownership info into portfolio data structure
     p[:stocks] = {}    
     Ownership.where(:user_id => self.id).each do |o|
+      if o.amount.nil?
+        o.amount = 0
+        o.save
+      end
       p[:stocks][o.stock_id] = {:amount => o.amount, :stock => o.stock, :investment => o.investment, :avg_price => o.avg_price, :profit => o.profit}
       p[:total_stocks] += o.amount
     end

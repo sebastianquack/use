@@ -6,7 +6,7 @@
 
 <h1>New utopist to player transaction</h1>
 
-<%= form_for(@transaction, :url => {:action => "create_public"}) do |f| %>
+<%= form_for(@transaction, :url => {:action => "create_public"}, :html => {:class => "utopist-transaction"}) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -24,7 +24,12 @@
   <%= hidden_field_tag :seller_role, "utopist" %>
   
   <p>
-    <%= f.select :seller_id, Stock.where("active = true").order("symbol").collect {|stock| [stock.symbol + ' (' + stock.utopist.name + ')', stock.utopist.id]}, :prompt => "Please select" %>
+      <select id="transaction_seller_id" name="transaction[seller_id]">
+             <option value="">Please select</option>
+             <% Stock.where("active = true").order("symbol").each do |stock|%>
+                 <option value="<%= stock.utopist.id %>" data-base_price="<%= stock.base_price %>"><%= stock.symbol %> (<%= stock.utopist.name %>)</option>
+            <% end %>
+        </select>
     VERKAUFT AN 
     <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
   </p>
@@ -32,7 +37,7 @@
   <p>
     <%= f.number_field :amount, :autocomplete => :off, :min => 0 %>
     ANTEILE SEINER/IHRER UTOPIE<br> 
-    ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off, :min => 0 %>DAS MACHT INSGESAMT: <span class="total">0</span>
+    ZUM PREIS VON JE <%= f.number_field :price, :readonly => true, :autocomplete => :off, :min => 0 %>DAS MACHT INSGESAMT: <span class="total">0</span>
   </p>
   
   <div class="actions">
