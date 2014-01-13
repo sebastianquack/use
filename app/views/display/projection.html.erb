@@ -1,38 +1,19 @@
 <div id="projection">
 
 	<div id="scroll-container-1" class="scroll-container">
-        <div id="scroll-content-1" class="scroll-content" data-step="1">UTOPIA STOCK EXCHANGE <span class="scroll-highlight">18 01 2014 19:30&nbsp;</span></div>
+        <div id="scroll-content-1" class="scroll-content" data-step="1" data-url="/display/projection_scroll_1">
+            <%= render partial: 'projection_scroll_1' %>
+        </div>
     </div>
 	<div id="scroll-container-2" class="scroll-container">
-        <div id="scroll-content-2" class="scroll-content" data-step="3">
-	
-		    <% @stocks.order(:symbol).each do |stock|%>
-                <span class="symbol"><%= stock.symbol %></span>
-			    <%= stock.name %>
-            <% end %>
+        <div id="scroll-content-2" class="scroll-content" data-step="3" data-url="/display/projection_scroll_2">
+	        <%= render partial: 'projection_scroll_2' %>
         </div>
     </div>
 
 	<div id="scroll-container-3" class="scroll-container">
-        <div id="scroll-content-3" class="scroll-content" data-step="5">
-        
-		<% @stocks.order(:symbol).each do |stock|%>
-            <% trend = stock.trend %>
-			<span class="symbol"><%= stock.symbol %></span>
-			<span class="price u"><%= stock.price %></span>
-			<span class="percentage"><%= format_trend trend %></span>
-			<span class="indicator">
-                <% if trend > 0 %>
-                    <abbr class="indicator-up">▲</abbr>
-                <% elsif trend == 0 %>
-                    <abbr class="indicator-neutral">■</abbr>
-                <% elsif trend < 0 %>
-                    <abbr class="indicator-down">▼</abbr>
-                <% end %>                
-            </span>
-            
-		<% end %>
-
+        <div id="scroll-content-3" class="scroll-content" data-step="5" data-url="/display/projection_scroll_3">
+            <%= render partial: 'projection_scroll_3' %>
         </div>
     </div>
 
@@ -44,7 +25,7 @@
 		</div>
 
 		<div class="tile tile2">
-			<div class="roll" data-timer="10000">
+			<div class="roll" data-timer="5000">
 				<% @stocks.order(:symbol).each do |s| %>
 				<div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>">
 				</div>
@@ -52,12 +33,11 @@
 			</div>			
 		</div>
 
-		<div class="tile tile3 top_stocks">
-			<h4>Vertrauen</h4>
+		<div class="tile tile3 top_stocks auto-update" data-url="/display/stock_overview">
             <%= render :partial => 'stock_overview' %>
 		</div>
 
-		<div class="tile tile4 top_users">
+		<div class="tile tile4 top_users roll" data-timer="5000" data-update-after="1" data-url="/display/top_users">
 		    <%= render :partial => 'top_users' %>
 		</div>		
 

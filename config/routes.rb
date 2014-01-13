@@ -1,8 +1,14 @@
 Use::Application.routes.draw do
 
+  # projection
   get "display/projection"
+  get "display/stock_overview" #ajax
+  get "display/top_users" #ajax
+  get "display/projection_scroll_1" #ajax
+  get "display/projection_scroll_2" #ajax
+  get "display/projection_scroll_3" #ajax
+
   get "display/tv"
-  resources :settings
 
   get 'users/highscores' => 'users#ranks'
   get 'users/show_public/:id' => 'users#show_public'
@@ -29,6 +35,8 @@ Use::Application.routes.draw do
   get 'stocks/previous/:id' => 'stocks#previous'
   get 'stocks/reset_utopists' => 'stocks#reset_utopists'
   resources :stocks
+
+  resources :settings
 
   get 'show/:id' => 'welcome#index'
   post 'utopias/create' => 'utopias#create_public'

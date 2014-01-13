@@ -80,15 +80,25 @@ $(document).ready(function() {
         }
     }
 
-
-    // charts
-
+    // rolling
+    var rollers = [];
     $(".roll").each( function() {
-    	elems = $(this).children();
+    	//elems = $(this).children();
     	timer = parseInt($(this).data("timer"));
-    	new Roller(elems, timer);
+    	var roller = new Roller($(this), timer);
+        roller.start();
+        rollers.push(roller);
     });
     
+    // auto-update user info and stock info    
+    var updaters = [];
+    $('.auto-update').each(function(index) {
+        updaters.push(new Updater($(this), $(this).data('url'), 10000));
+        updaters[index].start();
+    });
+
+    
+    // charts
     if($('#chart-usx').length > 0) {
         new Chart ("chart-usx", "/stocks/usx_data", "USX");
     }
@@ -99,20 +109,63 @@ $(document).ready(function() {
             new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
         });
     }
-    
-    // todo: update user info
-    // todo: update stock info
-        // todo: update scroller info
         
 });
 
-function updateStockData(){
-    
-    
-    
+function Roller(container, timer) {
+	this.container = container;
+	this.timer = timer;
+	this.url = container.data('url');
+    this.update_after = container.data('update-after');
+    this.update_counter = 0;
+    this.i = 0;
+    this.update_html = null;
+
+    this.start = function() {
+        var self = this;
+        self.interval = setInterval(function() {          
+
+            // load update when last child is reached
+            if(self.url && self.i == self.container.children().length) {
+              if(self.update_counter >= self.update_counter) {
+                  // load update
+                  $.get(self.url, function( data ) {
+                     self.update_html = data;
+                  });
+              } else {
+                  self.update_counter++;
+                }
+            }
+
+    		if (self.i >= self.container.children().length) {              
+    		  self.i = 0;  
+            }  
+
+            // display update when it is ready
+            if(self.update_html) {
+                self.container.html(self.update_html);
+                self.update_html = null;
+            }
+            self.container.children().hide();
+            $(self.container.children().get(self.i)).show();
+            console.log("rolled to " + self.i + " " + self.timer);
+            self.i++;
+
+        }, self.timer);
+    }
 }
 
-
+function Updater(element, url, updateInterval) {
+    this.url = url;
+    this.element = element;
+	this.start = function() {
+		var t = this;
+    	this.interval = setInterval(function() {    
+            console.log("update: " + t.url);
+            $(t.element).load(t.url);                            
+    	}, updateInterval);
+    }
+}
 
 function Chart(canvas_id, url, title) {
     this.updateInterval = 5000 + Math.random(5000);
@@ -165,21 +218,3 @@ function Chart(canvas_id, url, title) {
 	}, this.updateInterval);
 }
 
-function Roller(elems,timer) {
-	this.elems = elems;
-	this.timer = timer;
-	this.i = 0;
-	self = this;
-
-	this.roll = function() {
-		console.log("roll " + self.i + " " + self.timer);
-		if (self.i >= self.elems.length) self.i = 0;
-		self.elems.hide();
-		$(self.elems.get(self.i)).show();
-		self.i++;
-	}
-
-	this.roll();
-
-	this.interval = setInterval(this.roll,this.timer);
-}

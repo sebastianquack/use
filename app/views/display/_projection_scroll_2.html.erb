@@ -1,0 +1,4 @@
+<% @stocks.order(:symbol).each do |stock|%>
+    <span class="symbol"><%= stock.symbol %></span>
+    <%= stock.name %>
+<% end %>

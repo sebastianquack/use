@@ -1,14 +1,14 @@
-<div class="roll" data-timer="10000">
-	<% sort_keys = [:balance, :profit_abs, :profit_rel] %>
-	<% sort_names = ['Kontostand', 'Gewinn absolut', 'Gewinn relativ'] %>
-    <% sort_format = ['u', 'u', '%'] %>
+
+	<% sort_keys = [:balance, :profit_abs, :profit_rel, :investment_abs] %>
+	<% sort_names = ['Kontostand', 'Gewinn absolut', 'Gewinn relativ', 'Investition'] %>
+    <% sort_format = ['u', 'u', '%', 'u'] %>
     <% sort_keys.each_with_index do |sort_key, index| %>
     <div>
         <% ranks_sorted = @ranks.sort_by {|key, value| -value[sort_key][:value]} %>
         <h4>Top Trader <%= sort_names[index] %></h4>
         <dl>
-            <% ranks_sorted.each do |rank|%>
-                <dt><%= rank[1][sort_key][:rank] %>. <%= rank[1][:name] %></dt>
+            <% ranks_sorted.each_with_index do |rank, index2|%>
+                <dt><%= index2 + 1 %>. <%= rank[1][:name] %></dt>
                 <dd 
                     <% if sort_format[index] == 'u' %> 
                         class="u" 
@@ -18,4 +18,4 @@
         </dl>		            
     </div>
     <% end %>
-</div>			
+

@@ -58,7 +58,7 @@ class Stock < ActiveRecord::Base
     return 0.0 if latest_transactions.length < 2
     l = LinearRegression.new latest_transactions.pluck(:price) 
     t = StocksHelper.rel_percent latest_transactions.first.price, l.next
-    return 100
+    return t
   end
   
 end
