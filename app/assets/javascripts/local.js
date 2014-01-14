@@ -107,6 +107,10 @@ console.log($("#"+canvas_id).parent().width());
 		data: [{
 			type: "stepLine",
 			dataPoints : this.dps
+		},
+		{
+			type: "spline",
+			dataPoints: this.dps
 		}]
 	});
 	 
