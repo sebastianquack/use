@@ -7,14 +7,35 @@ class TransactionsController < ApplicationController
 
   def new_public
     @transaction = Transaction.new
+    @transaction.price = 0
+    @transaction.amount = 0
   end
 
   def new_public_utopist
     @transaction = Transaction.new
+    @transaction.price = 0
+    @transaction.amount = 0
   end
   
-  def add_cash_public
+  def add_cash_public    
     @transaction = Transaction.new
+  end
+
+  def create_cash_transaction
+    @transaction = Transaction.new(transaction_params)
+    error_action = 'add_cash_public'
+
+    # check if amount is > 0
+    if @transaction.amount.to_i <= 0 
+      @notice = "Transaction with 0 amount"
+      render action: error_action and return
+    end
+  
+    seller = User.find(@transaction.seller_id)    
+    @transaction = seller.add_cash(@transaction.amount)
+    
+    redirect_to action: 'transaction_result', id: @transaction.id and return
+
   end
 
   def create_public
@@ -51,9 +72,8 @@ class TransactionsController < ApplicationController
       render action: error_action and return
     end
 
-
     # check if amount is > 0
-    if @transaction.amount.to_i == 0 
+    if @transaction.amount.to_i <= 0 
       @notice = "Transaction with 0 amount"
       render action: error_action and return
     end
@@ -76,12 +96,9 @@ class TransactionsController < ApplicationController
         render action: error_action and return
     end
 
-    if @transaction.save
-      if @transaction.transaction_type_id == 0
-          redirect_to action: 'transaction_result', id: @transaction.id and return
-      else
-          redirect_to controller: 'users', action: 'show_public', id: @transaction.seller_id, notice: 'Transaction logged.' and return
-      end  
+    if @transaction.save 
+      @transaction.update_users_stocks # this saves portfolios, investments to cache
+      redirect_to action: 'transaction_result', id: @transaction.id and return
     else
       @notice = 'There was an error saving the transaction.' 
       render action: error_action and return

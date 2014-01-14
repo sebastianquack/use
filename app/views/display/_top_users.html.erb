@@ -1,0 +1,21 @@
+
+	<% sort_keys = [:balance, :profit_abs, :profit_rel, :investment_abs] %>
+	<% sort_names = ['Kontostand', 'Gewinn absolut', 'Gewinn relativ', 'Investition'] %>
+    <% sort_format = ['u', 'u', '%', 'u'] %>
+    <% sort_keys.each_with_index do |sort_key, index| %>
+    <div>
+        <% ranks_sorted = @ranks.sort_by {|key, value| -value[sort_key][:value]} %>
+        <h4>Top Trader <%= sort_names[index] %></h4>
+        <dl>
+            <% ranks_sorted.each_with_index do |rank, index2|%>
+                <dt><%= index2 + 1 %>. <%= rank[1][:name] %></dt>
+                <dd 
+                    <% if sort_format[index] == 'u' %> 
+                        class="u" 
+                    <% end %> 
+                ><% if sort_format[index] == '%' %><%= format_trend rank[1][sort_key][:value] %><% else %><%= format_u rank[1][sort_key][:value] %><% end %></dd>
+            <% end %>	
+        </dl>		            
+    </div>
+    <% end %>
+

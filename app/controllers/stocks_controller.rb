@@ -35,7 +35,7 @@ class StocksController < ApplicationController
   end
   
   def ranking 
-    @investment_data = Stock.investments
+    @investment_data = Stock.ranks
   end
   
   # Admin Actions
@@ -47,6 +47,7 @@ class StocksController < ApplicationController
     
     # get rid of all transactions and reset Users
     Transaction.all.destroy_all
+    Ownership.all.destroy_all
     
     User.where("role = 'player'").each do |u|
       u.add_cash(Setting.first.base_cash_in)
@@ -73,6 +74,7 @@ class StocksController < ApplicationController
       transaction.price = 0
       transaction.amount = 100
       transaction.save
+      transaction.update_users_stocks
       
     end
     
@@ -163,6 +165,6 @@ class StocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_params
-      params.require(:stock).permit(:name, :symbol, :description, :utopist_name, :active, :tick)
+      params.require(:stock).permit(:name, :symbol, :description, :utopist_name, :active, :tick, :base_price)
     end
 end

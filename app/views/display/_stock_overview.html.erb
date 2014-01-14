@@ -1,0 +1,25 @@
+<h4>Hoffnung</h4>
+<% ranks = Stock.ranks %>
+<% ranks.each do |key, value|%>
+    <% stock = value[:stock] %>
+    <% price = stock.price %>
+    <% trend = stock.trend %>
+	<div class="stock-mini-tile">
+		<div class="stock-mini">
+			Platz <%= value[:rank] %><h5 class="symbol"><%= stock.symbol %> </h5>
+			<div class="investment u" data-stock-symbol="<%= stock.symbol %>" data-stock-attr="investment"><%= number_with_delimiter(stock.investment.to_i, delimiter: '.') %></div>
+			<div>			
+                <span class="price u"><%= format_u stock.price %></span>
+                <span class="indicator">
+                <% if stock.trend > 0 %>
+                    <abbr class="indicator-up">▲</abbr>
+                <% elsif trend == 0 %>
+                    <abbr class="indicator-neutral">■</abbr>
+                <% elsif trend < 0 %>
+                    <abbr class="indicator-down">▼</abbr>
+                <% end %>                
+                </span>
+            </div>
+		</div>
+	</div>
+<% end %>

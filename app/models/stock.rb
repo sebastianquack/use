@@ -1,9 +1,13 @@
+require 'linearregression'
+
 class Stock < ActiveRecord::Base
+  has_many :ownerships
+  has_many :owners, :through => :ownerships, :source => :user
 
 	has_many :transactions, :class_name => "Transaction", :foreign_key => "stock_id"
 	belongs_to :utopist, :class_name => "User", :foreign_key => "utopist_id"
 
-  def current_price
+  def price
     return self.transactions.order("created_at").last.price
   end
 
@@ -11,10 +15,6 @@ class Stock < ActiveRecord::Base
     return self.transactions.select("created_at, amount, price");
   end
   
-  def price
-  	return self.transactions.last.price
-  end
-
   def next
     r = Stock.where("active = true AND id > ?", self.id).order("id ASC").first
     if r.nil?
@@ -31,22 +31,11 @@ class Stock < ActiveRecord::Base
     return r
   end
 
-  def investment 
-    total = 0
-    User.where("role = 'player'").each do |user|
-      portfolio = user.portfolio_light
-      if portfolio[:stocks][self.id]
-        total += portfolio[:stocks][self.id][:investment]
-      end
-    end
-    return total
-  end
-
-  def self.investments
+  def self.ranks
     inv = {}
     Stock.where("active = true").each do |stock|
       inv[stock.id] = {}
-      inv[stock.id][:investment] = stock.investment
+      inv[stock.id][:investment] = stock.investment # this value is updated after every transaction
       inv[stock.id][:stock] = stock
     end
     
@@ -59,9 +48,17 @@ class Stock < ActiveRecord::Base
     return hash_out
   end
   
-  def rank 
-    ranks = Stock.investments
+  def rank
+    ranks = Stock.ranks
     return ranks[self.id]
+  end
+  
+  def trend d = 10
+    latest_transactions = self.transactions.where('created_at > ?', d.minutes.ago).order('created_at ASC')
+    return 0.0 if latest_transactions.length < 2
+    l = LinearRegression.new latest_transactions.pluck(:price) 
+    t = StocksHelper.rel_percent latest_transactions.first.price, l.next
+    return t
   end
   
 end

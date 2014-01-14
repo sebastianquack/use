@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110115539) do
+ActiveRecord::Schema.define(version: 20140113230052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ownerships", force: true do |t|
+    t.integer  "stock_id"
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.float    "investment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "profit"
+    t.float    "avg_price"
+  end
 
   create_table "settings", force: true do |t|
     t.float    "exchange_rate"
@@ -32,6 +43,8 @@ ActiveRecord::Schema.define(version: 20140110115539) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "utopist_id"
+    t.float    "investment"
+    t.float    "base_price",   default: 0.0
   end
 
   create_table "transactions", force: true do |t|
@@ -52,6 +65,9 @@ ActiveRecord::Schema.define(version: 20140110115539) do
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "cash_in"
+    t.float    "profit"
+    t.float    "investment"
   end
 
   create_table "utopias", force: true do |t|

@@ -107,16 +107,17 @@ span.scroll-highlight {
 	left: 0px;
 }
 
-#scroll-content-2 span.symbol {
+#scroll-content-2 span.symbol, #scroll-content-3 span.symbol {
 	text-transform:uppercase;
-	margin-right: 20px;
+	margin-left: 20px;
 }
 
 #scroll-container-3 {
 	bottom:0px;
 	background-color: #282828;
 	box-shadow: 0px 1px 1px #282828;
-	height: 40px;
+	/*height: 40px;*/
+	height: 6vh;
 }
 
 #scroll-content-3 {
@@ -130,7 +131,7 @@ span.scroll-highlight {
 /**** GENERAL ****/
 
 .u:after {
-	content: " U";
+	content: "U";
 }
 
 .indicator-neutral {
@@ -209,6 +210,10 @@ span.scroll-highlight {
 .stock-mini h5 {
 }
 
+.top_stocks h4 {
+	font-family: 'Arial Black';
+	text-transform: uppercase;	
+}
 
 .top_users h4 {
 	font-family: 'Arial Black';
@@ -223,16 +228,30 @@ span.scroll-highlight {
 }
 
 .top_users dt {
-	width:80%;
+	width:70%;
 	clear:left;
 }
 
 .top_users dd {
-	width:20%;
+	width:30%;
 }
 
 
 /**** HANDELSINTERFACE ****/
+
+.transaction_form {
+	margin: 20px;
+	font-size: 200%;
+}
+
+
+.transaction_form form select, .transaction_form form input {
+	font-size: 100%;
+	margin: 20px;
+	padding: 5px;
+}
+
+/**** PRINT ****/
 
 .portfolio {
 	page-break-after:always;
@@ -241,3 +260,4 @@ span.scroll-highlight {
 .portfolio:last-child {
 	page-break-after:avoid;
 }
+

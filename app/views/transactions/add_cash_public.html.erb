@@ -1,6 +1,10 @@
-<p id="notice"><%= params[:notice] %></p>
+<%= render partial: 'menu' %>
 
-<%= form_for(@transaction, :url => {:action => "create_public"}) do |f| %>
+<div class="transaction_form">
+
+<p id="notice"><%= params[:notice] %><%= @notice %></p>
+
+<%= form_for(@transaction, :url => {:action => "create_cash_transaction"}) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -16,16 +20,15 @@
   <%= f.hidden_field :transaction_type_id, :value => "1" %>
   <%= f.hidden_field :price, :value => Setting.first.exchange_rate %>
 
-  <div class="field">
-    <%= f.label :seller_id %><br>
-    <%= f.select :seller_id, User.order("name").collect {|u| [u.name, u.id]} %>
-  </div>
-  <p>Exchange rate: <%= Setting.first.exchange_rate %></p>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.number_field :amount %>
-  </div>
+  <p>User <%= f.select :seller_id, User.where(:role => 'player').order("name").collect {|u| [u.name, u.id]} %></p>
+
+  <p>Wechselkurs: <%= Setting.first.exchange_rate %></p>
+
+  <p>Betrag: <%= f.number_field :amount, :autocomplete => :off, :min => 0 %> €</p>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Einzahlen" %>
   </div>
 <% end %>
+
+</div>

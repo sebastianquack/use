@@ -16,33 +16,68 @@
 //= require scroller.js
 
 
+// broker form
 function update_total() {
-    console.log('update');
     $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
-    
 }
 
 $(document).ready(function() {
-        
-    update_total();
-    $('#transaction_amount').keyup(update_total);
-    $('#transaction_price').keyup(update_total);
-    $('#transaction_amount').click(update_total);
-    $('#transaction_price').click(update_total);
 
-    if($('#new_transaction').length > 0) {
+    // broker form
+    
+    if($('#new_transaction').length > 0) {        
+
+        // automatically update base price of utopist transaction    
+        if($('.utopist-transaction').length > 0) {
+            $('#transaction_seller_id').change(function() {
+                $('#transaction_price').val($('#transaction_seller_id option:selected').data('base_price'));
+            });
+        }
+        
+        update_total();
+        $('#transaction_amount').keyup(update_total);
+        $('#transaction_price').keyup(update_total);
+        $('#transaction_amount').click(update_total);
+        $('#transaction_price').click(update_total);
+
         $('#new_transaction select')[0].focus();
 
-        $('#new_transaction').bind("keyup keypress", function(e) {
+        // move to next field after selecting
+        $("#new_transaction select").change(function() {
+          console.log('next');
+          var fields = $("#new_transaction select, #new_transaction input");
+          fields.eq( fields.index(this) + 1 ).focus();
+        });        
+        // prevent form submit on enter except when submit button is in focus
+        $('#new_transaction').bind("keypress", function(e) {
             var code = e.keyCode || e.which; 
-            if (code  == 13) {               
+            if (code  == 13) {        
+                console.log($(':focus').attr('name'));       
+                if(!($(':focus').attr('name') == 'commit')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            if(code == 32) {
+                var fields = $("#new_transaction select, #new_transaction input");
+                fields.eq( fields.index($(':focus')) + 1 ).focus();                
                 e.preventDefault();
                 return false;
-            }
+            }    
+        });
+        // prevent submit button firing on space bar
+        $('#new_transaction input[type=submit]').bind("keypress keydown", function(e) {
+            var code = e.keyCode || e.which; 
+             if(code == 32) {
+                e.preventDefault();
+                $("#new_transaction select")[0].focus();
+                return false;                 
+             }             
         });
     }
 
-
+    // portfolio print out
+    
     if($('.portfolio').length > 0) {
         window.print(); 
         if($('#utopist_seller').length > 0) {
@@ -52,16 +87,25 @@ $(document).ready(function() {
         }
     }
 
-
-    // Charts
-
+    // rolling
+    var rollers = [];
     $(".roll").each( function() {
-    	elems = $(this).children();
+    	//elems = $(this).children();
     	timer = parseInt($(this).data("timer"));
-    	new Roller(elems, timer);
+    	var roller = new Roller($(this), timer);
+        roller.start();
+        rollers.push(roller);
     });
     
+    // auto-update user info and stock info    
+    var updaters = [];
+    $('.auto-update').each(function(index) {
+        updaters.push(new Updater($(this), $(this).data('url'), 10000));
+        updaters[index].start();
+    });
 
+    
+    // charts
     if($('#chart-usx').length > 0) {
         new Chart ("chart-usx", "/stocks/usx_data", "USX");
     }
@@ -72,8 +116,63 @@ $(document).ready(function() {
             new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
         });
     }
-
+        
 });
+
+function Roller(container, timer) {
+	this.container = container;
+	this.timer = timer;
+	this.url = container.data('url');
+    this.update_after = container.data('update-after');
+    this.update_counter = 0;
+    this.i = 0;
+    this.update_html = null;
+
+    this.start = function() {
+        var self = this;
+        self.interval = setInterval(function() {          
+
+            // load update when last child is reached
+            if(self.url && self.i == self.container.children().length) {
+              if(self.update_counter >= self.update_counter) {
+                  // load update
+                  $.get(self.url, function( data ) {
+                     self.update_html = data;
+                  });
+              } else {
+                  self.update_counter++;
+                }
+            }
+
+    		if (self.i >= self.container.children().length) {              
+    		  self.i = 0;  
+            }  
+
+            // display update when it is ready
+            if(self.update_html) {
+                self.container.html(self.update_html);
+                self.update_html = null;
+            }
+            self.container.children().hide();
+            $(self.container.children().get(self.i)).show();
+            console.log("rolled to " + self.i + " " + self.timer);
+            self.i++;
+
+        }, self.timer);
+    }
+}
+
+function Updater(element, url, updateInterval) {
+    this.url = url;
+    this.element = element;
+	this.start = function() {
+		var t = this;
+    	this.interval = setInterval(function() {    
+            console.log("update: " + t.url);
+            $(t.element).load(t.url);                            
+    	}, updateInterval);
+    }
+}
 
 function Chart(canvas_id, url, title) {
     this.updateInterval = 5000 + Math.random(5000);
@@ -81,7 +180,7 @@ function Chart(canvas_id, url, title) {
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
 
-console.log($("#"+canvas_id).parent().width());
+    console.log($("#"+canvas_id).parent().width());
 
 	this.chart = new CanvasJS.Chart(canvas_id,{
 		backgroundColor: "transparent",
@@ -126,24 +225,7 @@ console.log($("#"+canvas_id).parent().width());
 		  });
 		  t.chart.render();
 		});
+        
 	}, this.updateInterval);
 }
 
-function Roller(elems,timer) {
-	this.elems = elems;
-	this.timer = timer;
-	this.i = 0;
-	self = this;
-
-	this.roll = function() {
-		console.log("roll " + self.i + " " + self.timer);
-		if (self.i >= self.elems.length) self.i = 0;
-		self.elems.hide();
-		$(self.elems.get(self.i)).show();
-		self.i++;
-	}
-
-	this.roll();
-
-	this.interval = setInterval(this.roll,this.timer);
-}

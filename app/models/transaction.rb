@@ -19,4 +19,17 @@ class Transaction < ActiveRecord::Base
 		return usx
 	end
 
+  def update_users_stocks
+    if self.seller 
+      self.seller.update_portfolio
+    end
+    if self.buyer
+      self.buyer.update_portfolio
+    end
+    if self.stock
+      self.stock.investment = Ownership.where(:stock_id => self.stock_id).sum(:investment)               
+      self.stock.save
+    end
+  end
+
 end
