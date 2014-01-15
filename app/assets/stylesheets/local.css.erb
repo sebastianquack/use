@@ -33,6 +33,21 @@ body {
 	src: url('Proxima Nova Light.otf');
 }
 
+@font-face {
+  font-family: 'ProximaNova';
+	src: url('Proxima Nova Reg.otf');
+}
+
+@font-face {
+  font-family: 'UnicaHaas';
+	src: url('ShUnicaHaas-Regular.woff');
+}
+
+@font-face {
+  font-family: 'UnicaHaas';
+	src: url('ShUnicaHaas-Bold.woff');
+	font-weight: bold;
+}
 
 h1, h2, h3 {
 	font-family: 'ProximaNovaThin';
@@ -56,6 +71,15 @@ a {
 
 .symbol {
 	font-family: 'Arial Black';
+}
+
+p#notice {
+	text-align: center;
+	background-color: red;
+	font-weight:bold;
+	position:fixed;
+	top:0;
+	right:0;
 }
 
 /**** SCROLLER ****/
@@ -131,7 +155,13 @@ span.scroll-highlight {
 /**** GENERAL ****/
 
 .u:after {
-	content: "U";
+	/*content: "U";*/
+	content: ' \0000a0 \0000a0 \0000a0 ';
+	white-space: pre;
+	background-image: url("/assets/u-solid-white.png");
+	background-size: auto 80%;
+	background-repeat: no-repeat;
+	background-position: 0 50%;
 }
 
 .indicator-neutral {
@@ -236,7 +266,12 @@ span.scroll-highlight {
 	width:30%;
 }
 
+/**** TV ****/
 
+#tv {
+	background:black;
+	min-height:100%;
+}
 /**** HANDELSINTERFACE ****/
 
 .transaction_form {
@@ -251,13 +286,161 @@ span.scroll-highlight {
 	padding: 5px;
 }
 
-/**** PRINT ****/
+/**** PORTFOLIO ****/
 
 .portfolio {
-	page-break-after:always;
+	background:white;
+	color:black;
+	padding:8%;
 }
 
-.portfolio:last-child {
-	page-break-after:avoid;
+.portfolio h2 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
+
+.portfolio strong {
+	font-weight: normal;
+	padding-right: 1em;
+}
+
+.portfolio .username {
+	font-size: 2em;
+	margin-bottom: 20px;
+}
+
+.portfolio #bigtime {
+	font-size: 3em;
+	margin-bottom: 10px;
+	font-weight:bold;
+}
+
+.portfolio table {
+	text-align: left;
+	border-collapse: collapse;
+	margin-bottom: 40px;
+}
+
+.portfolio table + table.info-table {
+	margin-top: 0px;
+}
+
+.portfolio table.info-table + table.info-table {
+	margin-top: -30px;
+}
+
+.portfolio table th {
+	font-weight:bold;
+}
+
+.portfolio table td {
+	font-weight: normal;
+	text-align:right;
+}
+
+.portfolio table thead th {
+	text-transform: uppercase;
+	font-weight:bold;
+}
+
+.portfolio table tbody th {
+	font-weight:normal;
+	min-width:100px;
+}
+
+.portfolio table th,
+.portfolio table td {
+	padding:1ex;
+	border:black solid;
+	border-width: 0 1px 1px 0;
+	font-size: 16px;
+}
+
+.portfolio table.info-table th {
+	font-weight: bold;
+}
+
+.portfolio table.info-table th,
+.portfolio table.info-table td {
+	padding-left:0;
+	padding-top: 0;
+	padding-bottom: 0;
+	border:none;
+}
+
+.portfolio table.info-table-small th,
+.portfolio table.info-table-small td {
+	font-weight: 80%;
+}
+
+/*fonts*/
+
+.portfolio h2,
+.portfolio table th,
+.portfolio table thead th,
+.portfolio #bigtime,
+.portfolio strong {
+	font-family:"UnicaHaas";
+	letter-spacing: 0.02ex;
+}
+
+.portfolio table td,
+.portfolio .username {
+	font-family:'ProximaNova';
+}
+
+/**** PRINT ****/
+
+@media only screen {
+	.only-print {
+		display:none;
+	}
+}
+
+@media print {
+
+	body {
+		background: white;
+		color:black;
+		width:100%;
+		height:100%;
+	}
+
+	.u:after {
+		content: "U";
+	}
+
+	#print-header {
+		position:absolute;
+		top:0;
+		right:0;
+	}
+
+	#print-footer {
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+
+	.portfolio #print-header img {
+		width:120px;
+		position:absolute;
+		right:0;
+	}
+
+	.portfolio #print-footer img {
+		width:100%;
+	}
+
+	.portfolio {
+		page-break-after:always;
+		padding:0;
+	}
+
+	.portfolio:last-child {
+		page-break-after:avoid;
+	}
+
+ }
 

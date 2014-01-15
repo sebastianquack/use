@@ -76,17 +76,6 @@ $(document).ready(function() {
         });
     }
 
-    // portfolio print out
-    
-    if($('.portfolio').length > 0) {
-        window.print(); 
-        if($('#utopist_seller').length > 0) {
-            document.location.href = "/transactions/new_public_utopist";        
-        } else {
-            document.location.href = "/transactions/new_public";        
-        }
-    }
-
     // rolling
     var rollers = [];
     $(".roll").each( function() {
@@ -116,7 +105,24 @@ $(document).ready(function() {
             new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
         });
     }
+
+    // 100% height
+    windowHeight = $(window).height();
+    $('.viewportheight').css('height', windowHeight);
         
+});
+
+$( window ).load(function() {
+    // portfolio print out
+    
+    if($('.portfolio').length > 0) {     
+        window.print(); 
+        if($('#utopist_seller').length > 0) {
+            document.location.href = "/transactions/new_public_utopist";        
+        } else {
+            document.location.href = "/transactions/new_public";        
+        }
+    }
 });
 
 function Roller(container, timer) {
@@ -207,10 +213,11 @@ function Chart(canvas_id, url, title) {
 			type: "stepLine",
 			dataPoints : this.dps
 		},
+        /*
 		{
 			type: "spline",
 			dataPoints: this.dps
-		}]
+		}*/]
 	});
 	 
 	this.chart.render();

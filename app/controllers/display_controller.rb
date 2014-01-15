@@ -7,6 +7,11 @@ class DisplayController < ApplicationController
   	@ranks = User.all_ranks
   end
 
+  def tv
+    @stocks = Stock.where(:active => true)
+    @ranks = User.all_ranks
+  end
+
   # ajax actions
 
   def stock_overview
@@ -32,6 +37,4 @@ class DisplayController < ApplicationController
     render :partial => 'projection_scroll_3'
   end
     
-  def tv
-  end
 end

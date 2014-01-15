@@ -3,38 +3,49 @@
 <% balance = user.balance %>
 <% ranks = user.ranks %>
 
-<p>
-  <strong>Name:</strong>
-  <%= user.name %>
+<h1>USE Übersicht</h1>
+<p class="username">
+  <strong><%= user.name %></strong>
+  
 </p>
 
-<h1>Ihr Konto</h1>
-
-<p>
-    <strong>Grundeinsatz:</strong>
-    <%= portfolio[:cash_in] %>U (Rang <%= ranks[:cash_in][:rank] if ranks %>)
+<p id="bigtime">
+  <%= Time.now.strftime("%H:%M:%S") %>
 </p>
 
-<p>
-  <strong>aktueller Kontostand:</strong>
-  <%= balance %>U (Rang <%= ranks[:balance][:rank] if ranks %>)
-</p>
+<h2>Ihr Konto</h2>
 
-<p>
-  <strong>Gesamtgewinn/-Verlust absolut:</strong>
-  <%= portfolio[:total_profit] %>U (Rang <%= ranks[:profit_abs][:rank] if ranks %>)
-</p>
+<table class="info-table">
+  <tr>
+    <th>Grundeinsatz:</th>
+    <td class="u"><%= portfolio[:cash_in] %></td>
+    <td>(Rang <%= ranks[:cash_in][:rank] if ranks %>)</td>
+  </tr>
+  <tr>
+    <th>aktueller Kontostand:</th>
+    <td class="u"><%= balance %></td>
+    <td>(Rang <%= ranks[:balance][:rank] if ranks %>)</td>
+  </tr>
+</table>
 
-<p>
-  <strong>Gesamtgewinn/-Verlust relativ:</strong>
-  <%= portfolio[:total_profit_rel] %>% (Rang <%= ranks[:profit_rel][:rank] if ranks %>)
-</p>
+<table class="info-table">
+  <tr>
+    <th>Gesamtgewinn/-Verlust absolut:</th>
+    <td class="u"><%= portfolio[:total_profit] %></td>
+    <td>(Rang <%= ranks[:profit_abs][:rank] if ranks %>)</td>
+  </tr>
+  <tr>
+    <th>Gesamtgewinn/-Verlust relativ:</th>
+    <td><%= portfolio[:total_profit_rel] %>%</td>
+    <td>(Rang <%= ranks[:profit_rel][:rank] if ranks %>)</td>
+  </tr>
+</table>
 
-<p>
-  <table>
+<h2>Ihre Utopie-Aktien</h2>
+  <table class="portfolio-table">
+    <thead>
       <tr>
-          <th>Tickersymbol</th>
-          <th>Titel</th>
+          <th>Aktie</th>
           <th>Anteile</th>
           <th>Einstiegskurs</th>
           <th>Investment</th>
@@ -43,58 +54,67 @@
           <th>möglicher Gewinn/Verlust jetzt</th>
           <th>realer Gewinn/Verlust bisher</th>
       </tr>
-     
-      <h1>Ihre Utopie-Aktien</h1>
+     </thead>
+     <tbody>
   <% portfolio[:stocks].each do |stock_id, stock_data| %>
         
   <tr>
-      <td><%= stock_data[:stock].symbol %></td>
-      <td><%= stock_data[:stock].name %></td>
+      <th><%= stock_data[:stock].symbol %></th>
       <td><%= stock_data[:amount] %></td>
-      <td><%= stock_data[:investment] %>U</td>
+      <td class="u"><%= stock_data[:investment] %></td>
       <td><% if stock_data[:amount] == 0 %>
               <%= 0 %>
           <% else %>
                 <%= stock_data[:avg_price] %>U
             <% end %>
       </td>
-      <td><%= stock_data[:stock].price %>U</td>
-      <td><%= stock_data[:value] %>U</td>
-      <td><%= stock_data[:value] - stock_data[:investment] %>U (<%= rel_percent stock_data[:investment], stock_data[:value] %>)</td>
-      <td><%= stock_data[:profit] %>U</td>
+      <td class="u"><%= stock_data[:stock].price %></td>
+      <td class="u"><%= stock_data[:value] %></td>
+      <td class="u"><%= stock_data[:value] - stock_data[:investment] %> (<%= rel_percent stock_data[:investment], stock_data[:value] %>)</td>
+      <td class="u"><%= stock_data[:profit] %></td>
   </tr>
 
 
   <% end %>
+  </tbody>
+</table>
 
-    </table>
+<table class="info-table info-table-small">
+  <tr>
+    <th>Zahl der Anteile insgesamt:</th>
+    <td><%= portfolio[:total_stocks] %></td>
+    <td>(Rang <%= ranks[:num_stocks][:rank] if ranks %>)</td>
+  </tr>
+  <tr>
+    <th>Investment absolut:</th>
+    <td class="u"><%= portfolio[:total_investment] %></td>
+    <td>(Rang <%= ranks[:investment_abs][:rank] if ranks %>)</td>
+  </tr>
+  <tr>
+    <th>Anteil des Grundeinsatzes investiert:</th>
+    <td><%= portfolio[:total_investment_rel] %>% </td>
+    <td>(Rang <%= ranks[:investment_rel][:rank] if ranks %>)</td>
+  </tr>
 
-</p>
+  <tr>
+    <th>aktueller Portfoliowert:</th>
+    <td class="u"><%= portfolio[:total_value]%></td>
+    <td>(Rang <%= ranks[:value_abs][:rank] if ranks %>)</td>
+  </tr>
 
-<p>
-  <strong>Zahl der Anteile insgesamt:</strong>
-  <%= portfolio[:total_stocks] %> (Rang <%= ranks[:num_stocks][:rank] if ranks %>)
-</p>
+  <tr>
+    <th>Entwicklung des Investments:</th>
+    <td><%= portfolio[:total_value_rel]%>% </td>
+    <td>(Rang <%= ranks[:value_rel][:rank] if ranks %>)</td>
+  </tr>
+</table>
 
+<div id="print-header" class="only-print">
+   <img src="/assets/print-header.png">
+</div>
 
-<p>
-  <strong>Investment absolut:</strong>
-  <%= portfolio[:total_investment] %>U (Rang <%= ranks[:investment_abs][:rank] if ranks %>)
-</p>
-
-<p>
-  <strong>Anteil des Grundeinsatzes investiert:</strong>
-  <%= portfolio[:total_investment_rel] %>% (Rang <%= ranks[:investment_rel][:rank] if ranks %>)
-</p>
-
-<p>
-  <strong>aktueller Portfoliowert:</strong>
-  <%= portfolio[:total_value]%>U (Rang <%= ranks[:value_abs][:rank] if ranks %>)
-</p>
-
-<p>
-  <strong>Entwicklung des Investments:</strong>
-  <%= portfolio[:total_value_rel]%>% (Rang <%= ranks[:value_rel][:rank] if ranks %>)
-</p>
+<footer id="print-footer" class="only-print">
+  <img src="/assets/print-footer.png">
+</footer>
 
 </div>
