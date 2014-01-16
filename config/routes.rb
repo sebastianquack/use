@@ -1,5 +1,8 @@
 Use::Application.routes.draw do
 
+  get "/market_sessions/end/:id" => 'market_sessions#end_session'
+  resources :market_sessions
+
   # projection
   get "display/projection"
   get "display/stock_overview" #ajax

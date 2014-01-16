@@ -15,12 +15,6 @@
 //= require canvasjs.js
 //= require scroller.js
 
-
-// broker form
-function update_total() {
-    $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
-}
-
 $(document).ready(function() {
 
     // broker form
@@ -86,7 +80,10 @@ $(document).ready(function() {
             document.location.href = "/transactions/new_public";        
         }
     }
-
+    
+    var countdown = new Countdown(".countdown");
+    countdown.start();
+    
     // rolling
     var rollers = [];
     $(".roll").each( function() {
@@ -161,6 +158,52 @@ function Roller(container, timer) {
         }, self.timer);
     }
 }
+
+function Countdown(e) {
+
+    this.e = e
+    this.countdown_target = $(this.e).data('countdown-to');
+    this.url = $(this.e).data('url');
+    this.active = false;
+    
+    this.start = function() {
+        var t = this;
+    	this.interval = setInterval(function() {    
+
+                var now = new Date();
+                var total_seconds_left = t.countdown_target - Math.floor(now.getTime() / 1000);
+		
+                var days_left = Math.floor(total_seconds_left / 86400);
+        		var hours_left = Math.floor(total_seconds_left / 3600) - days_left * 24;
+        		var minutes_left = Math.floor(total_seconds_left / 60) - (days_left * 1440 + hours_left * 60);
+        		var seconds_left = total_seconds_left - (days_left * 86400 + hours_left * 3600 + minutes_left * 60);
+                if(seconds_left < 10) {
+                    seconds_left = '0' + seconds_left;
+                }
+                var countdown_string = minutes_left + ":" + seconds_left;
+
+        		if(total_seconds_left <= 0) {
+        		   countdown_string = '0:00';
+                   if(t.active) {
+                       $.get(t.url, function(data) {
+                           console.log(data);
+                       });
+                    }  
+                   t.active = false;
+        		} else {
+        		   t.active = true;
+        		}
+        
+                $(t.e).html(countdown_string);
+        });
+    }
+}
+
+// broker form
+function update_total() {
+    $('.total').html($('#transaction_amount').val() * $('#transaction_price').val());
+}
+
 
 function Updater(element, url, updateInterval) {
     this.url = url;

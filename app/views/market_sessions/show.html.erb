@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @market_session.duration %>
+</p>
+
+<p>
+  <strong>Max survivors:</strong>
+  <%= @market_session.max_survivors %>
+</p>
+
+<%= link_to 'Edit', edit_market_session_path(@market_session) %> |
+<%= link_to 'Back', market_sessions_path %>

@@ -4,7 +4,8 @@ class DisplayController < ApplicationController
 
   def projection
   	@stocks = Stock.where(:active => true)
-  	@ranks = User.all_ranks
+  	@ranks = User.all_ranks    
+    @market_session = MarketSession.order('created_at DESC').first
   end
 
   # ajax actions
@@ -19,6 +20,7 @@ class DisplayController < ApplicationController
   end
 
   def projection_scroll_1
+    @market_session = MarketSession.order('created_at DESC').first
     render :partial => 'projection_scroll_1'
   end
 
