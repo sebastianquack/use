@@ -61,22 +61,26 @@
     <td><!--(Rang <%= ranks[:num_stocks][:rank] if ranks %>)--></td>
   </tr>
   <tr>
+    <td colspan="3" class="spacer"></td>
+  <tr>
+  <tr>
     <th>Investment absolut:</th>
     <td class="u"><%= format_u portfolio[:total_investment] %></td>
-    <td class="rank">Rang <%= ranks[:investment_abs][:rank] if ranks %></td>
+    <td class="rank"><!--Rang <%= ranks[:investment_abs][:rank] if ranks %>--></td>
   </tr>
 
   <tr>
     <th>aktueller Portfoliowert:</th>
     <td class="u"><%= format_u portfolio[:total_value]%></td>
-    <td><!--(Rang <%= ranks[:value_abs][:rank] if ranks %>)--></td>
+    <!--td>(Rang <%= ranks[:value_abs][:rank] if ranks %>)</td-->
+    <td>(<%= format_trend portfolio[:total_value_rel]%>)</td>
   </tr>
 
-  <tr>
-    <th>Entwicklung des   Portfolios:</th>
+  <!--tr>
+    <th>Entwicklung des Portfolios:</th>
     <td><%= portfolio[:total_value_rel]%>% </td>
-    <td><!--(Rang <%= ranks[:value_rel][:rank] if ranks %>)--></td>
-  </tr>
+    <td>(Rang <%= ranks[:value_rel][:rank] if ranks %>)</td>
+  </tr-->
 </table>
 
 <h2>Ihr Konto</h2>
@@ -88,17 +92,17 @@
     <td><!--(Rang <%= ranks[:balance][:rank] if ranks %>)--></td>
   </tr>
   <tr>
+    <td colspan="3" class="spacer"></td>
+  <tr>
     <th>Grundeinsatz:</th>
     <td class="u"><%= format_u portfolio[:cash_in] %></td>
     <td><!--(Rang <%= ranks[:cash_in][:rank] if ranks %>)--></td>
   </tr>  
-</table>
-
-<table class="info-table">
   <tr>
     <th>Gesamtgewinn/-Verlust:</th>
-    <td><span class="u"><%= format_u portfolio[:total_profit] %></span> (<%= format_trend portfolio[:total_profit_rel] %>)</td>
-    <td class="rank">Rang <%= ranks[:profit_abs][:rank] if ranks %></td>
+    <td><span class="u"><%= format_u portfolio[:total_profit] %></span></td>
+    <td>(<%= format_trend portfolio[:total_profit_rel] %>)</td>
+    <!--td class="rank">Rang <%= ranks[:profit_abs][:rank] if ranks %></td-->
   </tr>
 </table>
 

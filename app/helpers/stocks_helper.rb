@@ -24,7 +24,7 @@ module StocksHelper
   end
 
   def format_u n
-    return number_with_precision(n, precision: 0, separator: ',', delimiter: "'")
+    return number_with_precision(n, precision: 0, separator: ',', delimiter: ".")
   end
 
 end

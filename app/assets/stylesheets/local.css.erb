@@ -219,12 +219,17 @@ span.scroll-highlight {
 	height: 100%; 
 }
 
+#projection #page1 .tile2 .roll { 
+	padding:10px 10px 40px 10px;
+}
+
 #projection #page1 .roll .chart { 
 	height: 100%; 
 }
 
 #projection .page .chart {
 	width:100%;
+	height:100%;
 }
 
 .stock-mini-tile {
@@ -330,19 +335,22 @@ span.scroll-highlight {
 	content: "\00a0 ";
 }
 
+.portfolio .spacer {
+}
+
+
 .portfolio table {
 	text-align: left;
 	border-collapse: collapse;
 	margin-bottom: 40px;
 }
 
-.portfolio table + table.info-table {
-	margin-top: -10px;
+.portfolio table  + table {
+	margin-top: -20px;
 }
 
-.portfolio table.info-table + table.info-table,
- {
-	margin-top: -30px;
+.portfolio table.portfolio-table  + table {
+	margin-top: -10px;
 }
 
 .portfolio table th {
