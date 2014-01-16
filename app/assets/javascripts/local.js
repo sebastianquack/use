@@ -69,17 +69,6 @@ $(document).ready(function() {
              }             
         });
     }
-
-    // portfolio print out
-    
-    if($('.portfolio').length > 0) {
-        window.print(); 
-        if($('#utopist_seller').length > 0) {
-            document.location.href = "/transactions/new_public_utopist";        
-        } else {
-            document.location.href = "/transactions/new_public";        
-        }
-    }
     
     var countdown = new Countdown(".countdown");
     countdown.start();
@@ -122,7 +111,7 @@ $(document).ready(function() {
 
 $( window ).load(function() {
     // portfolio print out
-    
+   
     if($('.portfolio').length > 0) {     
         window.print(); 
         if($('#utopist_seller').length > 0) {
