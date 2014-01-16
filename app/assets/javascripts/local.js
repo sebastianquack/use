@@ -246,15 +246,21 @@ function Chart(canvas_id, url, title) {
 		axisX: {						
 			title: "",
 			labelFontColor: "white",
-			valueFormatString: "HH:mm",
+			/*valueFormatString: "HH:mm",*/
+            gridThickness: 0,
+            /*maximum: new Date(1389781102),*/
 		},
 		axisY: {						
 			title: "",
 			labelFontColor: "white",
+            gridThickness: 0,
 		},
 		data: [{
 			type: "stepLine",
-			dataPoints : this.dps
+            markerType: "none",
+            lineThickness: 3,
+            color: "#43FF07",
+			dataPoints : this.dps,
 		},
         /*
 		{
@@ -263,7 +269,7 @@ function Chart(canvas_id, url, title) {
 		}*/]
 	});
 	 
-	this.chart.render();
+	/*this.chart.render();*/
 	var t = this;
 	setInterval(function(){
 		
