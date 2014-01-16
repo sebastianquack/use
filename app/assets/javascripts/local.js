@@ -25,6 +25,7 @@ $(document).ready(function() {
         if($('.utopist-transaction').length > 0) {
             $('#transaction_seller_id').change(function() {
                 $('#transaction_price').val($('#transaction_seller_id option:selected').data('base_price'));
+                $('.remaining').html($('#transaction_seller_id option:selected').data('stock_left'));
             });
         }
         
