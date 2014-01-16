@@ -14,7 +14,7 @@ module StocksHelper
 
   def format_trend n
     if n == 0
-      return '+0,00%'
+      return '0,00%'
     end
     if n > 0 
       return '+' + number_with_precision(n, precision: 2, separator: ',').to_s + '%'
@@ -24,7 +24,7 @@ module StocksHelper
   end
 
   def format_u n
-    return number_with_precision(n, precision: 0, separator: ',', delimiter: '.')
+    return number_with_precision(n, precision: 0, separator: ',', delimiter: "'")
   end
 
 end
