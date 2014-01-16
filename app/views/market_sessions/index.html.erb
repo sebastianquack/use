@@ -1,0 +1,37 @@
+<h1>Listing market_sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>Duration</th>
+      <th>Time left</th>
+      <th>Max survivors</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @market_sessions.order('created_at DESC').each_with_index do |market_session, index| %>
+      <tr>
+        <td><%= market_session.created_at %></td>
+        <td><%= market_session.duration %></td>
+        <% if index == 0 %>
+            <td class="countdown" data-countdown-to="<%= market_session.created_at.to_i + (market_session.duration * 60) %>"></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td><%= market_session.max_survivors %></td>
+        <td><%= link_to 'Show', market_session %></td>
+        <td><%= link_to 'Edit', edit_market_session_path(market_session) %></td>
+        <td><%= link_to 'Destroy', market_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Market session', new_market_session_path %>

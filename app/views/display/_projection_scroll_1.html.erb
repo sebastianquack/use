@@ -1,1 +1,1 @@
-UTOPIA STOCK EXCHANGE <span class="scroll-highlight">18 01 2014 19:30&nbsp;</span>
+UTOPIA STOCK EXCHANGE <span class="countdown scroll-highlight" data-countdown-to="<%= @market_session.created_at.to_i + (@market_session.duration * 60) %>" data-url="/market_sessions/end/<%= @market_session.id %>"></span> bis zum Ende dieser Handelsphase&nbsp; 
