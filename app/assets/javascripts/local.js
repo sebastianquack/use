@@ -112,6 +112,7 @@ $(document).ready(function() {
 
 $( window ).load(function() {
     // portfolio print out
+BRA    
     if($('.portfolio').length > 0) {     
         window.print(); 
         if($('#utopist_seller').length > 0) {

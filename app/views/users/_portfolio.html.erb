@@ -60,9 +60,9 @@
     <td><%= portfolio[:total_stocks] %></td>
     <td><!--(Rang <%= ranks[:num_stocks][:rank] if ranks %>)--></td>
   </tr>
-</table>
-
-<table class="info-table">
+  <tr>
+    <td colspan="3" class="spacer"></td>
+  <tr>
   <tr>
     <th>Investment absolut:</th>
     <td class="u"><%= format_u portfolio[:total_investment] %></td>
@@ -91,9 +91,8 @@
     <td class="u"><%= format_u balance %></td>
     <td><!--(Rang <%= ranks[:balance][:rank] if ranks %>)--></td>
   </tr>
-</table>
-
-<table class="info-table">  
+  <tr>
+    <td colspan="3" class="spacer"></td>
   <tr>
     <th>Grundeinsatz:</th>
     <td class="u"><%= format_u portfolio[:cash_in] %></td>
