@@ -185,4 +185,39 @@ class User < ActiveRecord::Base
     return transaction
   end
 
+
+  def buy_stock_from_utopist(stock, amount)
+
+	transaction = Transaction.new
+    transaction.transaction_type_id = 0
+    transaction.stock_id = stock.id
+    transaction.buyer_id = self.id
+    transaction.seller_id = stock.utopist.id
+    transaction.price = stock.base_price
+    transaction.amount = amount
+    transaction.save
+   	transaction.update_users_stocks
+
+  end
+	
+
+
+  def add_base_stocks
+  
+  	stocks = Stock.where(:active => true).order('investment DESC')
+  	
+  	[stocks[rand(8)], stocks[8 + rand(8)]].each do |stock|
+		amount = (5000 / stock.base_price).to_i
+		max_amount = stock.utopist.portfolio[:stocks][stock.id][:amount]
+		amount = max_amount if amount > max_amount
+		self.buy_stock_from_utopist(stock, amount)
+  	end
+  
+  end
+
+
+
+
+
+
 end
