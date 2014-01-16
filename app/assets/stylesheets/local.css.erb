@@ -161,7 +161,7 @@ span.scroll-highlight {
 	background-image: url("/assets/u-solid-white.png");
 	background-size: auto 80%;
 	background-repeat: no-repeat;
-	background-position: 0 50%;
+	background-position: 100% 50%;
 }
 
 .indicator-neutral {
@@ -291,8 +291,14 @@ span.scroll-highlight {
 .portfolio {
 	background:white;
 	color:black;
-	padding:8%;
+	padding:4%;
+	width:950px;
 }
+
+.portfolio .u:after {
+	/*content: "U";*/
+	background-image: url("/assets/u-shiny.png");
+}	
 
 .portfolio h2 {
 	font-size: 1.5em;
@@ -316,6 +322,14 @@ span.scroll-highlight {
 	font-weight:bold;
 }
 
+.portfolio .rank {
+	opacity: 0.7;
+}
+
+.portfolio .rank:before {
+	content: "\00a0 ";
+}
+
 .portfolio table {
 	text-align: left;
 	border-collapse: collapse;
@@ -323,10 +337,11 @@ span.scroll-highlight {
 }
 
 .portfolio table + table.info-table {
-	margin-top: 0px;
+	margin-top: -10px;
 }
 
-.portfolio table.info-table + table.info-table {
+.portfolio table.info-table + table.info-table,
+ {
 	margin-top: -30px;
 }
 
@@ -357,6 +372,14 @@ span.scroll-highlight {
 	font-size: 16px;
 }
 
+.portfolio .portfolio-table {
+	width:100%;
+}
+
+.portfolio .portfolio-table thead th + th {
+	text-align: left;
+}
+
 .portfolio table.info-table th {
 	font-weight: bold;
 }
@@ -372,6 +395,10 @@ span.scroll-highlight {
 .portfolio table.info-table-small th,
 .portfolio table.info-table-small td {
 	font-weight: 80%;
+}
+
+.portfolio table b {
+	font-weight: bold;
 }
 
 /*fonts*/
@@ -400,6 +427,8 @@ span.scroll-highlight {
 
 @media print {
 
+	html {height:100%;}
+
 	body {
 		background: white;
 		color:black;
@@ -408,34 +437,37 @@ span.scroll-highlight {
 	}
 
 	.u:after {
-		content: "U";
-	}
+		/*content: "U";*/
+		background-image: url("/assets/u-shiny.png");
+	}	
 
-	#print-header {
+	.print-header {
 		position:absolute;
 		top:0;
 		right:0;
 	}
 
-	#print-footer {
+	.print-footer {
 		position:absolute;
 		bottom:0;
 		left:0;
 	}
 
-	.portfolio #print-header img {
+	.portfolio .print-header img {
 		width:120px;
 		position:absolute;
 		right:0;
 	}
 
-	.portfolio #print-footer img {
+	.portfolio .print-footer img {
 		width:100%;
 	}
 
 	.portfolio {
 		page-break-after:always;
 		padding:0;
+		position:relative;
+		height:100%;
 	}
 
 	.portfolio:last-child {
