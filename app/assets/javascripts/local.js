@@ -204,8 +204,9 @@ function Countdown(e) {
                     seconds_left = '0' + seconds_left;
                 }
                 var countdown_string = "";
-                if (hours_left > 0 ) countdown_string += hours_left + ":";
-                countdown_string += minutes_left + ":" + seconds_left;
+                if (hours_left > 0 ) countdown_string += hours_left + ":" + ("00" + minutes_left).slice(-2);
+                else countdown_string += minutes_left 
+                countdown_string += ":" + seconds_left;
 
         		if(total_seconds_left <= 0) {
         		   countdown_string = '0:00';
