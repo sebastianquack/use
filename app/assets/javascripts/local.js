@@ -246,9 +246,9 @@ function Chart(canvas_id, url, title, min, max) {
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
     this.last_price = 0;
-    if (typeof min == "undefined" || min < 0 ) this.min = null;
+    if (typeof min == "undefined" || min == "" || min < 0 ) this.min = null;
     else this.min = new Date(parseInt(min) * 1000);
-    if (typeof max == "undefined" || max < 0 ) this.max = null;
+    if (typeof max == "undefined" || max == "" || max < 0 ) this.max = null;
     else this.max = new Date(parseInt(max) * 1000);
     console.log("min: " + min + " -> " + this.min);
     console.log("max: " + max + " -> " + this.max);
