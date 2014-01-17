@@ -146,12 +146,14 @@ $(document).ready(function() {
 
 $( window ).load(function() {
     // portfolio print out    
-    if($('.portfolio').length > 0) {     
+    if($('.portfolio').length > 0) {
         window.print(); 
-        if($('#utopist_seller').length > 0) {
-            document.location.href = "/transactions/new_public_utopist";        
-        } else {
-            document.location.href = "/transactions/new_public";        
+        if($('.portfolio').length < 3) {
+            if($('#utopist_seller').length > 0) {
+                document.location.href = "/transactions/new_public_utopist";        
+            } else {
+                document.location.href = "/transactions/new_public";        
+            }
         }
     }
 });
