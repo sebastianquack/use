@@ -203,7 +203,9 @@ function Countdown(e) {
                 if(seconds_left < 10) {
                     seconds_left = '0' + seconds_left;
                 }
-                var countdown_string = minutes_left + ":" + seconds_left;
+                var countdown_string = "";
+                if (hours_left > 0 ) countdown_string += hours_left + ":";
+                countdown_string += minutes_left + ":" + seconds_left;
 
         		if(total_seconds_left <= 0) {
         		   countdown_string = '0:00';
@@ -301,7 +303,7 @@ function Chart(canvas_id, url, title, min, max) {
         }*/]
 	});
 	 
-	/*this.chart.render();*/
+	this.chart.render();
 	
 	setInterval(function(){
 		
