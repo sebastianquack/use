@@ -36,6 +36,7 @@ Use::Application.routes.draw do
   get 'stocks/ranking' => 'stocks#ranking'
   get 'stocks/chart/:id' => 'stocks#chart'
   get 'stocks/overview' => 'stocks#overview'
+  get 'stocks/voice' => 'stocks#voice'
   get 'stocks/show_gallery/:id' => 'stocks#show_gallery'
   get 'stocks/next/:id' => 'stocks#next'
   get 'stocks/previous/:id' => 'stocks#previous'

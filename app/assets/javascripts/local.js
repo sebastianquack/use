@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require canvasjs.js
 //= require scroller.js
+//= require sound.js
 
 $(document).ready(function() {
 
@@ -204,7 +205,22 @@ function Countdown(e) {
                     seconds_left = '0' + seconds_left;
                 }
                 var countdown_string = minutes_left + ":" + seconds_left;
-
+                
+                if(seconds_left == 0 || minutes_left == 0) {
+                    var countdown_audio_string = "";
+                    if(minutes_left > 0) {
+                        countdown_audio_string += "Noch " + minutes_left + " Minuten bis zum Ende der Handelsphase.";
+                    } else {
+                        if(seconds_left == 30 || seconds_left = 10) {
+                            countdown_audio_string += "Noch " + seconds_left + " Sekunden bis zum Ende der Handelsphase.";
+                        }
+                        if(seconds_left == 0) {
+                            countdown_audio_string += "Die Handelsphase ist beendet.";
+                        }
+                    }
+                    read_with_queue(countdown_audio_string);
+                }
+                
         		if(total_seconds_left <= 0) {
         		   countdown_string = '0:00';
                    if(t.active) {
@@ -218,7 +234,8 @@ function Countdown(e) {
         		}
         
                 $(t.e).html(countdown_string);
-        });
+
+        }, 1000);
     }
 }
 
