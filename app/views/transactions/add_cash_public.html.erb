@@ -1,34 +1,49 @@
-<%= render partial: 'menu' %>
+<div id="handelsinterface" class="viewportheight">
 
-<div class="transaction_form">
+  <div id="scroll-container-1" class="scroll-container">
+        <div id="scroll-content-1" class="scroll-content" data-step="1" data-url="/display/projection_scroll_1">
+            <%= render partial: 'display/projection_scroll_1' %>
+        </div>
+    </div>
+    <div id="scroll-container-3" class="scroll-container">
+        <div id="scroll-content-3" class="scroll-content" data-step="5" data-url="/display/projection_scroll_3">
+            <%= render partial: 'display/projection_scroll_3' %>
+        </div>
+  </div>   
 
-<p id="notice"><%= params[:notice] %><%= @notice %></p>
+  <%= render partial: 'menu' %>
 
-<%= form_for(@transaction, :url => {:action => "create_cash_transaction"}) do |f| %>
-  <% if @transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+  <div class="transaction_form">
 
-      <ul>
-      <% @transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <p id="notice"><%= params[:notice] %><%= @notice %></p>
+
+  <%= form_for(@transaction, :url => {:action => "create_cash_transaction"}) do |f| %>
+    <% if @transaction.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+        <ul>
+        <% @transaction.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <%= f.hidden_field :transaction_type_id, :value => "1" %>
+    <%= f.hidden_field :price, :value => Setting.first.exchange_rate %>
+
+    <p>User <%= f.select :seller_id, User.where(:role => 'player').order("name").collect {|u| [u.name, u.id]} %></p>
+
+    <p>Wechselkurs: <%= Setting.first.exchange_rate %></p>
+
+    <p>Betrag: <%= f.number_field :amount, :autocomplete => :off, :min => 0 %> €</p>
+
+    <div class="actions">
+      <%= f.submit "Einzahlen" %>
     </div>
   <% end %>
-  
-  <%= f.hidden_field :transaction_type_id, :value => "1" %>
-  <%= f.hidden_field :price, :value => Setting.first.exchange_rate %>
 
-  <p>User <%= f.select :seller_id, User.where(:role => 'player').order("name").collect {|u| [u.name, u.id]} %></p>
-
-  <p>Wechselkurs: <%= Setting.first.exchange_rate %></p>
-
-  <p>Betrag: <%= f.number_field :amount, :autocomplete => :off, :min => 0 %> €</p>
-
-  <div class="actions">
-    <%= f.submit "Einzahlen" %>
   </div>
-<% end %>
 
 </div>

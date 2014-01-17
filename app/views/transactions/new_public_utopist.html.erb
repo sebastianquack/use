@@ -1,52 +1,67 @@
-<%= render partial: 'menu' %>
+<div id="handelsinterface" class="viewportheight">
 
-<div class="transaction_form">
+  <div id="scroll-container-1" class="scroll-container">
+        <div id="scroll-content-1" class="scroll-content" data-step="1" data-url="/display/projection_scroll_1">
+            <%= render partial: 'display/projection_scroll_1' %>
+        </div>
+    </div>
+    <div id="scroll-container-3" class="scroll-container">
+        <div id="scroll-content-3" class="scroll-content" data-step="5" data-url="/display/projection_scroll_3">
+            <%= render partial: 'display/projection_scroll_3' %>
+        </div>
+  </div>   
 
-<p id="notice"><%= params[:notice] %><%= @notice %></p>
+  <%= render partial: 'menu' %>
 
-<h1>New utopist to player transaction</h1>
+  <div class="transaction_form "> 
 
-<%= form_for(@transaction, :url => {:action => "create_public"}, :html => {:class => "utopist-transaction"}) do |f| %>
-  <% if @transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+  <p id="notice"><%= params[:notice] %><%= @notice %></p>
 
-      <ul>
-      <% @transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <h1>New utopist to player transaction</h1>
+
+  <%= form_for(@transaction, :url => {:action => "create_public"}, :html => {:class => "utopist-transaction"}) do |f| %>
+    <% if @transaction.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+        <ul>
+        <% @transaction.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <%= f.hidden_field :transaction_type_id, :value => "0" %>
+    <%= hidden_field_tag :seller_role, "utopist" %>
+    
+    <p>
+        <select id="transaction_seller_id" name="transaction[seller_id]">
+               <option value="">Please select</option>
+               <% Stock.where("active = true").order("symbol").each do |stock|%>
+                   <option value="<%= stock.utopist.id %>" 
+                   	data-base_price="<%= stock.base_price %>"
+                   	data-stock_left="<%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>"
+                   ><%= stock.symbol %>: <%= truncate(stock.name, length:20) %> (<%= stock.utopist.name %>: <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>, <%= stock.base_price %>)</option>
+              <% end %>
+          </select>
+      VERKAUFT AN 
+      <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
+    </p>
+
+    <p>
+      <%= f.number_field :amount, :autocomplete => :off, :min => 0 %>
+      ANTEILE SEINER/IHRER UTOPIE<br> 
+      ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off, :min => 0 %>DAS MACHT INSGESAMT: <span class="total">0</span><br> 
+    	DER UTOPIST HÄLT DERZEIT NOCH <span class="remaining">0</span> ANTEILE.
+    </p>
+    
+    <div class="actions">
+      <%= f.submit "TRANSAKTION DURCHFÜHREN" %>
     </div>
   <% end %>
 
-
-  <%= f.hidden_field :transaction_type_id, :value => "0" %>
-  <%= hidden_field_tag :seller_role, "utopist" %>
-  
-  <p>
-      <select id="transaction_seller_id" name="transaction[seller_id]">
-             <option value="">Please select</option>
-             <% Stock.where("active = true").order("symbol").each do |stock|%>
-                 <option value="<%= stock.utopist.id %>" 
-                 	data-base_price="<%= stock.base_price %>"
-                 	data-stock_left="<%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>"
-                 ><%= stock.symbol %>: <%= truncate(stock.name, length:20) %> (<%= stock.utopist.name %>: <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>, <%= stock.base_price %>)</option>
-            <% end %>
-        </select>
-    VERKAUFT AN 
-    <%= f.select :buyer_id, User.where("role = 'player'").order("name").collect {|u| [u.name, u.id]}, :prompt => "Please select" %>
-  </p>
-
-  <p>
-    <%= f.number_field :amount, :autocomplete => :off, :min => 0 %>
-    ANTEILE SEINER/IHRER UTOPIE<br> 
-    ZUM PREIS VON JE <%= f.number_field :price, :autocomplete => :off, :min => 0 %>DAS MACHT INSGESAMT: <span class="total">0</span><br> 
-  	DER UTOPIST HÄLT DERZEIT NOCH <span class="remaining">0</span> ANTEILE.
-  </p>
-  
-  <div class="actions">
-    <%= f.submit "TRANSAKTION DURCHFÜHREN" %>
   </div>
-<% end %>
 
 </div>

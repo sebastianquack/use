@@ -318,7 +318,7 @@ function Chart(canvas_id, url, title, min, max) {
             }
             else if (t.last_price > 0) {
                 console.log("last price " + t.last_price);
-                t.dps.push({x: new Date(), y: (Math.random()-0.5)/100*t.last_price + t.last_price});
+                t.dps.push({x: new Date(), y: (Math.random()-0.5 + t.last_price) });
                 t.chart.render();            
             }
     	});
