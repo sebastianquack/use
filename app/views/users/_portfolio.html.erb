@@ -31,6 +31,8 @@
      </thead>
      <tbody>
   <% sorted_stocks.each do |stock_id, stock_data| %>
+
+  <% if stock_data[:amount].to_i > 0 %>
         
   <tr>
       <th><%= stock_data[:stock].symbol %> – <small><%= stock_data[:stock].name %></small></th>
@@ -48,7 +50,7 @@
       <!--td class="u"><%= stock_data[:value] - stock_data[:investment] %> (<%= rel_percent stock_data[:investment], stock_data[:value] %>)</td>
       <td class="u"><%= stock_data[:profit] %></td-->
   </tr>
-
+  <% end %>
 
   <% end %>
   </tbody>

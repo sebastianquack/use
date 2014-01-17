@@ -1,0 +1,20 @@
+
+<% Stock.where(:active => true).order('investment ASC').each do |stock| %>
+
+<div>
+    <span class="say"><%= stock.symbol.gsub(/(.{1})/, '\1. ') %>
+    <%= format_u stock.price %> Uuh</span>
+    
+    <span class="say"><%= stock.name %></span>
+    <%= stock.utopist.name %>
+    <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>
+    <%= stock.utopist.balance %>
+</div>
+
+<% end %>
+
+
+<p style="margin-top: 200px">
+<textarea></textarea><br>
+<button type="button" class="say-button">Say it!</button>
+</p>

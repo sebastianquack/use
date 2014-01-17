@@ -3,4 +3,4 @@
     market_session_start_seconds = market_session.created_at.to_i if !market_session.nil?
     market_session_end_seconds = market_session_start_seconds + market_session.duration * 60 if !market_session.nil?
 %>
-UTOPIA STOCK EXCHANGE <span class="countdown scroll-highlight" data-countdown-to="<%= market_session_end_seconds %>" data-url="/market_sessions/end/<%= market_session.id if !market_session.nil? %>"></span> bis zum Ende dieser Handelsphase&nbsp; 
+UTOPIA STOCK EXCHANGE <span class="countdown scroll-highlight" data-countdown-to="<%= market_session_end_seconds %>" data-url="/market_sessions/end/<%= market_session.id if !market_session.nil? %>"></span>&nbsp; 

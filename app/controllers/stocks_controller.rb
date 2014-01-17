@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: [:show, :edit, :update, :destroy, :show_gallery, :chart, :chart_data]
-  layout "admin"
+  layout "local"
 
   # Public Actions
 

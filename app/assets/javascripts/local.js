@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require canvasjs.js
 //= require scroller.js
+//= require sound.js
 
 $(document).ready(function() {
 
@@ -145,12 +146,14 @@ $(document).ready(function() {
 
 $( window ).load(function() {
     // portfolio print out    
-    if($('.portfolio').length > 0) {     
+    if($('.portfolio').length > 0) {
         window.print(); 
-        if($('#utopist_seller').length > 0) {
-            document.location.href = "/transactions/new_public_utopist";        
-        } else {
-            document.location.href = "/transactions/new_public";        
+        if($('.portfolio').length < 3) {
+            if($('#utopist_seller').length > 0) {
+                document.location.href = "/transactions/new_public_utopist";        
+            } else {
+                document.location.href = "/transactions/new_public";        
+            }
         }
     }
 });
@@ -219,13 +222,31 @@ function Countdown(e) {
                 if(seconds_left < 10) {
                     seconds_left = '0' + seconds_left;
                 }
+                
+                if(seconds_left == 0 || minutes_left == 0) {
+                    var countdown_audio_string = "";
+                    if(minutes_left > 0) {
+                        countdown_audio_string += "Noch " + minutes_left + " Minuten bis zum Ende der Handelsphase.";
+                    } else {
+                        if(seconds_left == 30 || seconds_left = 10) {
+                            countdown_audio_string += "Noch " + seconds_left + " Sekunden bis zum Ende der Handelsphase.";
+                        }
+                        if(seconds_left == 0) {
+                            countdown_audio_string += "Die Handelsphase ist beendet.";
+                        }
+                    }
+                    if(total_seconds_left >= 0 && hours_left == 0) {
+                        read_with_queue(countdown_audio_string);
+                    }
+                }
+                
                 var countdown_string = "";
                 if (hours_left > 0 ) countdown_string += hours_left + ":" + ("00" + minutes_left).slice(-2);
                 else countdown_string += minutes_left 
                 countdown_string += ":" + seconds_left;
-
+                
         		if(total_seconds_left <= 0) {
-        		   countdown_string = '0:00';
+        		   countdown_string = 'Handelsphase zu Ende.'
                    if(t.active) {
                        $.get(t.url, function(data) {
                            console.log(data);
@@ -234,10 +255,12 @@ function Countdown(e) {
                    t.active = false;
         		} else {
         		   t.active = true;
+                   countdown_string = "Noch " + countdown_string + " Minuten bis zum Ende der Handelsphase.";                      
         		}
         
                 $(t.e).html(countdown_string);
-        });
+
+        }, 1000);
     }
 }
 
