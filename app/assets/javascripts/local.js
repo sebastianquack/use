@@ -265,7 +265,7 @@ function Chart(canvas_id, url, title, min, max) {
 		culture: "de",
 		creditHref: "",
 		creditText: "",	
-        zoomEnabled:false,
+        zoomEnabled:true,
 		title :{
 			text: title,
 			fontFamily: "Arial Black",
@@ -307,7 +307,7 @@ function Chart(canvas_id, url, title, min, max) {
 	
 	setInterval(function(){
 		
-		$.getJSON( url + "?tick="+ (t.last_tick) ,function( data ) {
+		$.getJSON( url + "?tick="+ (t.last_tick+1) ,function( data ) {
             if (data.length > 0) {
               $.each( data, function( i,item ) {
     		    t.dps.push({x: new Date(parseInt(item.seconds)*1000), y: item.price});
@@ -318,7 +318,7 @@ function Chart(canvas_id, url, title, min, max) {
             }
             else if (t.last_price > 0) {
                 console.log("last price " + t.last_price);
-                t.dps.push({x: new Date(), y: t.last_price});
+                t.dps.push({x: new Date(), y: (Math.random()-0.5)/100*t.last_price + t.last_price});
                 t.chart.render();            
             }
     	});
