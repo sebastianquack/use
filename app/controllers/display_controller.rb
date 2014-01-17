@@ -5,7 +5,9 @@ class DisplayController < ApplicationController
   def projection
   	@stocks = Stock.where(:active => true)
   	@ranks = User.all_ranks    
-    @market_session = MarketSession.order('created_at DESC').first
+    @market_session = MarketSession.order('created_at DESC').first 
+    @market_session_start_seconds = @market_session.created_at.to_i if !@market_session.nil?
+    @market_session_end_seconds = @market_session_start_seconds + @market_session.duration * 60 if !@market_session.nil?
   end
 
   def tv

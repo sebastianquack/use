@@ -1,6 +1,7 @@
 Use::Application.routes.draw do
 
   get "/market_sessions/end/:id" => 'market_sessions#end_session'
+  get "/market_sessions/active_session" => 'market_sessions#active_session'
   resources :market_sessions
 
   # projection

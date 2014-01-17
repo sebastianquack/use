@@ -14,7 +14,7 @@ class StocksController < ApplicationController
       if i >= params[:tick].to_i
         h = c.attributes
         h[:seconds] = c.created_at.to_i
-        h[:tick] = i
+        h[:tick] = i      
         a << h 
       end
     end 
@@ -22,19 +22,12 @@ class StocksController < ApplicationController
   end
   
   def usx_data
-
-    @current_market_session = MarketSession.order("created_at DESC").first
-    min = @current_market_session.created_at.to_i
-    max = min + @current_market_session.duration * 60
-
     chart = Transaction.usx
     a = []
     chart.each_with_index do |c,i|
       if i >= params[:tick].to_i
         h=c
         h[:tick] = i
-        h[:min] = min
-        h[:max] = max
         a << h 
       end
     end     

@@ -12,7 +12,7 @@ class Stock < ActiveRecord::Base
   end
 
   def chart
-    return self.transactions.select("created_at, amount, price");
+    return self.transactions.order("created_at").select("created_at, amount, price");
   end
   
   def next

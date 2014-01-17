@@ -3,6 +3,14 @@ class MarketSessionsController < ApplicationController
 
   layout 'local'
 
+  # GET json
+  def active_session
+    @market_session = MarketSession.order('created_at DESC').first
+    @market_session_start_seconds = ( @market_session.nil? ? -1 : @market_session.created_at.to_i )
+    @market_session_end_seconds = ( @market_session.nil? ? -1 : @market_session_start_seconds + @market_session.duration * 60 )
+    render json: {start: @market_session_start_seconds, end: @market_session_end_seconds} 
+  end
+
   def end_session 
     index = 0
     if @market_session.max_survivors > 0 

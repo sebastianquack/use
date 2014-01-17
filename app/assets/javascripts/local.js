@@ -84,23 +84,40 @@ $(document).ready(function() {
         rollers.push(roller);
     });
     
-    // auto-update user info and stock info    
+    // auto-update user info and stock info
     var updaters = [];
     $('.auto-update').each(function(index) {
         updaters.push(new Updater($(this), $(this).data('url'), 10000));
         updaters[index].start();
     });
 
+    //reload page when market session changes
+    if ($('.auto-reload-market-session').length > 0) {
+        var session_start = 0;
+        var session_end = 0;
+        setInterval(function() {    
+            console.log("update market session ");
+            $.getJSON( "/market_sessions/active_session" ,function( data ) {
+                if (   (session_start != 0 && session_start != data.start)
+                    || (session_end   != 0 && session_end   != data.end) ) {
+                    location.reload();
+                }
+                session_start = data.start;
+                session_end = data.end;
+            });
+        }, 8000);
+    }
     
     // charts
     if($('#chart-usx').length > 0) {
-        new Chart ("chart-usx", "/stocks/usx_data", "USX");
+        var elem = $('#chart-usx');
+        new Chart ("chart-usx", "/stocks/usx_data", "USX", $(elem).data("min"), $(elem).data("max"));
     }
 
     if($('.chart').length > 0) {
         $(".chart").each(function() {
             console.log($(this).data("id"));
-            new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"));
+            new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"), $(this).data("min"), $(this).data("max"));
         });
     }
 
@@ -223,11 +240,20 @@ function Updater(element, url, updateInterval) {
     }
 }
 
-function Chart(canvas_id, url, title) {
+function Chart(canvas_id, url, title, min, max) {
     this.updateInterval = 5000 + Math.random(5000);
 
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
+    this.last_price = 0;
+    if (typeof min == "undefined" || min < 0 ) this.min = null;
+    else this.min = new Date(parseInt(min) * 1000);
+    if (typeof max == "undefined" || max < 0 ) this.max = null;
+    else this.max = new Date(parseInt(max) * 1000);
+    console.log("min: " + min + " -> " + this.min);
+    console.log("max: " + max + " -> " + this.max);
+    this.scale = [];
+    var t = this;
 
     console.log($("#"+canvas_id).parent().width());
 
@@ -237,6 +263,7 @@ function Chart(canvas_id, url, title) {
 		culture: "de",
 		creditHref: "",
 		creditText: "",	
+        zoomEnabled:false,
 		title :{
 			text: title,
 			fontFamily: "Arial Black",
@@ -246,9 +273,12 @@ function Chart(canvas_id, url, title) {
 		axisX: {						
 			title: "",
 			labelFontColor: "white",
-			/*valueFormatString: "HH:mm",*/
+			valueFormatString: "HH:mm",
             gridThickness: 0,
-            /*maximum: new Date(1389781102),*/
+            /*minimum: new Date(1389912787000),
+            maximum: new Date(1389915987000),*/
+            minimum: this.min,
+            maximum: this.max,            
 		},
 		axisY: {						
 			title: "",
@@ -256,31 +286,40 @@ function Chart(canvas_id, url, title) {
             gridThickness: 0,
 		},
 		data: [{
-			type: "stepLine",
+			type: "line",
             markerType: "none",
             lineThickness: 3,
             color: "#43FF07",
 			dataPoints : this.dps,
-		},
-        /*
+		},/*
 		{
-			type: "spline",
-			dataPoints: this.dps
-		}*/]
+            type: "line",
+            markerType: "none",
+            lineThickness: 10,
+            color: "#ffffff",
+            dataPoints : this.scale,
+        }*/]
 	});
 	 
 	/*this.chart.render();*/
-	var t = this;
+	
 	setInterval(function(){
 		
-		$.getJSON( url + "?tick="+ t.last_tick ,function( data ) {
-
-		  $.each( data, function( i,item ) {
-		    t.dps.push({x: new Date(item.seconds), y: item.price});
-		    t.last_tick = item.tick;
-		  });
-		  t.chart.render();
-		});
+		$.getJSON( url + "?tick="+ (t.last_tick) ,function( data ) {
+            if (data.length > 0) {
+              $.each( data, function( i,item ) {
+    		    t.dps.push({x: new Date(parseInt(item.seconds)*1000), y: item.price});
+    		    t.last_tick = parseInt(item.tick);
+                t.last_price = parseInt(item.price);
+    		  });       
+    		  t.chart.render();
+            }
+            else if (t.last_price > 0) {
+                console.log("last price " + t.last_price);
+                t.dps.push({x: new Date(), y: t.last_price});
+                t.chart.render();            
+            }
+    	});
         
 	}, this.updateInterval);
 }
