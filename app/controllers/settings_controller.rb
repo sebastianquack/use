@@ -71,6 +71,6 @@ class SettingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
-      params.require(:setting).permit(:exchange_rate, :base_cash_in)
+      params.require(:setting).permit(:exchange_rate, :base_cash_in, :max_sellout)
     end
 end

@@ -201,19 +201,27 @@ class User < ActiveRecord::Base
   end
 	
 
-
   def add_base_stocks
   
     max_sellout = Setting.first.max_sellout
   	stocks = Stock.where(:active => true).order('investment DESC')
 
-    ##reduced_stocks = []
+    reduced_stocks = []
+    
     #logger.info stocks.map {|s| s.utopist.portfolio[:stocks][s.id][:amount] < max_sellout }
-    ## stocks_left = stock.utopist.portfolio[:stocks][stock.id][:amount]
-
-    logger.info stocks
-
-  	[stocks[rand(8)], stocks[8 + rand(8)]].each do |stock|
+    logger.info max_sellout
+    stocks.each do |stock|
+      if stock.utopist.portfolio[:stocks][stock.id][:amount] > max_sellout
+        reduced_stocks << stock
+      end
+    end
+    
+    if reduced_stocks.length < 4 
+      return
+    end
+    
+    half = (reduced_stocks.length / 2).to_i    
+  	[reduced_stocks[rand(half)], reduced_stocks[reduced_stocks.length - half + rand(half)]].each do |stock|
       stock.base_price = 100 if stock.base_price == 0 
   		amount = (1000 / stock.base_price).to_i
   		max_amount = stock.utopist.portfolio[:stocks][stock.id][:amount]
