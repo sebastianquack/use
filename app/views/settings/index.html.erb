@@ -5,6 +5,7 @@
     <tr>
       <th>Exchange rate</th>
       <th>Base Cash in</th>
+      <th>Max. sellout</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= setting.exchange_rate %></td>
         <td><%= setting.base_cash_in %></td>
+        <td><%= setting.max_sellout %></td>        
         <td><%= link_to 'Show', setting %></td>
         <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
         <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
