@@ -124,7 +124,23 @@ $(document).ready(function() {
     // 100% height
     windowHeight = $(window).height();
     $('.viewportheight').css('height', windowHeight);
-        
+
+    if ($('.screensaver').length > 0) {
+        var s_saver;
+        $( "body" ).append( '<div id="screensaver" style="height:100%; width:100%; position:fixed; top:0; left:0; background-color:rgba(0,0,0,0.5);"></div>' );
+        $('#screensaver').hide();   
+        $('body').on('mousemove', function (e)
+            {
+                console.log("move");
+              if (e.type == 'mousemove')
+              {
+                clearTimeout(s_saver);
+                s_saver = setTimeout('$(\'#screensaver\').fadeIn();', 10000);
+                $('#screensaver').hide();          
+              }
+        });      
+    }
+
 });
 
 $( window ).load(function() {
@@ -275,6 +291,7 @@ function Chart(canvas_id, url, title, min, max) {
 		},
 		axisX: {						
 			title: "",
+            labelFontFamily: "ProximaNovaThin",
 			labelFontColor: "white",
 			valueFormatString: "HH:mm",
             gridThickness: 0,
@@ -285,6 +302,7 @@ function Chart(canvas_id, url, title, min, max) {
 		},
 		axisY: {						
 			title: "",
+            labelFontFamily: "ProximaNovaThin",
 			labelFontColor: "white",
             gridThickness: 0,
 		},
