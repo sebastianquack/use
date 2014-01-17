@@ -13,10 +13,40 @@ class MarketSessionsController < ApplicationController
 
   def end_session 
     index = 0
-    if @market_session.max_survivors > 0 
+    num_active_stocks = Stock.where(:active => true).count
+    
+    if @market_session.max_survivors < num_active_stocks 
       Stock.all.order('investment DESC').each do |stock|
         if index >= @market_session.max_survivors
           stock.active = false
+          
+          # distribute utopist balance to stock holders
+          
+          # how much stocks are left for the players
+          total_player_stocks = 100 - stock.utopist.portfolio[:stocks][stock.id][:amount]
+          
+          if total_player_stocks > 0
+            total_cash = stock.utopist.balance 
+            end_price = total_cash / total_player_stocks
+          
+            # who gets the money?
+            stock.ownerships.where('amount > 0').each do |ownership|              
+              if ownership.user.role == 'player'
+                player = ownership.user
+                transaction = Transaction.new
+                transaction.transaction_type_id = 0
+                transaction.stock_id = stock.id
+                transaction.buyer_id = stock.utopist.id
+                transaction.seller_id = player.id
+                transaction.price = end_price
+                transaction.amount = player.portfolio[:stocks][stock.id][:amount]
+                transaction.save
+                transaction.update_users_stocks
+              end
+            
+            end
+          end
+          
         else 
           stock.active = true
         end

@@ -40,6 +40,12 @@ class UsersController < ApplicationController
   def show_public
     render layout: "local"
   end  
+
+  def all_portfolios
+    @users = User.where(:role => 'player').order('name ASC')
+    render layout: "local"
+  end  
+
   
   def ranks 
     @ranks = User.all_ranks    

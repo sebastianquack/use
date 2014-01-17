@@ -15,6 +15,7 @@ Use::Application.routes.draw do
   get "display/tv"
 
   get 'users/highscores' => 'users#ranks'
+  get 'users/all_portfolios' => 'users#all_portfolios'
   get 'users/show_public/:id' => 'users#show_public'
   get 'users/new_public' => 'users#new_public'
   post 'users/create_public' => 'users#create_public'
