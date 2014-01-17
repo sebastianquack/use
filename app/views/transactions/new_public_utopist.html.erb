@@ -30,7 +30,7 @@
                  <option value="<%= stock.utopist.id %>" 
                  	data-base_price="<%= stock.base_price %>"
                  	data-stock_left="<%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>"
-                 ><%= stock.symbol %>: <%= stock.name %> (<%= stock.utopist.name %>: <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>)</option>
+                 ><%= stock.symbol %>: <%= truncate(stock.name, length:20) %> (<%= stock.utopist.name %>: <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>, <%= stock.base_price %>)</option>
             <% end %>
         </select>
     VERKAUFT AN 

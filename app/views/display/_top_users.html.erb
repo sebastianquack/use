@@ -1,7 +1,7 @@
 
-	<% sort_keys = [:balance, :profit_abs, :profit_rel, :investment_abs] %>
-	<% sort_names = ['Kontostand', 'Gewinn absolut', 'Gewinn relativ', 'Investition'] %>
-    <% sort_format = ['u', 'u', '%', 'u'] %>
+	<% sort_keys = [:profit_abs, :investment_abs] %>
+	<% sort_names = ['Gewinn', 'Investition'] %>
+    <% sort_format = ['u', 'u'] %>
     <% sort_keys.each_with_index do |sort_key, index| %>
     <div>
         <% ranks_sorted = @ranks.sort_by {|key, value| -value[sort_key][:value]} %>

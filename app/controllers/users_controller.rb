@@ -11,14 +11,24 @@ class UsersController < ApplicationController
   end
 
   def create_public
-    @user = User.new(user_params)
+    @user = User.new(user_params) 
+    
+    @user.name.strip!
+    @user.name.capitalize!
+    
+    if User.where(:name => @user.name).length > 0
+        @notice = 'Dieser Name ist bereits vergeben.'
+    	render layout: 'local', action: 'new_public' and return
+    end
+    
     @user.role = 'player';
     @user.status = 1;
     
     respond_to do |format|
       if @user.save
         @user.add_cash(Setting.first.base_cash_in)
-        
+    	@user.add_base_stocks
+    
         format.html { redirect_to action: 'show_public', id: @user.id, notice: 'User was successfully created.' }
       else
         format.html { render layout: 'local', action: 'new_public', notice: 'There was an error.' }
