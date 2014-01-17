@@ -1,31 +1,46 @@
-<%= render partial: 'transactions/menu' %>
+<div id="handelsinterface" class="viewportheight">
 
-<div class="transaction_form">
+  <div id="scroll-container-1" class="scroll-container">
+        <div id="scroll-content-1" class="scroll-content" data-step="1" data-url="/display/projection_scroll_1">
+            <%= render partial: 'display/projection_scroll_1' %>
+        </div>
+    </div>
+    <div id="scroll-container-3" class="scroll-container">
+        <div id="scroll-content-3" class="scroll-content" data-step="5" data-url="/display/projection_scroll_3">
+            <%= render partial: 'display/projection_scroll_3' %>
+        </div>
+  </div>   
 
-<p id="notice"><%= params[:notice] %><%= @notice %></p>
+  <%= render partial: 'transactions/menu' %>
 
-<h1>New user</h1>
+  <div class="transaction_form">
 
-<%= form_for(@user, :url => {:action => "create_public"}) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <p id="notice"><%= params[:notice] %><%= @notice %></p>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <h1>New user</h1>
+
+  <%= form_for(@user, :url => {:action => "create_public"}) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
 
 </div>

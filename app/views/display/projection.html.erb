@@ -10,7 +10,6 @@
 	        <%= render partial: 'projection_scroll_2' %>
         </div>
     </div>
-
 	<div id="scroll-container-3" class="scroll-container">
         <div id="scroll-content-3" class="scroll-content" data-step="5" data-url="/display/projection_scroll_3">
             <%= render partial: 'projection_scroll_3' %>
@@ -25,7 +24,7 @@
 		</div>
 
 		<div class="tile tile2">
-			<div class="roll" data-timer="5000">
+			<div class="roll" data-timer="4000">
 				<% @stocks.order(:symbol).each do |s| %>
 				<div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" data-min="<%= @market_session_start_seconds %>" data-max="<%= @market_session_end_seconds %>">
 				</div>

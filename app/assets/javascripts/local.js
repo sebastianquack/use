@@ -125,7 +125,23 @@ $(document).ready(function() {
     // 100% height
     windowHeight = $(window).height();
     $('.viewportheight').css('height', windowHeight);
-        
+
+    if ($('.screensaver').length > 0) {
+        var s_saver;
+        $( "body" ).append( '<div id="screensaver" style="height:100%; width:100%; position:fixed; top:0; left:0; background-color:rgba(0,0,0,0.5);"></div>' );
+        $('#screensaver').hide();   
+        $('body').on('mousemove', function (e)
+            {
+                console.log("move");
+              if (e.type == 'mousemove')
+              {
+                clearTimeout(s_saver);
+                s_saver = setTimeout('$(\'#screensaver\').fadeIn();', 10000);
+                $('#screensaver').hide();          
+              }
+        });      
+    }
+
 });
 
 $( window ).load(function() {
@@ -204,7 +220,6 @@ function Countdown(e) {
                 if(seconds_left < 10) {
                     seconds_left = '0' + seconds_left;
                 }
-                var countdown_string = minutes_left + ":" + seconds_left;
                 
                 if(seconds_left == 0 || minutes_left == 0) {
                     var countdown_audio_string = "";
@@ -218,11 +233,18 @@ function Countdown(e) {
                             countdown_audio_string += "Die Handelsphase ist beendet.";
                         }
                     }
-                    read_with_queue(countdown_audio_string);
+                    if(total_seconds_left >= 0 && hours_left == 0) {
+                        read_with_queue(countdown_audio_string);
+                    }
                 }
                 
+                var countdown_string = "";
+                if (hours_left > 0 ) countdown_string += hours_left + ":" + ("00" + minutes_left).slice(-2);
+                else countdown_string += minutes_left 
+                countdown_string += ":" + seconds_left;
+                
         		if(total_seconds_left <= 0) {
-        		   countdown_string = '0:00';
+        		   countdown_string = 'Handelsphase zu Ende.'
                    if(t.active) {
                        $.get(t.url, function(data) {
                            console.log(data);
@@ -231,6 +253,7 @@ function Countdown(e) {
                    t.active = false;
         		} else {
         		   t.active = true;
+                   countdown_string = "Noch " + countdown_string + " Minuten bis zum Ende der Handelsphase.";                      
         		}
         
                 $(t.e).html(countdown_string);
@@ -280,7 +303,7 @@ function Chart(canvas_id, url, title, min, max) {
 		culture: "de",
 		creditHref: "",
 		creditText: "",	
-        zoomEnabled:false,
+        zoomEnabled:true,
 		title :{
 			text: title,
 			fontFamily: "Arial Black",
@@ -289,6 +312,7 @@ function Chart(canvas_id, url, title, min, max) {
 		},
 		axisX: {						
 			title: "",
+            labelFontFamily: "ProximaNovaThin",
 			labelFontColor: "white",
 			valueFormatString: "HH:mm",
             gridThickness: 0,
@@ -299,6 +323,7 @@ function Chart(canvas_id, url, title, min, max) {
 		},
 		axisY: {						
 			title: "",
+            labelFontFamily: "ProximaNovaThin",
 			labelFontColor: "white",
             gridThickness: 0,
 		},
@@ -318,11 +343,11 @@ function Chart(canvas_id, url, title, min, max) {
         }*/]
 	});
 	 
-	/*this.chart.render();*/
+	this.chart.render();
 	
 	setInterval(function(){
 		
-		$.getJSON( url + "?tick="+ (t.last_tick) ,function( data ) {
+		$.getJSON( url + "?tick="+ (t.last_tick+1) ,function( data ) {
             if (data.length > 0) {
               $.each( data, function( i,item ) {
     		    t.dps.push({x: new Date(parseInt(item.seconds)*1000), y: item.price});
@@ -333,7 +358,7 @@ function Chart(canvas_id, url, title, min, max) {
             }
             else if (t.last_price > 0) {
                 console.log("last price " + t.last_price);
-                t.dps.push({x: new Date(), y: t.last_price});
+                t.dps.push({x: new Date(), y: (Math.random()-0.5)/50*t.last_price + t.last_price});
                 t.chart.render();            
             }
     	});

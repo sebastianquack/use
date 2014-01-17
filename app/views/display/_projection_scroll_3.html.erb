@@ -1,5 +1,5 @@
 
-<% @stocks.order(:symbol).each do |stock|%>
+<% Stock.where(:active => true).order(:symbol).each do |stock|%>
     <% trend = stock.trend %>
 	<span class="symbol"><%= stock.symbol %></span>
 	<span class="price u"><%= format_u stock.price  %></span>
