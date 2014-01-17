@@ -207,7 +207,7 @@ class User < ActiveRecord::Base
   	stocks = Stock.where(:active => true).order('investment DESC')
   	
   	[stocks[rand(8)], stocks[8 + rand(8)]].each do |stock|
-		amount = (5000 / stock.base_price).to_i
+		amount = (1000 / stock.base_price).to_i
 		max_amount = stock.utopist.portfolio[:stocks][stock.id][:amount]
 		amount = max_amount if amount > max_amount
 		self.buy_stock_from_utopist(stock, amount)
