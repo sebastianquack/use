@@ -15,6 +15,7 @@
 //= require canvasjs.js
 //= require scroller.js
 //= require sound.js
+//= require seedrandom.js
 
 $(document).ready(function() {
 
@@ -288,12 +289,16 @@ function Chart(canvas_id, url, title, min, max) {
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
     this.last_price = 0;
+    this.lastDate = new Date(0);
+    this.lastUpdate = new Date();
+    
     if (typeof min == "undefined" || min == "" || min < 0 ) this.min = null;
     else this.min = new Date(parseInt(min) * 1000);
     if (typeof max == "undefined" || max == "" || max < 0 ) this.max = null;
     else this.max = new Date(parseInt(max) * 1000);
     console.log("min: " + min + " -> " + this.min);
     console.log("max: " + max + " -> " + this.max);
+    
     this.scale = [];
     var t = this;
 
@@ -352,19 +357,48 @@ function Chart(canvas_id, url, title, min, max) {
 		$.getJSON( url + "?tick="+ (t.last_tick+1) ,function( data ) {
             if (data.length > 0) {
               $.each( data, function( i,item ) {
-    		    t.dps.push({x: new Date(parseInt(item.seconds)*1000), y: item.price});
+                newDate = new Date(parseInt(item.seconds)*1000);
+                if (t.last_price != 0) {
+                    // insert random data points
+                    lastDataPointDate = t.dps[t.dps.length-1]['x'];
+                    randomData = randomDataPoints (lastDataPointDate, newDate, t.last_price, t.dps);
+                    //console.log("added " + randomData + " data points, last price " + t.last_price);
+                }
+    		    t.dps.push({x: newDate, y: item.price});
     		    t.last_tick = parseInt(item.tick);
                 t.last_price = parseInt(item.price);
+                t.lastDate = newDate;
     		  });       
     		  t.chart.render();
             }
             else if (t.last_price > 0) {
-                console.log("last price " + t.last_price);
-                t.dps.push({x: new Date(), y: (Math.random()-0.5)/50*t.last_price + t.last_price});
-                t.chart.render();            
+                // insert random data points
+                lastDataPointDate = t.dps[t.dps.length-1]['x'];
+                randomData = randomDataPoints (lastDataPointDate, new Date(), t.last_price, t.dps);
+                //console.log("added " + randomData + " data points, last price " + t.last_price + " (no new ticks, last " + lastDataPointDate + ") ");
+                t.chart.render();
             }
+            t.lastUpdate = new Date();
     	});
         
 	}, this.updateInterval);
 }
 
+function randomDataPoints(minDate, maxDate, lastValue, dest) { // Date minDate, maxDate
+    seconds_min = Math.round(minDate.getTime() / 1000);
+    seconds_max = Math.round(maxDate.getTime() / 1000);
+    var seconds_interval = 5;
+    Math.seedrandom(seconds_min);
+    seconds_min = seconds_min + seconds_interval;
+    counter = 0;
+    while (seconds_min < seconds_max) {
+        seconds_min = seconds_min + seconds_interval;
+        if (seconds_min >= seconds_max) continue;
+        //console.log("secmin " + seconds_min + " secmax " + seconds_max);
+        rnd = Math.random();
+        randomValue = (rnd-0.5)/40*lastValue + lastValue;
+        dest.push({x: new Date(seconds_min * 1000), y: randomValue});
+        counter++;
+    }
+    return counter;
+}
