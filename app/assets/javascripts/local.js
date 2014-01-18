@@ -231,30 +231,39 @@ function Countdown(e) {
 
                 var now = new Date();
                 var total_seconds_left = t.countdown_target - Math.floor(now.getTime() / 1000);
+                if(total_seconds_left < 0) {
+                    total_seconds_left = -1;
+                }
 		
                 var days_left = Math.floor(total_seconds_left / 86400);
         		var hours_left = Math.floor(total_seconds_left / 3600) - days_left * 24;
         		var minutes_left = Math.floor(total_seconds_left / 60) - (days_left * 1440 + hours_left * 60);
         		var seconds_left = total_seconds_left - (days_left * 86400 + hours_left * 3600 + minutes_left * 60);
-                if(seconds_left < 10) {
-                    seconds_left = '0' + seconds_left;
-                }
+                
+                // ANSAGEN
+                var countdown_audio_string = "";
                 
                 if(seconds_left == 0 || minutes_left == 0) {
-                    var countdown_audio_string = "";
                     if(minutes_left > 0) {
                         countdown_audio_string += "Noch " + minutes_left + " Minuten bis zum Ende der Handelsphase.";
                     } else {
-                        if(seconds_left == 30 || seconds_left = 10) {
-                            countdown_audio_string += "Noch " + seconds_left + " Sekunden bis zum Ende der Handelsphase.";
-                        }
                         if(seconds_left == 0) {
-                            countdown_audio_string += "Die Handelsphase ist beendet.";
+                            countdown_audio_string = "Die Handelsphase ist beendet.";
                         }
                     }
-                    if(total_seconds_left >= 0 && hours_left == 0) {
-                        read_with_queue(countdown_audio_string);
-                    }
+                }
+                if(minutes_left == 0 && (seconds_left == 30 || seconds_left == 10)) {
+                    countdown_audio_string = "Noch " + seconds_left + " Sekunden bis zum Ende der Handelsphase.";
+                }
+                
+                if(countdown_audio_string != "") {
+                    read_with_queue(countdown_audio_string);
+                }
+
+                // ANZEIGE
+                
+                if(seconds_left < 10) {
+                    seconds_left = '0' + seconds_left;
                 }
                 
                 var countdown_string = "";
@@ -272,7 +281,7 @@ function Countdown(e) {
                    t.active = false;
         		} else {
         		   t.active = true;
-                   countdown_string = "Noch " + countdown_string + " Minuten bis zum Ende der Handelsphase.";                      
+                   countdown_string = "Noch " + countdown_string + " bis zum Ende der Handelsphase.";                      
         		}
         
                 $(t.e).html(countdown_string);
