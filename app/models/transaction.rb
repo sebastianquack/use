@@ -26,9 +26,8 @@ class Transaction < ActiveRecord::Base
     if self.buyer
       self.buyer.update_portfolio
     end
-    if self.stock
-      self.stock.investment = Ownership.where(:stock_id => self.stock_id).sum(:investment)               
-      self.stock.save
+    if self.stock      
+      Stock.update_potentials
     end
   end
 
