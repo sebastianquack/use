@@ -61,4 +61,30 @@ class Stock < ActiveRecord::Base
     return t
   end
   
+  def self.update_potentials
+    Stock.where(:active => true).each do |stock|
+      # potential is the weighted sum of ownerships by last update
+      potential = 0
+      Ownership.where(:stock_id => stock.id).each do |o|  
+        max_age = 86400
+        min_age = 300
+        update_age = DateTime.now.to_i - o.updated_at.to_i
+        logger.info "potential"
+        logger.info update_age
+        factor = 1.0
+        if update_age < min_age
+          factor = 1.0
+        elsif update_age + min_age > max_age
+          factor = 0.5
+        else
+          factor = 1.0 - (((update_age.to_f + min_age.to_f) / max_age.to_f)  / 2.0)
+        end
+        logger.info factor
+        potential += o.investment * factor  
+      end
+      stock.investment = potential               
+      stock.save
+    end
+  end
+  
 end
