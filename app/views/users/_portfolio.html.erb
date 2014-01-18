@@ -90,7 +90,18 @@
 <table class="info-table">
   <tr>
     <th>aktueller Kontostand:</th>
-    <td class="u"><%= format_u balance %></td>
+    <% if params[:abschluss] %>
+    <% out = balance / Setting.first.exchange_rate
+        if out - out.to_i.to_f > 0.5 
+            out = out.to_i.to_f + 0.5
+        else
+            out = out.to_i.to_f
+        end
+    %>
+        <td><%= number_with_precision(out, precision: 2, separator: ',', delimiter: ".") %> €</td>
+    <% else %>
+        <td class="u"><%= format_u balance %></td>
+    <% end %>
     <td><!--(Rang <%= ranks[:balance][:rank] if ranks %>)--></td>
   </tr>
   <tr>
