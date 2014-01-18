@@ -30,6 +30,17 @@
 <% end %>
 </table>
 
+
+
+<% rank = Stock.where(:active => true).count %>
+<% Stock.where(:active => true).order('investment ASC').each do |stock| %> 
+<span class="say">
+Rang <%= rank %>: <%= stock.symbol.gsub(/(.{1})/, '\1. ') %> 
+<% rank -= 1 %>
+</span>
+<% end %>
+
+
 <p style="margin-top: 200px">
 <textarea></textarea><br>
 <button type="button" class="say-button">Say it!</button>
