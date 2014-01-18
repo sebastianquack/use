@@ -113,12 +113,14 @@ $(document).ready(function() {
     // charts
     if($('#chart-usx').length > 0) {
         var elem = $('#chart-usx');
+        //session_active = $(elem).data("chart-session-active");
         new Chart ("chart-usx", "/stocks/usx_data", "USX", $(elem).data("min"), $(elem).data("max"));
     }
 
     if($('.chart').length > 0) {
         $(".chart").each(function() {
             console.log($(this).data("id"));
+            //session_active = $(this).data("chart-session-active");
             new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"), $(this).data("min"), $(this).data("max"));
         });
     }
@@ -383,10 +385,11 @@ function Chart(canvas_id, url, title, min, max) {
 	}, this.updateInterval);
 }
 
-function randomDataPoints(minDate, maxDate, lastValue, dest) { // Date minDate, maxDate
+function randomDataPoints(minDate, maxDate, lastValue, dest, interval) { // Date minDate, maxDate
     seconds_min = Math.round(minDate.getTime() / 1000);
     seconds_max = Math.round(maxDate.getTime() / 1000);
-    var seconds_interval = 5;
+    var seconds_interval = interval;
+    if (typeof seconds_interval == "undefined") seconds_interval = 5;
     Math.seedrandom(seconds_min);
     seconds_min = seconds_min + seconds_interval;
     counter = 0;
