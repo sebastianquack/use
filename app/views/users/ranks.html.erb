@@ -33,3 +33,8 @@
     <% end %>
   </tbody>
 </table>
+
+<p>
+Geld der Spieler: <%= User.where(:role => 'player').sum(:balance) %><br>
+Geld der Utopisten: <%= User.where(:role => 'utopist').sum(:balance) %>
+</p>
