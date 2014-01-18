@@ -54,10 +54,17 @@ class Stock < ActiveRecord::Base
   end
   
   def trend d = 10
-    latest_transactions = self.transactions.where('created_at > ?', d.minutes.ago).order('created_at ASC')
-    return 0.0 if latest_transactions.length < 2
-    l = LinearRegression.new latest_transactions.pluck(:price) 
-    t = StocksHelper.rel_percent latest_transactions.first.price, l.next
+    #latest_transactions = self.transactions.where('created_at > ?', d.minutes.ago).order('created_at ASC')
+    #return 0.0 if latest_transactions.length < 2
+    #l = LinearRegression.new latest_transactions.pluck(:price) 
+    
+    last_2_transactions = self.transactions.order('created_at DESC').limit(2)
+    
+    if last_2_transactions.length < 2
+      return 0.0
+    end
+        
+    t = StocksHelper.rel_percent last_2_transactions[1].price, last_2_transactions[0].price 
     return t
   end
   
