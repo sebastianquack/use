@@ -8,6 +8,13 @@ class DisplayController < ApplicationController
     @market_session = MarketSession.order('created_at DESC').first 
     @market_session_start_seconds = @market_session.created_at.to_i if !@market_session.nil?
     @market_session_end_seconds = @market_session_start_seconds + @market_session.duration * 60 if !@market_session.nil?
+    if MarketSession.active
+      @chart_min = @market_session_start_seconds
+      @chart_max = @market_session_end_seconds
+    else
+      @chart_min = MarketSession.order('created_at DESC').last.created_at.to_i
+      @chart_max = @market_session_end_seconds
+    end
   end
 
   def tv
