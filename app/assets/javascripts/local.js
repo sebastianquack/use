@@ -323,10 +323,9 @@ function Chart(canvas_id, url, title, min, max) {
 			labelFontColor: "white",
 			valueFormatString: "HH:mm",
             gridThickness: 0,
-            /*minimum: new Date(1389912787000),
-            maximum: new Date(1389915987000),*/
+            
             minimum: this.min,
-            maximum: this.max,            
+            maximum: this.max,
 		},
 		axisY: {						
 			title: "",
