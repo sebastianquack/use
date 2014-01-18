@@ -11,9 +11,11 @@ class DisplayController < ApplicationController
     if MarketSession.active
       @chart_min = @market_session_start_seconds
       @chart_max = @market_session_end_seconds
+      @chart_x_format = "HH:mm"
     else
       @chart_min = MarketSession.order('created_at DESC').last.created_at.to_i
       @chart_max = @market_session_end_seconds
+      @chart_x_format = "D.M."
     end
   end
 

@@ -19,7 +19,7 @@
 	<div id="page1" class="page">
         
 		<div class="tile tile1">
-			<div id="chart-usx" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>" data-color:"#43FF07" data-x-format="">
+			<div id="chart-usx" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>" data-color:"#43FF07" data-x-format="<%= @chart_x_format %>">
 			</div>
 		</div>
 
@@ -33,7 +33,7 @@
 				</div>
 				<div class="alternating">
 					<% end %>
-	<div class="chart subtile-2x2" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>" data-color:"red" data-x-format"HH:mm">
+	<div class="chart subtile-2x2" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>" data-color:"red" data-x-format="<%= @chart_x_format %>">
 						</div>
 				<% end %>
 				</div>
