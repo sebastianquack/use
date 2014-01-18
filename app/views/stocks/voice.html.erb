@@ -1,18 +1,34 @@
 
+<table>
+
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Im Umlauf</th>
+        <th>Im Pott</th>
+    </tr>
+
+
 <% Stock.where(:active => true).order('investment ASC').each do |stock| %>
 
-<div>
-    <span class="say"><%= stock.symbol.gsub(/(.{1})/, '\1. ') %>
-    <%= format_u stock.price %> Uuh</span>
+
+<tr>
+    <td>
+    <span class="say"><%= stock.symbol.gsub(/(.{1})/, '\1. ') %><%= format_u stock.price %> Uuh</span>
+    </td>
     
+    <td>
     <span class="say"><%= stock.name %></span>
-    <%= stock.utopist.name %>
-    <%= stock.utopist.portfolio[:stocks][stock.id][:amount] %>
-    <%= stock.utopist.balance %>
-</div>
+    </td>
+    
+    <td><%= stock.utopist.name %></td>
+    <td><%= 100 - stock.utopist.portfolio[:stocks][stock.id][:amount] %></td>
+    <td><%= stock.utopist.balance %></td>
+</tr>
 
 <% end %>
-
+</table>
 
 <p style="margin-top: 200px">
 <textarea></textarea><br>
