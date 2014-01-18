@@ -25,10 +25,18 @@
 
 		<div class="tile tile2">
 			<div class="roll" data-timer="4000">
-				<% @stocks.order(:symbol).each do |s| %>
-				<div class="chart" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>">
+				<div class="alternating">
+					<img src="/assets/use-logo.png">
+				<% @stocks.order(:symbol).each_with_index do |s,i| %>
+					
+					<% if i%4 == 0 %>
 				</div>
+				<div class="alternating">
+					<% end %>
+	<div class="chart subtile-2x2" id="chart-<%= s.symbol %>" data-symbol="<%= s.symbol %>" data-id="<%= s.id %>" data-title="<%= s.symbol %>" data-min="<%= @chart_min %>" data-max="<%= @chart_max %>">
+						</div>
 				<% end %>
+				</div>
 			</div>			
 		</div>
 
