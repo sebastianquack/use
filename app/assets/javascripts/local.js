@@ -124,7 +124,20 @@ $(document).ready(function() {
             var t=this;
             setTimeout(function() {
                 new Chart ("chart-"+$(t).data("symbol"), "/stocks/chart_data/"+$(t).data("id"), $(t).data("title"), $(t).data("min"), $(t).data("max"));
-            }, Math.round($(this).data("id")*400));
+            }, Math.round($(this).data("id")*150));
+        });
+    }
+
+    // keyboard page switch
+
+    if ($(".page"). length >= 1) {
+        $("body").keypress(function( event ) {
+          number = event.keyCode-48;
+          if (number < 1 || number > 9) return false;
+          page = $("#page" + number + ".page");
+          if (page.length != 1) return false;
+          $(".page").hide();
+          $("#page" + number + ".page").show();
         });
     }
 
@@ -320,7 +333,7 @@ function Chart(canvas_id, url, title, min, max) {
 
 	this.chart = new CanvasJS.Chart(canvas_id,{
 		backgroundColor: "transparent",
-		width: $("#"+canvas_id).parent().width(),
+		/* width: $("#"+canvas_id).parent().width(), */
 		culture: "de",
 		creditHref: "",
 		creditText: "",	
@@ -363,7 +376,7 @@ function Chart(canvas_id, url, title, min, max) {
         }*/]
 	});
 	 
-	this.chart.render();
+	//this.chart.render();
 	
 	setInterval(function(){
 		

@@ -209,7 +209,7 @@ span.scroll-highlight {
 
 #projection .page .tile {
 	float:left;
-	overflow: hidden;
+	overflow:hidden;
 }
 
 #projection .page .tile1 { 
@@ -228,7 +228,8 @@ span.scroll-highlight {
 }
 
 #projection #page1 #chart-usx { 
-	height: 100%; 
+	height: 100%;
+	margin-right: 7vh;
 }
 
 #projection #page1 .roll .chart { 
@@ -237,10 +238,33 @@ span.scroll-highlight {
 
 #projection .page .chart {
 	width:100%;
-	height:70%;
 }
 
-#projection #page1 .tile2 .chart { 
+#projection #page1 .tile2 { 
+	overflow: visible;
+}
+
+#projection #page1 .tile2 img { 
+	width:80%;
+	margin:auto;
+	padding-top:20%;
+}
+
+#projection #page1 .tile2 .alternating { 
+	width:100%;
+	height:100%;
+}
+
+#projection #page1 .tile2 .subtile-2x2 { 
+	width: 15vw;
+	height: 26.5vh;
+	float:left;
+	position: relative;
+	left: -2vw;
+}
+
+#projection #page1 .tile2 .subtile-2x2 .chart{ 
+	padding: 3vh 1vw 1vh 0;
 }
 
 #projection .page .tile3 h4 { 
@@ -278,12 +302,19 @@ span.scroll-highlight {
 }
 
 .top_users dt {
-	width:70%;
+	width:65%;
 	clear:left;
 }
 
 .top_users dd {
 	width:30%;
+	text-align:right;
+	padding-right: 5%;
+}
+
+.top_users dl dt:nth-of-type(n+11),
+.top_users dl dd:nth-of-type(n+11) {
+	visibility: hidden;
 }
 
 /**** TV ****/
@@ -291,7 +322,39 @@ span.scroll-highlight {
 #tv {
 	background:black;
 	min-height:100%;
+	overflow:hidden;
 }
+
+#tv #page2 {
+	background-image: url("/assets/tv-wait.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+#tv #scroll-container-1 {
+	top:83vh;
+	height: 10vh;
+	line-height: 10vh;
+	background-color: #282828;
+	background-image: url(scroller-gradient.png);
+	background-size: 100% 100%;
+}
+
+#tv #scroll-content-1 {
+	font-size: 9.5vh;
+	top:0.8vh;
+}
+
+#tv #scroll-container-3 {
+	top:73vh;
+	height: 10vh;
+}
+
+#tv #scroll-content-3 {
+	font-size: 10vh;
+	line-height: 10vh;
+}
+
 /**** HANDELSINTERFACE ****/
 
 #handelsinterface {
