@@ -121,7 +121,10 @@ $(document).ready(function() {
         $(".chart").each(function() {
             console.log($(this).data("id"));
             //session_active = $(this).data("chart-session-active");
-            new Chart ("chart-"+$(this).data("symbol"), "/stocks/chart_data/"+$(this).data("id"), $(this).data("title"), $(this).data("min"), $(this).data("max"));
+            var t=this;
+            setTimeout(function() {
+                new Chart ("chart-"+$(t).data("symbol"), "/stocks/chart_data/"+$(t).data("id"), $(t).data("title"), $(t).data("min"), $(t).data("max"));
+            }, Math.round($(this).data("id")*400));
         });
     }
 
@@ -286,7 +289,7 @@ function Updater(element, url, updateInterval) {
 }
 
 function Chart(canvas_id, url, title, min, max) {
-    this.updateInterval = 5000 + Math.random(5000);
+    this.updateInterval = 5000;
 
 	this.dps = [];   //dataPoints.
 	this.last_tick = 0;
@@ -385,11 +388,11 @@ function Chart(canvas_id, url, title, min, max) {
 	}, this.updateInterval);
 }
 
-function randomDataPoints(minDate, maxDate, lastValue, dest, interval) { // Date minDate, maxDate
+function randomDataPoints(minDate, maxDate, lastValue, dest) { // Date minDate, maxDate
     seconds_min = Math.round(minDate.getTime() / 1000);
     seconds_max = Math.round(maxDate.getTime() / 1000);
-    var seconds_interval = interval;
-    if (typeof seconds_interval == "undefined") seconds_interval = 5;
+    /*var seconds_interval = interval;
+    if (typeof seconds_interval == "undefined") */seconds_interval = 5;
     Math.seedrandom(seconds_min);
     seconds_min = seconds_min + seconds_interval;
     counter = 0;
