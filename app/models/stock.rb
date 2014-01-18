@@ -53,7 +53,7 @@ class Stock < ActiveRecord::Base
     return ranks[self.id]
   end
   
-  def trend d = 10
+  def trend d = 120
     latest_transactions = self.transactions.where('created_at > ?', d.minutes.ago).order('created_at ASC')
     return 0.0 if latest_transactions.length < 2
     l = LinearRegression.new latest_transactions.pluck(:price) 

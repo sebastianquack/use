@@ -114,7 +114,7 @@ $(document).ready(function() {
     if($('#chart-usx').length > 0) {
         var elem = $('#chart-usx');
         //session_active = $(elem).data("chart-session-active");
-        new Chart ("chart-usx", "/stocks/usx_data", "USX", $(elem).data("min"), $(elem).data("max"));
+        new Chart ("chart-usx", "/stocks/usx_data", "USX", $(elem).data("min"), $(elem).data("max"), $(elem).data("x-format"));
     }
 
     if($('.chart').length > 0) {
@@ -123,7 +123,7 @@ $(document).ready(function() {
             //session_active = $(this).data("chart-session-active");
             var t=this;
             setTimeout(function() {
-                new Chart ("chart-"+$(t).data("symbol"), "/stocks/chart_data/"+$(t).data("id"), $(t).data("title"), $(t).data("min"), $(t).data("max"));
+                new Chart ("chart-"+$(t).data("symbol"), "/stocks/chart_data/"+$(t).data("id"), $(t).data("title"), $(t).data("min"), $(t).data("max"), $(t).data("x-format"));
             }, Math.round($(this).data("id")*150));
         });
     }
@@ -310,7 +310,7 @@ function Updater(element, url, updateInterval) {
     }
 }
 
-function Chart(canvas_id, url, title, min, max) {
+function Chart(canvas_id, url, title, min, max, x_format) {
     this.updateInterval = 5000;
 
 	this.dps = [];   //dataPoints.
@@ -318,7 +318,8 @@ function Chart(canvas_id, url, title, min, max) {
     this.last_price = 0;
     this.lastDate = new Date(0);
     this.lastUpdate = new Date();
-    
+    this.valueFormatString = x_format;
+
     if (typeof min == "undefined" || min == "" || min < 0 ) this.min = null;
     else this.min = new Date(parseInt(min) * 1000);
     if (typeof max == "undefined" || max == "" || max < 0 ) this.max = null;
@@ -348,7 +349,7 @@ function Chart(canvas_id, url, title, min, max) {
 			title: "",
             labelFontFamily: "ProximaNovaThin",
 			labelFontColor: "white",
-			valueFormatString: "HH:mm",
+			valueFormatString: this.valueFormatString,
             gridThickness: 0,
             
             minimum: this.min,
